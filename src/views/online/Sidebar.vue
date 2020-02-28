@@ -26,6 +26,15 @@
                     <span>资源上传</span>
                 </router-link>
             </li>
+            <li  :class="[currentPage.includes('cook')?activeClass:'','side-nav__item']">
+                <router-link class="side-nav__link" to="/cook-top">
+                    <svg class="side-nav__icon">
+                        <use xlink:href="../../assets/img/sprite2.svg#icon-aircraft-take-off"></use>
+                    </svg>
+
+                    <span>课程创建</span>
+                </router-link>
+            </li>
             <li class="side-nav__item">
                 <router-link class="side-nav__link" to="">
                     <svg class="side-nav__icon">

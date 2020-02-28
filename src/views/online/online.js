@@ -4,7 +4,7 @@ import Online from './Online.vue';
 import {routes} from './router';
 import axios from 'axios';
 import {store} from '../../store/index';
-import loveToa from 'cxlt-vue2-toastr'
+import loveToa from 'cxlt-vue2-toastr';
 
 Vue.use(VueRouter);
 
