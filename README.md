@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # rs-edu
 
 ## Project setup
@@ -22,3 +23,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# online-education
+>>>>>>> 9d3515e90ebe14df240c128d164f30c133b4b78a
