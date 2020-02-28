@@ -1,0 +1,218 @@
+.course__info {
+  grid-row: 1 / -1;
+  grid-column: 1 / 2;
+  border-right: 1px solid $color-grey-light-3;
+
+  display: grid;
+  grid-template-rows: max-content 1fr;
+}
+
+.course__learn {
+  // background-color: blueviolet;
+  grid-row: 1 / -1;
+  grid-column: 2 / 3;
+  
+
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 6fr 4fr;
+//   grid-gap: 1rem;
+}
+
+.video-block {
+  margin: 1.5rem 3rem;
+  // border-radius:5px;
+//   border-bottom: 2px solid $color-grey-dark-3;
+  width: 90%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: max-content;
+  &__content {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.iblock {
+    border-top: 1px solid $color-grey-light-3;
+    &__header {
+        border-bottom: 1px solid $color-grey-light-3;
+    }
+    &__content {
+        padding-top: 2rem;
+        display: grid;
+        grid-template-columns: 10rem 1fr;
+    }
+    &__left {
+        font-size: 1.4rem;
+    }
+    &__detail {
+        font-size: 1.4rem;
+        font-weight: 300;
+    }
+    &__nav {
+        list-style: none;
+        display: flex;
+        justify-items: center;
+        &__item {
+          height: 2rem;
+          width: 10rem;
+          padding: 2rem 0;
+        }
+        &__item--active,
+        &__item:hover {
+          background-color: $color-grey-light-3;
+        }
+        &__link:link,
+        &__link:visited {
+          font-size: 1.4rem;
+          font-weight: 400;
+          text-decoration: none;
+          text-transform: uppercase;
+          text-align: center;
+          color:$color-secondary;
+          display: block;
+          transition: all 0.2s;
+        }
+        &__link:active {
+          background-color: rgba(#fff, 0.1);
+          transform: translateY(1px);
+        }
+      }
+}
+
+.course__block {
+  // margin-top: 3rem;
+  // margin-left: 2rem;
+  // margin-right: 2rem;
+  margin-bottom: 2rem;
+//   border-bottom: 1px solid $color-grey-dark-3;
+}
+.course__tutor {
+  background-color: $color-grey-light-4;
+  // box-shadow: 0px 3px 3px $color-grey-dark-2;
+  // border-radius: 10px;
+  // display: flex;
+  // justify-content: space-between;
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  justify-items: start;
+  align-items: center;
+  &-photo {
+    height: 3.5rem;
+    padding-top: 0.5rem;
+    border-radius: 50%;
+    margin-left: 2rem;
+  }
+
+  svg {
+    fill: $color-primary;
+    height: 2rem;
+    width: 2rem;
+    margin-right: 2rem;
+  }
+
+  &-intro {
+    // padding-top: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 1rem;
+    // grid-template-rows: repeat(2,1fr);
+  }
+
+  &-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: color-grey-dark-2;
+  }
+
+  // &-title {
+  //     margin-top: .5rem;
+  //     color: color-grey-dark-4;
+  // }
+}
+
+.cs {
+  // background-color: yellowgreen;
+  &__header {
+    background-color: $color-grey-light-4;
+    height: 2rem;
+    padding: 2rem 0;
+    box-shadow: 0px 1px 1px $color-grey-light-2;
+    display: flex;
+    justify-content: space-between;
+    // align-content: center;
+    &-text {
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-left: 2rem;
+    }
+    svg {
+      fill: $color-primary;
+      height: 2rem;
+      width: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+  &__list {
+    // background-color: red;
+    font-size: 1.4rem;
+    font-weight: 400;
+    // padding-left: 2rem;
+    &__title {
+      background-color: $color-grey-light-1;
+      height: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      padding-left: 2rem;
+
+      display: grid;
+      grid-template-columns: 9fr 1fr;
+
+      &--text {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &__nav {
+      list-style: none;
+      &__item {
+        background-color: #fff;
+        height: 2rem;
+        padding: 2rem 0;
+        display: grid;
+        grid-template-columns: 1fr 8fr;
+        transition: all 0.2s;
+      }
+
+      &__item:hover {
+        background-color: $color-grey-light-0;
+      }
+
+      &__link:link,
+      &__link:visited {
+        font-size: 1.4rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: left;
+        color:$color-grey-dark-2;
+        // padding: 1.5rem;
+        display: block;
+        transition: all 0.2s;
+      }
+
+      &__link:active {
+        background-color: rgba(#fff, 0.1);
+        transform: translateY(1px);
+      }
+      // display: flex;
+      // flex-direction: column;
+      // grid-template-columns: 1fr 9fr;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+%heading {
+    font-family: $font-display;
+    font-weight: 400;
+    margin: 0;
+}
+
+.heading-title {
+    @extend %heading;
+    // font-family:'Noto Serif SC', serif;
+    margin-top: 6rem;
+    font-size: 8.5rem;
+    color: $color-grey-light-1;
+    line-height: 1;
+    letter-spacing: 3rem;
+    justify-content:center;
+}
+
+.heading-1 {
+    @extend %heading;
+    font-size: 3rem;
+    color: $color-grey-light-1;
+    line-height: 1;
+}
+
+.heading-2 {
+    @extend %heading;
+    font-size: 4rem;
+    font-style: italic;
+    line-height: 1;
+
+    &--light {
+        color: $color-grey-light-1;
+    }
+
+    &--dark {
+        color: $color-grey-dark-1;
+    }
+}
+
+.heading-3 {
+    @extend %heading;
+    // margin: 0;
+    font-size: 1.6rem;
+    color: $color-primary;
+    text-transform: uppercase;
+}
+
+.heading-4 {
+    @extend %heading;
+    // margin: 0;
+    font-size: 1.9rem;
+
+    &--light {
+        color: $color-grey-light-1;
+    }
+
+    &--dark {
+        color: $color-grey-dark-1;
+    }
+}
+
+.heading-7 {
+    @extend %heading;
+    font-size: 1.2rem;
+    font-weight: 300;
+    &--light {
+        color: $color-grey-light-1;
+    }
+
+    &--dark {
+        color: $color-grey-dark-3;
+    }
+}

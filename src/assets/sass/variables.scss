@@ -1,0 +1,60 @@
+// COLOR VARIABLES
+$color: #fff;
+$color-primary: #c69963;
+$color-primary-dark: #B28451;
+
+$color-secondary: #101d2c;
+$color-white: #fff;
+$color-black: #000;
+
+$color-grey-light-0: #faf9f9;
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+$color-grey-light-3: #f4f2f2;
+$color-grey-light-4: #f0eeee;
+$color-grey-light-5: #ccc;
+
+$color-grey-dark-1: #54483A;
+$color-grey-dark-2: #6D5D4B;
+$color-grey-dark-3: #777;
+$color-grey-dark-4: #999;
+
+$color-success: #55c57a;
+
+// FONT VARIABLES
+// $font-primary: 'Nunito', sans-serif;
+$font-primary: 'Noto Serif SC', serif;
+// $font-display: 'Josefin Sans', sans-serif;
+$font-display: 'Noto Serif SC', serif;
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: initial;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: $font-primary;
+    color: $color-grey-dark-2;
+    font-weight: 300;
+    line-height: 1.6; 
+}
+
+.container {
+    display: grid;
+    grid-template-rows: max-content min-content 25vw;
+    grid-template-columns: [sidebar-start] 8rem [sidebar-end full-start] 
+        minmax(6rem, 1fr) [center-start] repeat(8, [col-start] 
+        minmax(min-content, 14rem) [col-end] ) [center-end] minmax(6rem, 1fr) [full-end];
+
+}
+
+@import "typography.scss";
+@import "./online/online";
+@import "./index/index";
