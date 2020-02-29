@@ -4,7 +4,7 @@
             <div class="cooking-card">
                 <router-link class="cooking-card__add" to="/cook-template">
                     <svg  >
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
+                        <use xlink:href="../../../assets/img/all.svg#icon-plus"></use>
                     </svg>
                 </router-link>
                 <div class="cooking-card__title">

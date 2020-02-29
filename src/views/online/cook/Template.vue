@@ -1,12 +1,18 @@
 <template>
     <main class="rs-learning">
         <course-info></course-info>
-        <div class="course__learn">
-            <div class="video-block">
-                <video class="video-block__content" preload="auto" controls>
-                    <source src="../../../assets/video/test.mp4" type="video/mp4">
-                    Your browser is not supported!
-                </video>
+        <div class="rs__select">
+            <div class="rs__select__layout ">
+                <div class="rs__card"> 
+                    <svg class="rs__card__extension rs__card__extension--1">
+                        <use xlink:href="../../../assets/img/all.svg#icon-file-video"></use>
+                    </svg> 
+                    <h5 class="rs__card__name">Beautiful Family House</h5>
+                </div>
+                <div class="rs__card">   
+                </div>
+                
+                
             </div>
             <info-block></info-block>
         </div>

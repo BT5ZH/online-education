@@ -4,6 +4,7 @@
             <ul class="iblock__nav">
                 <li class="iblock__nav__item iblock__nav__item--active" ><a href="#" class="iblock__nav__link">概要</a></li>
                 <li class="iblock__nav__item"><a href="#" class="iblock__nav__link">公告</a></li>
+                <li class="iblock__nav__item"><a href="#" class="iblock__nav__link">课程封面</a></li>
                 
             </ul>
         </div>

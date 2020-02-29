@@ -10,6 +10,77 @@
     background-color: $color-white;
 }
 
+.rs__select {
+    // background-color: blueviolet;
+    grid-row: 1 / -1;
+    grid-column: 2 / 3;
+    
+  
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 6fr 4fr;
+  //   grid-gap: 1rem;
+  &__layout {
+    margin: 1.5rem 3rem;
+    height: 45rem;
+    display: grid;
+    grid-template-columns: repeat(8, minmax(5rem, 1fr));
+      grid-template-rows: repeat(5, minmax(8rem, max-content));
+    gap: 1rem 2rem;
+  }
+}
+
+.rs__card {
+    background-color: $color-white;
+    border-radius: 10px;
+    cursor: pointer;
+  
+    display: grid;
+    // grid-template-rows: 7fr 3fr;
+    // grid-row-gap: 1rem;
+    justify-items: center;
+    align-items: flex-start;
+    overflow: hidden;
+  
+    &__img {
+        width: 100%;
+        grid-row: 1 / -1;
+        grid-column: 1 /-1;
+        z-index: 1;
+    }
+    &__extension{
+        height: 3rem;
+        width: 8rem;
+        
+        &--1{
+            fill: $color-primary-dark;
+        }
+        
+    }
+    &__name {
+  
+        // grid-row: 1 / -1;
+        // grid-column: 1 / -1;
+        
+        // justify-self: center;
+        // align-self: end;
+        // z-index: 3;
+        // border-radius: 10px;
+        width: 80%;
+        font-family: $font-display;
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 1rem;
+        background-color: $color-secondary;
+        // opacity: .7;
+        color: #fff;
+        font-weight: 400;
+        
+        overflow: hidden;
+        transform: translateY(-10%);
+    }
+  }
+
 .cooking-card {
     background-color: $color-grey-light-1;
     border-radius: 10px;
@@ -74,5 +145,141 @@
         justify-self: center;
         align-self: flex-end;
         margin: 1rem;
+    }
+}
+
+.ci {
+
+    &__header {
+    background-color: $color-grey-light-4;
+    height: 2rem;
+    height: 2rem;
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+          padding-left: 2rem;
+    box-shadow: 0px 1px 1px $color-grey-light-2;
+    display: grid;
+    grid-template-columns: 1fr 6fr 3fr;
+    // justify-content: space-between;
+
+        &--tail{
+            cursor: pointer;
+            &--1{
+                fill: #01a1fd;
+            }
+            &--2{
+                fill: #01a1fd;
+            }
+            &--3{
+                fill: #f34a3e;
+            }
+
+            svg {
+                // fill: $color-primary;
+                height: 2rem;
+                width: 2rem;
+                margin-right: 1rem;
+            }
+        }
+        &--text {
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-left: 2rem;
+        }
+    }
+
+    &__list {
+        font-size: 1.4rem;
+        font-weight: 400;
+        &__title {
+          background-color: $color-grey-light-1;
+          height: 2rem;
+          padding-top: 2rem;
+          padding-bottom: 2rem;
+          padding-left: 2rem;
+    
+          display: grid;
+          grid-template-columns: 1fr 6fr 3fr;
+    
+          &--text {
+            display: flex;
+            flex-direction: column;
+          }
+
+          &--tail{
+            cursor: pointer;
+            &--1{
+                fill: #01a1fd;
+            }
+            &--2{
+                fill: #01a1fd;
+            }
+            &--3{
+                fill: #f34a3e;
+            }
+
+            svg {
+                // fill: $color-primary;
+                height: 2rem;
+                width: 2rem;
+                margin-right: 1rem;
+            }
+        }
+        }
+        &__nav {
+            list-style: none;
+            &__item {
+              background-color: #fff;
+              height: 2rem;
+              padding-top: 2rem;
+          padding-bottom: 2rem;
+          padding-left: 2rem;
+              display: grid;
+              grid-template-columns: 1fr 6fr 3fr;
+              transition: all 0.2s;
+
+            //   &__layout{
+
+            //   }
+            &--tail{
+                cursor: pointer;
+                &--1{
+                    fill: #01a1fd;
+                }
+                &--2{
+                    fill: #01a1fd;
+                }
+                &--3{
+                    fill: #f34a3e;
+                }
+    
+                svg {
+                    // fill: $color-primary;
+                    height: 2rem;
+                    width: 2rem;
+                    margin-right: 1rem;
+                }
+            }
+
+            }
+            &__item:hover {
+              background-color: $color-grey-light-0;
+            }
+            &__link:link,
+            &__link:visited {
+              font-size: 1.4rem;
+              text-decoration: none;
+              text-transform: uppercase;
+              text-align: left;
+              color:$color-grey-dark-2;
+              // padding: 1.5rem;
+              display: block;
+              transition: all 0.2s;
+            }
+            &__link:active {
+              background-color: rgba(#fff, 0.1);
+              transform: translateY(1px);
+            }
+          }
     }
 }

@@ -4,7 +4,7 @@
     <!-- <main class="upload" id="file-drag-drop" ref="fileform" > -->
     <div class="upload__area">
       <svg class="upload__area--svg">
-        <use xlink:href="../../../assets/img/sprite2.svg#icon-info"></use>
+        <use xlink:href="../../../assets/img/all.svg#icon-upload"></use>
       </svg>
       <span class="upload__area--txt">拖拽文件到窗口灰色区域</span>
     </div>
