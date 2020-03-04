@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import "cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css";
     import Header from './Header.vue'
     import Sidebar from './Sidebar.vue'
     // import Courses from './courses/Courses.vue'

@@ -37,6 +37,13 @@
 
             }
         },
+        created() {
+            this.$store.dispatch("getUserCourses").then(() => {
+                    console.log("-----------");
+                }).catch((err) => {
+                    console.error(err);
+                });
+        },
         methods: {
             goDetail() {
 

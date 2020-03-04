@@ -217,7 +217,7 @@
               throw new Error("upload attributes error");
             }
             const that = this;
-            let AWSConfig = { ...data.Credentials, path: "learning/resources", id:data.id};
+            let AWSConfig = { ...data.Credentials, path: "teaching/resources/"+userId+"", id:data.id};
             const upload = (err, data) => {
               // that.screenLoading = false;
               if (err || !data.ETag) {

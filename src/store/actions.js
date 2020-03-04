@@ -33,7 +33,99 @@ const actions = {
         console.log(error);
       });
   },
-
+  getResources({commit}){
+    console.log(localStorage.getItem("token"));
+    return axios.get('/rs-activity/RESOURCEGET',{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response=>{
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getResources,payload);
+    }, error => {
+      console.log(error);
+    });
+    // commit(TYPES.getResources, payload);
+  },
+  releaseCourse({commit},payload){
+    console.log(localStorage.getItem("token"));
+    return axios.post('/rs-activity/CREATECOURSEPOST',payload,{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response=>{
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getResources,payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+  getUserCourses({commit}){
+    console.log(localStorage.getItem("token"));
+    return axios.get('/rs-activity/USERCOURSESGET',{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response=>{
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getUserCourses,payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+  learningTheCourse({commit}){
+    console.log(localStorage.getItem("token"));
+    return axios.get('/rs-activity/USERCOURSESGET',{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response=>{
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getUserCourses,payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+  // courseInfo({ commit }, courseData) {
+  //   console.log("courseInfo进来啦 "+JSON.stringify(courseData));
+  //   console.log("courseInfo进来啦 "+courseData.url);
+  //   commit(TYPES.courseInfo, {
+  //     coverUrl: courseData.url
+  //   });
+  // },
+  updateCourseName({commit},payload){
+    commit(TYPES.updateCourseName, payload);
+  },
+  addChapter({commit},chapter){
+    commit(TYPES.addChapter,chapter);
+  },
+  addLesson({commit},payload){
+    commit(TYPES.addLesson,payload);
+  },
+  updateChapterName({commit},payload){
+    commit(TYPES.updateChapterName, payload);
+  },
+  updateChapterEditFlag({commit},payload){
+    commit(TYPES.updateChapterEditFlag, payload);
+  },
+  updateLessonName({commit},payload){
+    commit(TYPES.updateLessonName, payload);
+                //  updateLessonName
+  },
+  updateLessonEditFlag({commit},payload){
+    commit(TYPES.updateLessonEditFlag, payload);
+  },
+  prepareMatching({commit},payload){
+    commit(TYPES.prepareMatching, payload);
+  }
   
 
 };

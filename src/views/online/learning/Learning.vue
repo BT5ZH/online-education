@@ -130,3 +130,14 @@
         </div>
     </main>
 </template>
+<script>
+export default {
+    created() {
+            this.$store.dispatch("learningTheCourse").then(() => {
+                    console.log("-----------");
+                }).catch((err) => {
+                    console.error(err);
+                });
+        },
+}
+</script>

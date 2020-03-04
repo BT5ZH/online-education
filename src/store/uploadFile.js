@@ -1,4 +1,5 @@
 import AWS from "aws-sdk";
+import mime from "mime";
 
 /**
  *  更新时间 2020-02-09  author: henrenx
@@ -21,12 +22,13 @@ function uploadFile(file, AWSConfig, callback, progress) {
   });
   console.log(AWS.config)
   const fileType = file.name.split(".").pop();
+  const mimeType = mime.getType(fileType)
   const params = {
     ACL: "public-read",
     Bucket: "rs-learning-resources",
     Body: file,
     Key: `${AWSConfig.path}/${AWSConfig.id}.${fileType}`,
-    ContentType: fileType,
+    ContentType: mimeType,
     Metadata: {
       uploader: localStorage.getItem("userId")
     }

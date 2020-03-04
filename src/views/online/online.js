@@ -4,21 +4,21 @@ import Online from './Online.vue';
 import {routes} from './router';
 import axios from 'axios';
 import {store} from '../../store/index';
-import loveToa from 'cxlt-vue2-toastr';
+import Cxlt from 'cxlt-vue2-toastr';
 
 Vue.use(VueRouter);
 
 Vue.prototype.axios = axios;
 
 var toConfigs = {
-    position: 'top full width',
+    position: 'top center',
     showMethod: 'fadeIn',
     hideMethod: 'fadeOut',
     showDuration: 2000,
     hideDuration: 2000,
     timeOut: 5000
   }
-Vue.use(loveToa, toConfigs);
+Vue.use(Cxlt, toConfigs);
 
 const router = new VueRouter({
     routes,
