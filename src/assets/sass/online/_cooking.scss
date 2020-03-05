@@ -1,333 +1,358 @@
 .cooking-area {
-    // background-color: yellowgreen;
-    margin: 5rem 2rem;
+  // background-color: yellowgreen;
+  margin: 5rem 2rem;
 
-    display: grid;
-    grid-template-columns: repeat(4, minmax(20rem, 1fr));
-    grid-template-rows: repeat(3, minmax(18rem, max-content));
-    grid-column-gap: 5rem;
-    grid-row-gap: 3rem;
-    background-color: $color-white;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(20rem, 1fr));
+  grid-template-rows: repeat(3, minmax(18rem, max-content));
+  grid-column-gap: 5rem;
+  grid-row-gap: 3rem;
+  background-color: $color-white;
 }
 
 .rs__select {
-    // background-color: blueviolet;
-    grid-row: 1 / -1;
-    grid-column: 2 / 3;
-    
-  
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 6fr 3fr 1fr;
+  // background-color: blueviolet;
+  grid-row: 1 / -1;
+  grid-column: 2 / 3;
+
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 6fr 3fr 1fr;
   //   grid-gap: 1rem;
   &__layout {
     margin: 1.5rem 3rem;
     height: 45rem;
     display: grid;
     grid-template-columns: repeat(8, minmax(5rem, 1fr));
-      grid-template-rows: repeat(5, minmax(8rem, max-content));
+    grid-template-rows: repeat(5, minmax(8rem, max-content));
     gap: 1rem 2rem;
   }
   &__iblock {
     border-top: 1px solid $color-grey-light-3;
     &__header {
-        border-bottom: 1px solid $color-grey-light-3;
+      border-bottom: 1px solid $color-grey-light-3;
     }
     &__content {
-        padding-top: 2rem;
-        display: grid;
-        grid-template-columns: 10rem 1fr;
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 10rem 1fr;
     }
     &__left {
-        font-size: 1.4rem;
+      font-size: 1.4rem;
     }
     &__detail {
-        font-size: 1.4rem;
-        font-weight: 300;
+      font-size: 1.4rem;
+      font-weight: 300;
     }
     &__nav {
-        list-style: none;
-        display: flex;
-        justify-items: center;
-        &__item {
-          height: 2rem;
-          width: 10rem;
-          padding: 2rem 0;
-        }
-        &__item--active,
-        &__item:hover {
-          background-color: $color-grey-light-3;
-        }
-        &__link:link,
-        &__link:visited {
-          font-size: 1.4rem;
-          font-weight: 400;
-          text-decoration: none;
-          text-transform: uppercase;
-          text-align: center;
-          color:$color-secondary;
-          display: block;
-          transition: all 0.2s;
-        }
-        &__link:active {
-          background-color: rgba(#fff, 0.1);
-          transform: translateY(1px);
-        }
+      list-style: none;
+      display: flex;
+      justify-items: center;
+      &__item {
+        height: 2rem;
+        width: 10rem;
+        padding: 2rem 0;
+      }
+      &__item--active,
+      &__item:hover {
+        background-color: $color-grey-light-3;
+      }
+      &__link:link,
+      &__link:visited {
+        font-size: 1.4rem;
+        font-weight: 400;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: center;
+        color: $color-secondary;
+        display: block;
+        transition: all 0.2s;
+      }
+      &__link:active {
+        background-color: rgba(#fff, 0.1);
+        transform: translateY(1px);
       }
     }
-    &__area {
-        margin-right: 1rem;
-        display: flex;
-        justify-content: end;
-        &__btn{
-            &:not(:last-child) {
-                margin-right: 2rem;
-            }
-        }
+  }
+  &__area {
+    margin-right: 1rem;
+    display: flex;
+    justify-content: end;
+    &__btn {
         
-        // justify-items: ;
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+      &__link {
+        border:1px solid $color-secondary;
+        background-color: $color-secondary;
+        padding: 1rem 1.5rem;
+        color: $color-white;
+        font-size: 1.6rem;
+        transition: all 0.2s;
+      }
+      &__link:focus,
+      &__link:active {
+        transform: translateY(0.3rem);
+      }
+      &__link:hover {
+        background-color: $color-primary-dark;
+        border:1px solid $color-primary-dark;
+        cursor: pointer;
+      }
     }
+
+    // justify-items: ;
+  }
 }
 
 .rs__card {
-    background-color: $color-white;
-    cursor: pointer;
-    display: grid;
-    grid-template-rows: 7fr 3fr;
-    justify-items: center;
-    align-items: center;
-    overflow: hidden;
-  
-    &--edit{
-        box-shadow: .5rem 1rem 1rem rgba($color-secondary, 0.3) ;
-        // border: 3px solid yellowgreen;
-    }
+  background-color: $color-white;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows:  7fr 3fr;
+  justify-items: center;
+//   justify-content: stretch;
+  align-items: center;
+//   overflow: hidden;
 
-    &__extension{
-        height: 3rem;
-        width: 8rem;
-        align-self: end;
-        &--1{
-            fill: $color-primary-dark;
-        }
-        
-    }
-    &__name {
-        width: 80%;
-        font-family: $font-display;
-        font-size: 1rem;
-        text-align: center;
-        padding: 0 1rem;
-        background-color: $color-secondary;
-        color: #fff;
-        font-weight: 400;
-        overflow: hidden;
-        // transform: translateY(-10%);
-    }
+  &--edit {
+    box-shadow: 0.5rem 1rem 1rem rgba($color-secondary, 0.3);
+    // border: 3px solid yellowgreen;
+  }
+  &__complete {
+    height: 2rem;
+    width: 2rem;
+    align-self: center;
+    justify-self: end;
+    fill: #f34a3e;
+    // transform: translateY(1rem);
   }
 
-.cooking-card {
-    background-color: $color-grey-light-1;
-    border-radius: 10px;
-    
-
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    // grid-row-gap: 1rem;
-    justify-items: center;
-    align-items: flex-start;
+  &__extension {
+    // border: 1px solid blue;
+    height: 3rem;
+    width: 8rem;
+    align-self: center;
+    &--1 {
+      fill: $color-primary-dark;
+    }
+    transform: translateY(-1rem);
+  }
+  &__name {
+    // width: 80%;
+    // border: 1px solid red;
+    font-family: $font-display;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0 1rem;
+    background-color: $color-secondary;
+    color: #fff;
+    font-weight: 400;
     overflow: hidden;
+    // transform: translateY(-10%);
+  }
+}
 
-    &__img {
-        width: 100%;
-        grid-row: 1 / 2;
-        grid-column: 1 /-1;
-        z-index: 1;
-    }
-    &__name {
-        grid-row: 1 / 2;
-        grid-column: 1 / -1;
-        justify-self: center;
-        align-self: end;
-        z-index: 3;
+.cooking-card {
+  background-color: $color-grey-light-1;
+  border-radius: 10px;
 
-        width: 80%;
-        font-family: $font-display;
-        font-size: 1.6rem;
-        text-align: center;
-        padding: 1rem;
-        margin: 0;
-        background-color: $color-secondary;
-        color: #fff;
-        font-weight: 400;
-        opacity: .7;
-        transform: translateY(-50%);
-    }
-    &__title {
-        grid-row: 2 / 3;
-        grid-column: 1 / -1;
-        justify-self: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  // grid-row-gap: 1rem;
+  justify-items: center;
+  align-items: flex-start;
+  overflow: hidden;
 
-        // font-family: initial;
-        font-size: 1.4rem;
-        font-weight: 400;
-        // margin-top: 2.5rem;
-        color: $color-secondary;
+  &__img {
+    width: 100%;
+    grid-row: 1 / 2;
+    grid-column: 1 /-1;
+    z-index: 1;
+  }
+  &__name {
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: end;
+    z-index: 3;
+
+    width: 80%;
+    font-family: $font-display;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+    background-color: $color-secondary;
+    color: #fff;
+    font-weight: 400;
+    opacity: 0.7;
+    transform: translateY(-50%);
+  }
+  &__title {
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    // font-family: initial;
+    font-size: 1.4rem;
+    font-weight: 400;
+    // margin-top: 2.5rem;
+    color: $color-secondary;
+  }
+
+  &__add {
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    cursor: pointer;
+    svg {
+      fill: $color-primary;
+
+      height: 5rem;
+      width: 5rem;
+      z-index: 2;
     }
 
-    &__add {
-        grid-row: 1 / 2;
-        grid-column: 1 / 3;
-        cursor: pointer;
-        svg {
-            fill: $color-primary;
-            
-            height: 5rem;
-            width: 5rem;
-            z-index: 2;
-        }
-        
-        justify-self: center;
-        align-self: flex-end;
-        margin: 1rem;
-    }
+    justify-self: center;
+    align-self: flex-end;
+    margin: 1rem;
+  }
 }
 
 .ci {
-
-    &__header {
+  &__header {
     background-color: $color-grey-light-4;
     height: 2rem;
     height: 2rem;
-          padding-top: 2rem;
-          padding-bottom: 2rem;
-          padding-left: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
     box-shadow: 0px 1px 1px $color-grey-light-2;
     display: grid;
     grid-template-columns: 1fr 6fr 3fr;
     // justify-content: space-between;
 
-        &--tail{
-            cursor: pointer;
-            &--1{
-                fill: #01a1fd;
-            }
-            &--2{
-                fill: #01a1fd;
-            }
-            &--3{
-                fill: #f34a3e;
-            }
+    &--tail {
+      cursor: pointer;
+      &--1 {
+        fill: #01a1fd;
+      }
+      &--2 {
+        fill: #01a1fd;
+      }
+      &--3 {
+        fill: #f34a3e;
+      }
 
-            svg {
-                // fill: $color-primary;
-                height: 2rem;
-                width: 2rem;
-                margin-right: 1rem;
-            }
-        }
-        &--text {
-            font-size: 1.6rem;
-            font-weight: 400;
-            margin-left: 2rem;
-        }
+      svg {
+        // fill: $color-primary;
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
+      }
     }
+    &--text {
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-left: 2rem;
+    }
+  }
 
-    &__list {
-        font-size: 1.4rem;
-        font-weight: 400;
-        &__title {
-          background-color: $color-grey-light-1;
+  &__list {
+    font-size: 1.4rem;
+    font-weight: 400;
+    &__title {
+      background-color: $color-grey-light-1;
+      height: 2rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      padding-left: 2rem;
+
+      display: grid;
+      grid-template-columns: 1fr 6fr 3fr;
+
+      &--text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &--tail {
+        cursor: pointer;
+        &--1 {
+          fill: #01a1fd;
+        }
+        &--2 {
+          fill: #01a1fd;
+        }
+        &--3 {
+          fill: #f34a3e;
+        }
+
+        svg {
+          // fill: $color-primary;
           height: 2rem;
-          padding-top: 2rem;
-          padding-bottom: 2rem;
-          padding-left: 2rem;
-    
-          display: grid;
-          grid-template-columns: 1fr 6fr 3fr;
-    
-          &--text {
-            display: flex;
-            flex-direction: column;
-          }
-
-          &--tail{
-            cursor: pointer;
-            &--1{
-                fill: #01a1fd;
-            }
-            &--2{
-                fill: #01a1fd;
-            }
-            &--3{
-                fill: #f34a3e;
-            }
-
-            svg {
-                // fill: $color-primary;
-                height: 2rem;
-                width: 2rem;
-                margin-right: 1rem;
-            }
+          width: 2rem;
+          margin-right: 1rem;
         }
-        }
-        &__nav {
-            list-style: none;
-            &__item {
-              background-color: #fff;
-              height: 2rem;
-              padding-top: 2rem;
-          padding-bottom: 2rem;
-          padding-left: 2rem;
-              display: grid;
-              grid-template-columns: 1fr 6fr 3fr;
-              transition: all 0.2s;
-
-            //   &__layout{
-
-            //   }
-            &--tail{
-                cursor: pointer;
-                &--1{
-                    fill: #01a1fd;
-                }
-                &--2{
-                    fill: #01a1fd;
-                }
-                &--3{
-                    fill: #f34a3e;
-                }
-    
-                svg {
-                    // fill: $color-primary;
-                    height: 2rem;
-                    width: 2rem;
-                    margin-right: 1rem;
-                }
-            }
-
-            }
-            &__item:hover {
-              background-color: $color-grey-light-0;
-            }
-            &__link:link,
-            &__link:visited {
-              font-size: 1.4rem;
-              text-decoration: none;
-              text-transform: uppercase;
-              text-align: left;
-              color:$color-grey-dark-2;
-              // padding: 1.5rem;
-              display: block;
-              transition: all 0.2s;
-            }
-            &__link:active {
-              background-color: rgba(#fff, 0.1);
-              transform: translateY(1px);
-            }
-          }
+      }
     }
+    &__nav {
+      list-style: none;
+      &__item {
+        background-color: #fff;
+        height: 2rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        padding-left: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 6fr 3fr;
+        transition: all 0.2s;
+
+        //   &__layout{
+
+        //   }
+        &--tail {
+          cursor: pointer;
+          &--1 {
+            fill: #01a1fd;
+          }
+          &--2 {
+            fill: #01a1fd;
+          }
+          &--3 {
+            fill: #f34a3e;
+          }
+
+          svg {
+            // fill: $color-primary;
+            height: 2rem;
+            width: 2rem;
+            margin-right: 1rem;
+          }
+        }
+      }
+      &__complete {
+        background-color: burlywood;
+      }
+      &__item:hover {
+        background-color: $color-grey-light-0;
+      }
+      &__link:link,
+      &__link:visited {
+        font-size: 1.4rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: left;
+        color: $color-grey-dark-2;
+        // padding: 1.5rem;
+        display: block;
+        transition: all 0.2s;
+      }
+      &__link:active {
+        background-color: rgba(#fff, 0.1);
+        transform: translateY(1px);
+      }
+    }
+  }
 }
-
-
-

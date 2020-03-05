@@ -37,8 +37,9 @@
                                 v-if="courseProfile.chapterList[index].chapterName">第{{index+1}}节：{{courseProfile.chapterList[index].chapterName}}</span>
                             <span v-if="!courseProfile.chapterList[index].chapterName">请输入章节名称</span>
                         </label>
-                        <input v-if="courseProfile.chapterList[index].editFlag" v-model="courseProfile.chapterList[index].chapterName"
-                            type="text" name="courseName" id="courseName" placeholder="请输入章节名">
+                        <input v-if="courseProfile.chapterList[index].editFlag"
+                            v-model="courseProfile.chapterList[index].chapterName" type="text" name="courseName"
+                            id="courseName" placeholder="请输入章节名">
                     </div>
                     <div class="ci__list__title--tail">
                         <svg class="ci__list__title--tail--1" @click="addLesson(index)">
@@ -55,13 +56,12 @@
 
                 </div>
                 <ul class="ci__list__nav">
-                    <li class="ci__list__nav__item"
-                        v-for="(content,number) in courseProfile.chapterList[index].lessonList" :key="number"
-                        @dbclick="lockResource(index,number)"
-                        >
+                    <li :class="[courseProfile.chapterList[index].lessonList[number].resourceUrl?lessonCompleteClass:'','ci__list__nav__item ']"
+                        v-for="(content,number) in courseProfile.chapterList[index].lessonList" :key="number">
                         <!-- <div class="ci__list__nav__item__layout"> -->
                         <svg class="search__icon">
-                            <use xlink:href="../../../assets/img/all.svg#icon-pin"></use>
+                            <use xlink:href="../../../assets/img/all.svg#icon-check"
+                                @click="lockResource(index,number)"></use>
                         </svg>
                         <div class="link-item">
                             <label v-if="!courseProfile.chapterList[index].lessonList[number].editFlag" for="">
@@ -106,7 +106,7 @@
                 courseNameEdit: false,
                 chapterNameEdit: [],
                 lessonNameEdit: [],
-
+                lessonCompleteClass: 'ci__list__nav__complete'
                 // courseInfo: {
                 //     chapterList: [
                 //     ],
@@ -117,10 +117,10 @@
             courseProfile() {
                 return this.$store.state.courseInfo;
             },
-            resourceList(){
+            resourceList() {
                 return this.$store.state.resourceList;
             },
-            currentIndex(){
+            currentIndex() {
                 return this.$store.state.currentResourceIndex;
             }
         },
@@ -210,13 +210,13 @@
             editChapterName: function (index) {
                 // this.$set(this.chapterNameEdit, index, !this.chapterNameEdit[index])
                 let pd = {
-                        index: index
-                    }
-                this.$store.dispatch("updateChapterEditFlag",pd).then(() => {
-                            console.log("章节编辑标志成功返回");
-                        }).catch((err) => {
-                            console.error(err);
-                        });
+                    index: index
+                }
+                this.$store.dispatch("updateChapterEditFlag", pd).then(() => {
+                    console.log("章节编辑标志成功返回");
+                }).catch((err) => {
+                    console.error(err);
+                });
 
                 if (this.chapterNameEdit[index] === true) {
                     console.log(index)
@@ -242,56 +242,41 @@
 
                 // this.$set(this.lessonNameEdit, number, !this.lessonNameEdit[number]);
                 let pd = {
-                        index: index,
-                        number:number
-                    }
-                this.$store.dispatch("updateLessonEditFlag",pd).then(() => {
-                            console.log("单课编辑标志成功返回");
-                            console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
-                        }).catch((err) => {
-                            console.error(err);
-                        });
-
-                // if (this.lessonNameEdit[number] === true) {
-                //     console.log("课名区域可编辑")
-                // } else {
-                //     let payload = {
-                //         lessonName: this.chapterName,
-                //         index: index,
-                //         number: number
-                //     }
-                //     console.log("kankan" + this.courseProfile.chapterList[index].lessonList[number].lessonName);
-                //     console.log(!this.courseProfile.chapterList[index].lessonList[number].lessonName);
-                //     if (!this.courseProfile.chapterList[index].lessonList[number].lessonName) {
-                //         console.log("nihao:   " + index);
-                //         this.$store.dispatch("updateLessonName", payload).then(() => {
-                //             console.log("添加课名成功返回");
-                //         }).catch((err) => {
-                //             console.error(err);
-                //         })
-                //     }
-
-                // }
+                    index: index,
+                    number: number
+                }
+                this.$store.dispatch("updateLessonEditFlag", pd).then(() => {
+                    console.log("单课编辑标志成功返回");
+                    console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
+                }).catch((err) => {
+                    console.error(err);
+                });
             },
             lockResource: function (index, number) {
                 console.log("经来啦")
-                // console.log(this.$store.state.tempRsUrl)
-
-                let pd = {
+                console.log(this.resourceList)
+                console.log(this.currentIndex)
+                if (this.currentIndex == -1) {
+                    this.$toast.warn({title:"温馨提示",message:"请您先选择资源，再进行关联"})
+                } else {
+                    let pd = {
                         index: index,
-                        number:number,
+                        number: number,
                         id: this.resourceList[this.currentIndex].id,
                         name: this.resourceList[this.currentIndex].name,
                         size: this.resourceList[this.currentIndex].size,
                         type: this.resourceList[this.currentIndex].type,
-                        url:this.resourceList[this.currentIndex].url
+                        url: this.resourceList[this.currentIndex].url
                     }
-                this.$store.dispatch("lockResource",pd).then(() => {
-                            console.log("锁定资源标志成功返回");
-                            console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
-                        }).catch((err) => {
-                            console.error(err);
-                        });
+                    this.$store.dispatch("lockResource", pd).then(() => {
+                        console.log("锁定资源标志成功返回");
+                        console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
+                    }).catch((err) => {
+                        console.error(err);
+                    });
+                }
+
+
             }
 
         }

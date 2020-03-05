@@ -111,14 +111,14 @@ const mutations ={
         state.resourceList = newList;
     },
     [TYPES.lockResource](state,payload) {
-        console.log("lockResource + mutation 进来啦 ");
+        console.log("lockResource + mutation 进来啦 "+state.currentResourceIndex+" lalal");
         const newLesson = {
             ...state.courseInfo.chapterList[payload.index].lessonList[payload.number], 
-            resourceId:!state.courseInfo.resourceList[payload.index].id,
-            resourceName:!state.courseInfo.resourceList[payload.index].name,
-            resourceSize:!state.courseInfo.resourceList[payload.index].size,
-            resourceType:!state.courseInfo.resourceList[payload.index].type,
-            resourceUrl:!state.courseInfo.resourceList[payload.index].url
+            resourceId:state.resourceList[state.currentResourceIndex].id,
+            resourceName:state.resourceList[state.currentResourceIndex].name,
+            resourceSize:state.resourceList[state.currentResourceIndex].size,
+            resourceType:state.resourceList[state.currentResourceIndex].type,
+            resourceUrl:state.resourceList[state.currentResourceIndex].url
         }
         state.courseInfo.chapterList[payload.index].lessonList[payload.number] = newLesson;
         const newLessonList = [...state.courseInfo.chapterList[payload.index].lessonList];
@@ -131,6 +131,24 @@ const mutations ={
             ...state.courseInfo, chapterList:newChapterList
         }
         state.courseInfo = newCourse;
+
+        //完成关联之后恢复状态标志 
+        //资源列表中当前选中资源编辑状态 重置为false 完成标志重置为trues
+        const tagContent = {
+            userId : state.userId
+        }
+        const tagList = [...state.resourceList[state.currentResourceIndex].RS_TAG, tagContent];
+        const newResource = {
+            ...state.resourceList[state.currentResourceIndex], 
+            editFlag : !state.resourceList[state.currentResourceIndex].editFlag,
+            RS_TAG : tagList
+        }
+        state.resourceList[state.currentResourceIndex] = newResource;
+        const newResourceList = [...state.resourceList];
+        state.resourceList=newResourceList;
+
+        //资源列表中当前选中资源索引 重置为-1
+        state.currentResourceIndex = -1;
     },
     [TYPES.releaseCourse](state){
         console.log("releaseCourse + mutation 进来啦 "+state.currentResourceIndex);

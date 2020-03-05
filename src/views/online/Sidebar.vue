@@ -78,8 +78,3 @@ export default {
     
 }
 </script>
-<style lang="scss">
-    .active{
-        background-color: red;
-    }
-</style>

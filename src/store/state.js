@@ -12,24 +12,22 @@ const state = {
         courseAnnounccement:"",
         courseCoverUrl:"",
         courseCreateTime:"",
-        courseAuthorId:"",
-        courseAuthorName:"",
         chapterList:[]
     },
-    Chapter:{
-        chapterName:"",
-        lessonList:[],
+    // Chapter:{
+    //     chapterName:"",
+    //     lessonList:[],
 
-    } ,
-    Lesson:{
-        lessonName:"",
-        lessonTimeDuration:"",
-        lessonResourceType:"",
-        lessonResourceUrl:"",
-        lessonResourceCover:"",
-        lessonAssignment:"",
-        lessonQuestionList:[],
-    },
+    // } ,
+    // Lesson:{
+    //     lessonName:"",
+    //     lessonTimeDuration:"",
+    //     lessonResourceType:"",
+    //     lessonResourceUrl:"",
+    //     lessonResourceCover:"",
+    //     lessonAssignment:"",
+    //     lessonQuestionList:[],
+    // },
     resourceList:[],
     currentResourceIndex:-1
 }

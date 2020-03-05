@@ -94,13 +94,7 @@ const actions = {
       console.log(error);
     });
   },
-  // courseInfo({ commit }, courseData) {
-  //   console.log("courseInfo进来啦 "+JSON.stringify(courseData));
-  //   console.log("courseInfo进来啦 "+courseData.url);
-  //   commit(TYPES.courseInfo, {
-  //     coverUrl: courseData.url
-  //   });
-  // },
+  
   updateCourseName({commit},payload){
     commit(TYPES.updateCourseName, payload);
   },
@@ -125,8 +119,13 @@ const actions = {
   },
   prepareMatching({commit},payload){
     commit(TYPES.prepareMatching, payload);
+  },
+  lockResource({commit}, payload){
+    commit(TYPES.lockResource, payload);
+  },
+  authUser({commit}, payload){
+    commit(TYPES.authUser, payload);
   }
-  
 
 };
 export default actions;
