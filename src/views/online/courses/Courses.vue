@@ -1,23 +1,33 @@
 <template>
     <main class="rs-courses">
         <div class="courses-list">
-            <div v-for="(course,index) in allTreasure" :key="index" class="course">
-                <img :src="allTreasure[index].COURSE_COVERURL" :alt="allTreasure[index].COURSE_NAME" class="course__img">
+            <div v-for="(course,index) in allTreasure" :key="index" class="course" @click="startToLearn(index)">
+                <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME"
+                    class="course__img">
                 <svg class="course__like">
                     <use xlink:href="../../../assets/img/all.svg#icon-heart-full"></use>
                 </svg>
-                <h5 class="course__name">{{allTreasure[index].COURSE_STATUS}}</h5>
-                <div class="course__title">
-                    {{allTreasure[index].COURSE_NAME}}
-                </div>
+                <h5 class="course__name">{{course.COURSE_NAME}}</h5>
+                <!-- <div class="course__title">
+                    {{course.COURSE_NAME}}
+                </div> -->
                 <div class="course__author">
-                    <span>{{allTreasure[index].COURSE_AUTHORNAME}}</span>
+                    <svg>
+                        <use xlink:href="../../../assets/img/all.svg#icon-eye"></use>
+                    </svg>
+                    <span>{{course.COURSE_AUTHORNAME}}</span>
                 </div>
                 <div class="course__student">
-                    <span>{{allTreasure[index].COURSE_STUDENTS}}</span>
+                    <svg>
+                        <use xlink:href="../../../assets/img/all.svg#icon-users"></use>
+                    </svg>
+                    <span>{{course.COURSE_STUDENTS}}</span>
                 </div>
                 <div class="course__rank">
-                    <span>{{allTreasure[index].COURSE_RANK}}</span>
+                    <svg>
+                        <use xlink:href="../../../assets/img/all.svg#icon-star"></use>
+                    </svg>
+                    <span>{{course.COURSE_RANK}}</span>
                 </div>
                 <div class="course__price">
                     <svg>
@@ -25,9 +35,9 @@
                     </svg>
                     <span>FREE</span>
                 </div>
-                <button class="online-btn course__btn">
-                    <router-link to="/learning">开始学习</router-link>
-                </button>
+                <!-- <button class="online-btn">
+                    <router-link :to="{name:'learning',params:{courseId:course.COURSE_ID}}">开始学习</router-link>
+                </button> -->
             </div>
         </div>
     </main>
@@ -57,7 +67,16 @@
             }).catch((err) => {
                 console.error(err);
             });
-
+        },
+        methods: {
+            getLinkAddress:function(index){
+                let link = "/learning/";
+                let temp = link+this.allTreasure[index].COURSE_ID
+                return temp;
+            },
+            startToLearn:function(index){
+                this.$router.push({name:'learning',params:{courseId:this.allTreasure[index].COURSE_ID}})
+            }
         },
     }
 </script>

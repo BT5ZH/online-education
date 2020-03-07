@@ -2,7 +2,7 @@
     <div class="rs__select__layout ">
         <div v-for="(file, index) in currentResource" :key="index"
             :class="[currentResource[index].editFlag?activeClass:'','rs__card']" @dblclick="matching(index)">
-            <svg v-if="test(index)" class="rs__card__complete">
+            <svg v-if="flagCheck(index)" class="rs__card__complete">
                 <use xlink:href="../../../assets/img/all.svg#icon-pin"></use>
             </svg>
             <svg v-if="currentResource[index].type.split('/').shift()=='video'"
@@ -76,7 +76,7 @@
                     console.error(err);
                 });
             },
-            test:function(index){
+            flagCheck:function(index){
                 let flag = false;
                 let tempList = this.$store.state.resourceList[index].RS_TAG;
                 // let me =this;

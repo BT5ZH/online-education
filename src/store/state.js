@@ -16,6 +16,8 @@ const state = {
     //
     courseShortList:{},
     courseAllList:{},
+    learningCourseInfo:{},
+    currentLessonRSUrl:"",
     //     lessonAssignment:"",
     //     lessonQuestionList:[],
     resourceList:[],

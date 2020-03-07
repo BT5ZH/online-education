@@ -2,9 +2,12 @@
   grid-row: 1 / -1;
   grid-column: 1 / 2;
   border-right: 1px solid $color-grey-light-3;
+  overflow-y: scroll;
+  height: 80rem;
 
   display: grid;
   grid-template-rows: max-content 1fr;
+  
 }
 
 .course__learn {

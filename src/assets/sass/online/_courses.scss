@@ -15,6 +15,7 @@
 
 .course {
     background-color: $color-grey-light-1;
+    cursor: pointer;
 
     display: grid;
     grid-template-columns: repeat(2,1fr);
@@ -59,17 +60,14 @@
         transform: translateY(-50%);
     }
 
-    &__title {
-        grid-row: 2 / 3;
-        grid-column: 1 / -1;
-        justify-self: center;
-
-        // font-family: initial;
-        font-size: 1.4rem;
-        font-weight: 400;
-        // margin-top: 2.5rem;
-        color: $color-secondary;
-    }
+    // &__title {
+    //     grid-row: 2 / 3;
+    //     grid-column: 1 / -1;
+    //     justify-self: center;
+    //     font-size: 1.4rem;
+    //     font-weight: 400;
+    //     color: $color-secondary;
+    // }
 
     &__author,
     &__student,
@@ -85,30 +83,30 @@
         align-content: center;
 
         svg {
-            fill: $color-primary;
-            height: 2rem;
-            width: 2rem;
+            fill: $color-secondary;
+            height: 1.6rem;
+            width: 1.6rem;
             margin-right: 1rem;
         }
     }
 
     &__author {
-        grid-row: 3 / 4;
+        grid-row: 2 / 3;
         grid-column: 1 / 2;
     }
 
     &__students {
-        grid-row: 3 / 4;
+        grid-row: 2 / 3;
         grid-column: 2 / 3;
     }
 
     &__rank {
-        grid-row: 4 / 5;
+        grid-row: 3 / 4;
         grid-column: 1 / 2;
     }
 
     &__price {
-        grid-row: 4 / 5;
+        grid-row: 3 / 4;
         grid-column: 2 / 3;
     }
 

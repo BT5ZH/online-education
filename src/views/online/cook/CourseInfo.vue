@@ -2,7 +2,7 @@
     <div class="course__info">
         <div class="ci">
             <div class="ci__header">
-                <svg class="search__icon" @click="addChapter">
+                <svg class="search__icon" @click="lockCover">
                     <use xlink:href="../../../assets/img/all.svg#icon-check"></use>
                 </svg>
                 <div class="ci__header--text">
@@ -257,7 +257,7 @@
                 console.log(this.resourceList)
                 console.log(this.currentIndex)
                 if (this.currentIndex == -1) {
-                    this.$toast.warn({title:"温馨提示",message:"请您先选择资源，再进行关联"})
+                    this.$toast.warn({ title: "温馨提示", message: "请您先选择资源，再进行关联" })
                 } else {
                     let pd = {
                         index: index,
@@ -275,10 +275,29 @@
                         console.error(err);
                     });
                 }
-
-
+            },
+            lockCover:function(){
+                console.log("lockCover 进来啦")
+                console.log(this.resourceList)
+                console.log(this.currentIndex)
+                if (this.currentIndex == -1) {
+                    this.$toast.warn({ title: "温馨提示", message: "请您先选择资源，再进行关联" })
+                } else {
+                    let pd = {
+                        id: this.resourceList[this.currentIndex].id,
+                        name: this.resourceList[this.currentIndex].name,
+                        size: this.resourceList[this.currentIndex].size,
+                        type: this.resourceList[this.currentIndex].type,
+                        url: this.resourceList[this.currentIndex].url
+                    }
+                    this.$store.dispatch("lockCover", pd).then(() => {
+                        console.log("锁定封面标志成功返回");
+                        console.log(this.courseProfile.COURSE_COVERURL);
+                    }).catch((err) => {
+                        console.error(err);
+                    });
+                }
             }
-
-        }
+        },
     }
 </script>

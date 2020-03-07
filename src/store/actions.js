@@ -62,10 +62,12 @@ const actions = {
         rscode:response.data.statusNumber
       }
       if(response.data.statusNumber=='rs-122'){
-        this.$toast.success({title:"您辛苦啦",message:"该课程已经创建成功"});
+        // this.$toast.success({title:"您辛苦啦",message:"该课程已经创建成功"});
+        console.log("releaseCourse + ------ success")
         commit(TYPES.releaseCourse,payload);
       }else{
-        this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
+        // this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
+        console.log("releaseCourse + ------ failed")
       }
       
       
@@ -103,9 +105,10 @@ const actions = {
       console.log(error);
     });
   },
-  learningTheCourse({commit}){
+  learningTheCourse({commit},payload){
     console.log(localStorage.getItem("token"));
-    return axios.get('/rs-activity/USERCOURSESGET',{
+    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/"+payload.courseId;
+    return axios.get(queryUrl,{
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
@@ -113,10 +116,14 @@ const actions = {
     }).then(response=>{
       console.log(response);
       const payload = response.data.data
-      commit(TYPES.getUserCourses,payload);
+      commit(TYPES.learningTheCourse,payload);
+      commit(TYPES.showCurrentLesson,{index:0,number:0});
     }, error => {
       console.log(error);
     });
+  },
+  showCurrentLesson({commit},payload){
+    commit(TYPES.showCurrentLesson,payload);
   },
   
   updateCourseName({commit},payload){
@@ -146,6 +153,9 @@ const actions = {
   },
   lockResource({commit}, payload){
     commit(TYPES.lockResource, payload);
+  },
+  lockCover({commit}, payload){
+    commit(TYPES.lockCover, payload);
   },
   authUser({commit}, payload){
     commit(TYPES.authUser, payload);
