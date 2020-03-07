@@ -7,8 +7,8 @@
                 </svg>
                 <div class="ci__header--text">
                     <label v-if="!courseNameEdit" for="">
-                        <span v-if="!courseProfile.courseName">课程内容</span>
-                        <span v-if="courseProfile.courseName">{{courseProfile.courseName}}</span>
+                        <span v-if="!courseProfile.COURSE_NAME">课程内容</span>
+                        <span v-if="courseProfile.COURSE_NAME">{{courseProfile.COURSE_NAME}}</span>
                     </label>
                     <input v-if="courseNameEdit" v-model="courseName" type="text" name="courseName" id="courseName"
                         placeholder="请输入课程名">
@@ -26,19 +26,19 @@
                 </div>
 
             </div>
-            <div class="ci__list" v-for="(chapter,index) in courseProfile.chapterList" :key="index">
+            <div class="ci__list" v-for="(chapter,index) in courseProfile.CHAPTER_LIST" :key="index">
                 <div class="ci__list__title">
                     <svg class="search__icon">
                         <use xlink:href="../../../assets/img/all.svg#icon-check"></use>
                     </svg>
                     <div class="ci__list__title--text">
-                        <label v-if="!courseProfile.chapterList[index].editFlag" for="">
+                        <label v-if="!courseProfile.CHAPTER_LIST[index].CHAPTER_EDITFLAG" for="">
                             <span
-                                v-if="courseProfile.chapterList[index].chapterName">第{{index+1}}节：{{courseProfile.chapterList[index].chapterName}}</span>
-                            <span v-if="!courseProfile.chapterList[index].chapterName">请输入章节名称</span>
+                                v-if="courseProfile.CHAPTER_LIST[index].CHAPTER_NAME">第{{index+1}}节：{{courseProfile.CHAPTER_LIST[index].CHAPTER_NAME}}</span>
+                            <span v-if="!courseProfile.CHAPTER_LIST[index].CHAPTER_NAME">请输入章节名称</span>
                         </label>
-                        <input v-if="courseProfile.chapterList[index].editFlag"
-                            v-model="courseProfile.chapterList[index].chapterName" type="text" name="courseName"
+                        <input v-if="courseProfile.CHAPTER_LIST[index].CHAPTER_EDITFLAG"
+                            v-model="courseProfile.CHAPTER_LIST[index].CHAPTER_NAME" type="text" name="courseName"
                             id="courseName" placeholder="请输入章节名">
                     </div>
                     <div class="ci__list__title--tail">
@@ -56,24 +56,24 @@
 
                 </div>
                 <ul class="ci__list__nav">
-                    <li :class="[courseProfile.chapterList[index].lessonList[number].resourceUrl?lessonCompleteClass:'','ci__list__nav__item ']"
-                        v-for="(content,number) in courseProfile.chapterList[index].lessonList" :key="number">
+                    <li :class="[courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_RESOURCE_URL?lessonCompleteClass:'','ci__list__nav__item ']"
+                        v-for="(content,number) in courseProfile.CHAPTER_LIST[index].LESSON_LIST" :key="number">
                         <!-- <div class="ci__list__nav__item__layout"> -->
                         <svg class="search__icon">
                             <use xlink:href="../../../assets/img/all.svg#icon-check"
                                 @click="lockResource(index,number)"></use>
                         </svg>
                         <div class="link-item">
-                            <label v-if="!courseProfile.chapterList[index].lessonList[number].editFlag" for="">
+                            <label v-if="!courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG" for="">
                                 <span
-                                    v-if="!courseProfile.chapterList[index].lessonList[number].lessonName">请输入课名</span>
+                                    v-if="!courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_NAME">请输入课名</span>
                                 <span
-                                    v-if="courseProfile.chapterList[index].lessonList[number].lessonName">第{{number+1}}课：{{courseProfile.chapterList[index].lessonList[number].lessonName}}</span>
+                                    v-if="courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_NAME">第{{number+1}}课：{{courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_NAME}}</span>
                             </label>
                             <!-- <a href="#" class="ci__list__nav__link">第{{number+1}}课：{{content.title}}</a> -->
 
-                            <input v-if="courseProfile.chapterList[index].lessonList[number].editFlag"
-                                v-model="courseProfile.chapterList[index].lessonList[number].lessonName" type="text"
+                            <input v-if="courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG"
+                                v-model="courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_NAME" type="text"
                                 name="courseName" id="courseName" placeholder="请输入课名">
                         </div>
                         <div class="ci__list__nav__item--tail">
@@ -126,7 +126,7 @@
         },
         methods: {
             addChapter: function () {
-                if (!this.courseProfile.courseName) {
+                if (!this.courseProfile.COURSE_NAME) {
                     this.$toast.error({ title: "注意：课程名还未设置", message: "请先设置课程名再添加章节" })
                     return false;
                 } else {
@@ -134,11 +134,11 @@
                     console.log("部分逻辑待处理");
                 }
                 let chapterContent = {
-                    "chapterName": "",
-                    "editFlag": false,
-                    "timeDuration": 0,
-                    "index": 0,
-                    "lessonList": []
+                    "CHAPTER_NAME": "",
+                    "CHAPTER_EDITFLAG": false,
+                    "CHAPTER_TIMEDURATION": 0,
+                    "CHAPTER_INDEX": 0,
+                    "LESSON_LIST": []
                 }
 
                 this.$store.dispatch("addChapter", chapterContent).then(() => {
@@ -150,7 +150,7 @@
             },
             addLesson: function (parentIndex) {
 
-                if (!this.courseProfile.chapterList[parentIndex].chapterName) {
+                if (!this.courseProfile.CHAPTER_LIST[parentIndex].CHAPTER_NAME) {
                     this.$toast.error({ title: "注意：章节名不能为空", message: "请先设置章节名再添加课内容" })
                     return false;
                 } else {
@@ -158,16 +158,16 @@
                     console.log("部分lesson逻辑待处理");
                 }
                 let lessonContent = {
-                    "lessonName": "",
-                    "editFlag": false,
-                    "resourceUrl": "",
-                    "resourceType": "",
-                    "resourceSize": 0,
-                    "resourceName": "",
-                    "resourceId": "",
-                    "timeDuration": 0,
-                    "index": 0,
-                    "parentIndex": parentIndex
+                    "LESSON_NAME": "",
+                    "LESSON_EDITFLAG": false,
+                    "LESSON_RESOURCE_URL": "",
+                    "LESSON_RESOURCE_TYPE": "",
+                    "LESSON_RESOURCE_SIZE": 0,
+                    "LESSON_RESOURCE_NAME": "",
+                    "LESSON_RESOURCE_ID": "",
+                    "LESSON_TIMEDURATION": 0,
+                    "LESSON_INDEX": 0,
+                    "LESSON_PARENTINDEX": parentIndex
                 }
                 const payload = {
                     chapterIndex: parentIndex,
@@ -194,7 +194,7 @@
                     let payload = {
                         courseName: this.courseName
                     }
-                    if (!this.courseProfile.courseName) {
+                    if (!this.courseProfile.COURSE_NAME) {
 
                         this.$store.dispatch("updateCourseName", payload).then(() => {
                             console.log("添加课程名成功返回");
@@ -225,9 +225,9 @@
                         chapterName: this.chapterName,
                         index: index
                     }
-                    console.log("seesee" + this.courseProfile.chapterList[index].chapterName);
-                    console.log(!this.courseProfile.chapterList[index].chapterName);
-                    if (!this.courseProfile.chapterList[index].chapterName) {
+                    console.log("seesee" + this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME);
+                    console.log(!this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME);
+                    if (!this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME) {
                         console.log("nihao:   " + index);
                         this.$store.dispatch("updateChapterName", payload).then(() => {
                             console.log("添加章节名成功返回");
@@ -247,7 +247,7 @@
                 }
                 this.$store.dispatch("updateLessonEditFlag", pd).then(() => {
                     console.log("单课编辑标志成功返回");
-                    console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
+                    console.log(this.courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG);
                 }).catch((err) => {
                     console.error(err);
                 });
@@ -270,7 +270,7 @@
                     }
                     this.$store.dispatch("lockResource", pd).then(() => {
                         console.log("锁定资源标志成功返回");
-                        console.log(this.courseProfile.chapterList[index].lessonList[number].editFlag);
+                        console.log(this.courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG);
                     }).catch((err) => {
                         console.error(err);
                     });

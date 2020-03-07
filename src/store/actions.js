@@ -58,8 +58,17 @@ const actions = {
       }
     }).then(response=>{
       console.log(response);
-      const payload = response.data.data
-      commit(TYPES.getResources,payload);
+      let payload = {
+        rscode:response.data.statusNumber
+      }
+      if(response.data.statusNumber=='rs-122'){
+        this.$toast.success({title:"您辛苦啦",message:"该课程已经创建成功"});
+        commit(TYPES.releaseCourse,payload);
+      }else{
+        this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
+      }
+      
+      
     }, error => {
       console.log(error);
     });
@@ -72,9 +81,24 @@ const actions = {
         Authorization: localStorage.getItem("token")
       }
     }).then(response=>{
+      console.log("%%%%%%%%%%%%%%%%%%%");
       console.log(response);
       const payload = response.data.data
       commit(TYPES.getUserCourses,payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+  getAllCourses({commit}){
+    console.log(localStorage.getItem("token"));
+    return axios.get('/rs-activity/ALLCOURSESGET',{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response=>{
+      const payload = response.data.data
+      commit(TYPES.getAllCourses,payload);
     }, error => {
       console.log(error);
     });

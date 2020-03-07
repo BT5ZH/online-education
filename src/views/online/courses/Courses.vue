@@ -1,152 +1,63 @@
 <template>
     <main class="rs-courses">
         <div class="courses-list">
-            <div class="course">
-                <img src="../../../assets/img/house-1.jpeg" alt="House 1" class="course__img">
+            <div v-for="(course,index) in allTreasure" :key="index" class="course">
+                <img :src="allTreasure[index].COURSE_COVERURL" :alt="allTreasure[index].COURSE_NAME" class="course__img">
                 <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
+                    <use xlink:href="../../../assets/img/all.svg#icon-heart-full"></use>
                 </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
+                <h5 class="course__name">{{allTreasure[index].COURSE_STATUS}}</h5>
                 <div class="course__title">
-                    计算机基础
+                    {{allTreasure[index].COURSE_NAME}}
                 </div>
                 <div class="course__author">
-                    <p>张汇泉</p>
-                </div>
-                <div class="course__price">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-                    </svg>
-                    <p>$20,000</p>
-                </div>
-                <button class="online-btn course__btn"><router-link to="/learning">开始学习</router-link></button>
-
-            </div>
-            <div class="course">
-                <img src="../../../assets/img/house-2.jpeg" alt="House 2" class="course__img">
-                <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
-                </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
-                <div class="course__title">
-                    计算机基础
-                </div>
-                <div class="course__author">
-                    <p>张汇泉</p>
-                </div>
-                <div class="course__price">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-                    </svg>
-                    <p>$20,000</p>
-                </div>
-                <button class="online-btn course__btn">开始学习</button>
-            </div>
-            <div class="course">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="course__img">
-                <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
-                </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
-                <div class="course__title">
-                    计算机基础
-                </div>
-                <div class="course__author">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-profile-male"></use>
-                    </svg>
-                    <p>张汇泉</p>
+                    <span>{{allTreasure[index].COURSE_AUTHORNAME}}</span>
                 </div>
                 <div class="course__student">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-profile-male"></use>
-                    </svg>
-                    <p>125</p>
+                    <span>{{allTreasure[index].COURSE_STUDENTS}}</span>
                 </div>
                 <div class="course__rank">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite2.svg#icon-star"></use>
-                    </svg>
-                    <p>125</p>
+                    <span>{{allTreasure[index].COURSE_RANK}}</span>
                 </div>
                 <div class="course__price">
                     <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
+                        <use xlink:href="../../../assets/img/all.svg#icon-key"></use>
                     </svg>
-                    <p>$20,000</p>
+                    <span>FREE</span>
                 </div>
-                <button class="online-btn course__btn">开始学习</button>
+                <button class="online-btn course__btn">
+                    <router-link to="/learning">开始学习</router-link>
+                </button>
             </div>
-            <div class="course">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="course__img">
-                <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
-                </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
-                <div class="course__title">
-                    计算机基础
-                </div>
-                <div class="course__author">
-                    <p>张汇泉</p>
-                </div>
-                <div class="course__price">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-                    </svg>
-                    <p>$20,000</p>
-                </div>
-                <button class="online-btn course__btn">开始学习</button>
-            </div>
-            <div class="course">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="course__img">
-                <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
-                </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
-                <div class="course__title">
-                    计算机基础
-                </div>
-                <div class="course__author">
-                    <p>张汇泉</p>
-                </div>
-                <div class="course__price">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-                    </svg>
-                    <p>$20,000</p>
-                </div>
-                <button class="online-btn course__btn">开始学习</button>
-            </div>
-            <div class="course">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="course__img">
-                <svg class="course__like">
-                    <use xlink:href="../../../assets/img/sprite.svg#icon-heart-full"></use>
-                </svg>
-                <h5 class="course__name">Beautiful Family House</h5>
-                <div class="course__title">
-                    计算机基础
-                </div>
-                <div class="course__author">
-                    <p>张汇泉</p>
-                </div>
-                <div class="course__price">
-                    <svg>
-                        <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-                    </svg>
-                    <p>$20,000</p>
-                </div>
-                <button class="online-btn course__btn">开始学习</button>
-            </div>
-
-
-        </div>
-        <div class="sts-info">
-            test
         </div>
     </main>
 </template>
 <style>
     .test {
-        background-image: url("../../../assets/img/sprite.svg#icon-heart-full");
+        background-image: url("../../../assets/img/all.svg#icon-heart-full");
     }
 </style>
+<script>
+    export default {
+        data() {
+            return {
+                activeClass: 'rs__card--edit',
+                resList: this.$store.state.resourceList,
+                pinshow: false
+            }
+        },
+        computed: {
+            allTreasure() {
+                return this.$store.state.courseAllList;
+            }
+        },
+        created() {
+            this.$store.dispatch("getAllCourses").then(() => {
+                console.log("-----------");
+            }).catch((err) => {
+                console.error(err);
+            });
+
+        },
+    }
+</script>

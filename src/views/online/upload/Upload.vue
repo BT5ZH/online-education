@@ -46,6 +46,7 @@
 <script>
   import axios from '../../../store/axios-auth';
   import { uploadFile } from "../../../store/uploadFile";
+  import mime from "mime";
   export default {
     data() {
       return {
@@ -185,7 +186,7 @@
       uploadBusiness(index) {
         console.log(index);
         this.currentIndex = index
-        this.$toast.info({ title: "上传失败", message: "出错啦，请重新上传！" })
+        // this.$toast.info({ title: "上传失败", message: "出错啦，请重新上传！" })
         this.getPass();
         
       },
@@ -196,20 +197,21 @@
         console.log(JSON.stringify(config));
         console.log(this.files[this.currentIndex].name.split(".").pop());
 
+        const fileType = this.files[this.currentIndex].name.split(".").pop();
+        const mimeType = mime.getType(fileType)
+        let tag = [];
+
         const data = {
-          type: this.files[this.currentIndex].name.split(".").pop(),
+          type: mimeType,
           name: this.files[this.currentIndex].name,
           size: this.files[this.currentIndex].size,
+          tag:tag,
+          editflag: false,
           userId: userId
         };
-        console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
 
-        axios.post("/rs-upload", {
-          type: this.files[this.currentIndex].name.split(".").pop(),
-          name: this.files[this.currentIndex].name,
-          size: this.files[this.currentIndex].size,
-          userId: userId
-        }, config)
+        axios.post("/rs-upload", data, config)
           .then(response => {
             console.log(response);
             let { data,statusNumber } = response.data;

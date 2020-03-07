@@ -13,4 +13,5 @@ export const lockResource = 'lockResource';
 export const getResources = 'getResources';
 export const releaseCourse = 'releaseCourse';
 export const getUserCourses = 'getUserCourses';
+export const getAllCourses = 'getAllCourses';
 export const learningTheCourse = 'learningTheCourse';

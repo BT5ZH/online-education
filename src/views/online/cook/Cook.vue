@@ -3,7 +3,7 @@
         <div class="cooking-area">
             <div class="cooking-card">
                 <router-link class="cooking-card__add" to="/cook-template">
-                    <svg  >
+                    <svg>
                         <use xlink:href="../../../assets/img/all.svg#icon-plus"></use>
                     </svg>
                 </router-link>
@@ -11,23 +11,14 @@
                     点“+”号，创建课程
                 </div>
             </div>
-            <div class="cooking-card">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="cooking-card__img">
-                <h5 class="cooking-card__name">Beautiful Family House</h5>
+            <div v-for = "(course,index) in courseList" :key="index" class="cooking-card">
+                <img :src="courseList[index].COURSE_COVERURL" alt="House 3" class="cooking-card__img">
+                <h5 class="cooking-card__name">{{courseList[index].COURSE_STATUS}}</h5>
                 <div class="cooking-card__title">
-                    计算机基础
+                    {{courseList[index].COURSE_NAME}}
                 </div>
             </div>
-            <div class="cooking-card">
-                <img src="../../../assets/img/house-3.jpeg" alt="House 3" class="cooking-card__img">
-                <h5 class="cooking-card__name">Beautiful Family House</h5>
-                <div class="cooking-card__title">
-                    计算机基础
-                </div>
-            </div>
-
         </div>
-
     </main>
 </template>
 <script>
@@ -37,12 +28,19 @@
 
             }
         },
+        computed: {
+            courseList(){
+                return this.$store.state.courseShortList;
+            }
+
+        },
         created() {
             this.$store.dispatch("getUserCourses").then(() => {
-                    console.log("-----------");
-                }).catch((err) => {
-                    console.error(err);
-                });
+                console.log("-----------");
+            }).catch((err) => {
+                console.error(err);
+            });
+
         },
         methods: {
             goDetail() {

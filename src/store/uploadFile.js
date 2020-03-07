@@ -21,8 +21,14 @@ function uploadFile(file, AWSConfig, callback, progress) {
     region: "cn-northwest-1"
   });
   console.log(AWS.config)
+  let mimeType="";
   const fileType = file.name.split(".").pop();
-  const mimeType = mime.getType(fileType)
+  if(fileType=="jpg"){
+     mimeType = "image/"+fileType
+  }else{
+     mimeType = mime.getType(fileType)
+  }
+  
   const params = {
     ACL: "public-read",
     Bucket: "rs-learning-resources",

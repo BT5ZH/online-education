@@ -4,30 +4,20 @@ const state = {
     userId: "",
     roleId:"",
     expirationDate:"",
-    //courseInfo--state
+    //create course info detail
     courseInfo:{
-        courseId:"",
-        courseName:"",
-        courseSummary:"",
-        courseAnnounccement:"",
-        courseCoverUrl:"",
-        courseCreateTime:"",
-        chapterList:[]
+        COURSE_NAME:"",
+        COURSE_SUMMARY:"test for default",
+        COURSE_ANNOUNCCEMENT:"waiting",
+        COURSE_COVERURL:"http://lalalalallalalala",
+        COURSE_STATUS:"pending",
+        CHAPTER_LIST:[]
     },
-    // Chapter:{
-    //     chapterName:"",
-    //     lessonList:[],
-
-    // } ,
-    // Lesson:{
-    //     lessonName:"",
-    //     lessonTimeDuration:"",
-    //     lessonResourceType:"",
-    //     lessonResourceUrl:"",
-    //     lessonResourceCover:"",
+    //
+    courseShortList:{},
+    courseAllList:{},
     //     lessonAssignment:"",
     //     lessonQuestionList:[],
-    // },
     resourceList:[],
     currentResourceIndex:-1
 }
