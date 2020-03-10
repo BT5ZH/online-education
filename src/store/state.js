@@ -4,7 +4,8 @@ const state = {
     userId: "",
     roleId:"",
     expirationDate:"",
-    //create course info detail
+
+    //创建课程时候，用于存放正在创建的课程 的 所有信息的 课程对象
     courseInfo:{
         COURSE_NAME:"",
         COURSE_SUMMARY:"test for default",

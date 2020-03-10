@@ -6,7 +6,7 @@
             <info-block></info-block>
             <div class="rs__select__area">
                 <div class=" rs__select__area__btn">
-                    <button class="rs__select__area__btn__link">放弃</button>
+                    <button class="rs__select__area__btn__link" @click="backToCookTop">放弃</button>
                 </div>
                 <div class=" rs__select__area__btn">
                     <button class="rs__select__area__btn__link">保存</button>
@@ -35,6 +35,16 @@
                 console.log(this.$store.state.courseInfo);
                 this.$store.dispatch("releaseCourse", this.$store.state.courseInfo).then(() => {
                     console.log("课程发布标志成功返回");
+                }).catch((err) => {
+                    console.error(err);
+                });
+            },
+            backToCookTop:function(){
+                console.log("backToCookTop 方法   进来啦");
+                let dummy = {};
+                this.$store.dispatch("backToCookTop", dummy).then(() => {
+                    console.log("放弃创建课程");
+                    this.$router.push({name:'cookFirst'})
                 }).catch((err) => {
                     console.error(err);
                 });

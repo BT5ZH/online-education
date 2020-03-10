@@ -1,6 +1,6 @@
 <template>
     <div class="video-block">
-        <video :key="currentVideo" class="video-block__content" preload="auto" controls>
+        <video :key="currentVideo" class="video-block__content" preload="auto" controlsList="nodownload" controls>
             <source :src="currentVideo" type="video/mp4">
             Your browser is not supported!
         </video>

@@ -1,12 +1,33 @@
 <template>
     <div class="rs__select__iblock">
         <div class="rs__select__iblock__header">
-            <ul class="rs__select__iblock__nav">
-                <li class="rs__select__iblock__nav__item iblock__nav__item--active" ><a href="#" class="iblock__nav__link">概要</a></li>
-                <li class="rs__select__iblock__nav__item"><a href="#" class="iblock__nav__link">公告</a></li>
-                <li class="rs__select__iblock__nav__item"><a href="#" class="iblock__nav__link">课程封面</a></li>
+            
+                <div class="rs__select__iblock__header__item" >
+                    <span class="rs__select__iblock__header__item__txt">概要</span>
+                    <div class="rs__select__iblock__header__item__svg">
+                        <svg class="rs__select__iblock__header__item__svg--1" >
+                            <use xlink:href="../../../assets/img/all.svg#icon-edit"></use>
+                        </svg>
+                        <svg class="rs__select__iblock__header__item__svg--2" >
+                            <use xlink:href="../../../assets/img/all.svg#icon-circle-with-minus"></use>
+                        </svg>
+                    </div>
+                    
+                </div>
+                <div class="rs__select__iblock__header__item">
+                    <span class="rs__select__iblock__header__item__txt">公告</span>
+                    <div class="rs__select__iblock__header__item__svg">
+                        <svg class="rs__select__iblock__header__item__svg--1" >
+                            <use xlink:href="../../../assets/img/all.svg#icon-edit"></use>
+                        </svg>
+                        <svg class="rs__select__iblock__header__item__svg--2" >
+                            <use xlink:href="../../../assets/img/all.svg#icon-circle-with-minus"></use>
+                        </svg>
+                    </div>
+                </div>
                 
-            </ul>
+                
+            
         </div>
         <div class="rs__select__iblock__content">
             <div class="rs__select__iblock__left">

@@ -16,7 +16,7 @@ export const routes = [
         // ] 
     },
     { path: '/upload', component: Upload },
-    { path: '/cook-top', component: Cook},
+    { path: '/cook-top', name:'cookFirst', component: Cook},
     { path: '/cook-template', component: Template },
     { path: '/test', component: Test },
     { path: '/todo', component: Todo },

@@ -7,20 +7,20 @@
             <input type="text" class="search__input" placeholder="Search Courses">
                 <button class="search__button">
                     <svg class="search__icon">
-                        <use xlink:href="../../assets/img/sprite2.svg#icon-magnifying-glass"></use>
+                        <use xlink:href="../../assets/img/all.svg#icon-magnifying-glass"></use>
                     </svg>
                 </button>
         </form>
         <nav class="user-nav">
             <div class="user-nav__icon-box">
                 <svg class="user-nav__icon">
-                    <use xlink:href="../../assets/img/sprite2.svg#icon-bookmark"></use>
+                    <use xlink:href="../../assets/img/all.svg#icon-bookmark"></use>
                 </svg>
                 <span class="user-nav__notification">6</span>
             </div>
             <div class="user-nav__icon-box">
                 <svg class="user-nav__icon">
-                    <use xlink:href="../../assets/img/sprite2.svg#icon-chat"></use>
+                    <use xlink:href="../../assets/img/all.svg#icon-chat"></use>
                 </svg>
                 <span class="user-nav__notification">90</span>
             </div>

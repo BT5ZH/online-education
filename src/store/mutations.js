@@ -195,5 +195,8 @@ const mutations ={
         // state.learningCourseInfo = payload;
         state.currentLessonRSUrl= state.learningCourseInfo.CHAPTER_LIST[payload.index].LESSON_LIST[payload.number].LESSON_RESOURCE_URL;
     },
+    [TYPES.backToCookTop](state,payload){
+        state. courseInfo = payload;
+    }
 }
 export default mutations;

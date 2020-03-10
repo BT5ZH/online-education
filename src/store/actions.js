@@ -83,7 +83,6 @@ const actions = {
         Authorization: localStorage.getItem("token")
       }
     }).then(response=>{
-      console.log("%%%%%%%%%%%%%%%%%%%");
       console.log(response);
       const payload = response.data.data
       commit(TYPES.getUserCourses,payload);
@@ -124,6 +123,10 @@ const actions = {
   },
   showCurrentLesson({commit},payload){
     commit(TYPES.showCurrentLesson,payload);
+  },
+
+  backToCookTop({commit},payload){
+    commit(TYPES.backToCookTop,payload)
   },
   
   updateCourseName({commit},payload){

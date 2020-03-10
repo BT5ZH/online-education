@@ -5,18 +5,16 @@
                 <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME"
                     class="course__img">
                 <svg class="course__like">
-                    <use xlink:href="../../../assets/img/all.svg#icon-heart-full"></use>
+                    <use xlink:href="../../../assets/img/all.svg#icon-heart-outlined"></use>
                 </svg>
                 <h5 class="course__name">{{course.COURSE_NAME}}</h5>
-                <!-- <div class="course__title">
-                    {{course.COURSE_NAME}}
-                </div> -->
-                <div class="course__author">
+                
+                <!-- <div class="course__author">
                     <svg>
                         <use xlink:href="../../../assets/img/all.svg#icon-eye"></use>
                     </svg>
                     <span>{{course.COURSE_AUTHORNAME}}</span>
-                </div>
+                </div> -->
                 <div class="course__student">
                     <svg>
                         <use xlink:href="../../../assets/img/all.svg#icon-users"></use>

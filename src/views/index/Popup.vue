@@ -186,11 +186,11 @@
     }
 </script>
 
-<style lang="scss">
+<!-- <style lang="scss">
     .lg {
-        background-image: linear-gradient(105deg,
+        background-image: linear-gradient(100deg,
                 rgba($color-white, .9) 0%,
                 rgba($color-white, .9) 50%,
-                transparent 50%), url("../../assets/img/nat-10.jpg");
+                transparent 50%), url("../../assets/img/login-bkg_1920.jpg");
     }
-</style>
+</style> -->

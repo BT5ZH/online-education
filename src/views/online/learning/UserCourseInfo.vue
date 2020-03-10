@@ -4,7 +4,7 @@
             <div class="cs__header">
                 <span class="cs__header-text">{{learningCourseInfo.COURSE_NAME}}</span>
                 <svg class="search__icon">
-                    <use xlink:href="img/sprite.svg#icon-key"></use>
+                    <use xlink:href="img/all.svg#icon-key"></use>
                 </svg>
             </div>
             <div v-for="(chapter,index) in learningChapterList" :key="index" class="cs__list">
@@ -22,7 +22,7 @@
                         @click="activeCurrentLesson(index,number)">
 
                         <svg class="user-nav__icon">
-                            <use xlink:href="img/sprite2.svg#icon-bookmark"></use>
+                            <use xlink:href="img/all.svg#icon-bookmark"></use>
                         </svg>
                         <div class="link-item">
                             <a href="#" class="cs__list__nav__link">第{{number+1}}课:{{lesson.LESSON_NAME}}</a>

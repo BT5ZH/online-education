@@ -66,3 +66,10 @@
     }
 }
 
+.lg {
+    background-image: linear-gradient(100deg,
+            rgba($color-white, .9) 0%,
+            rgba($color-white, .9) 50%,
+            transparent 50%), url("https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/public/index/login-bkg_1920.jpg");
+}
+

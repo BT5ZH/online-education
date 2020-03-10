@@ -8,11 +8,14 @@ export const addLesson = 'addLesson';
 export const updateLessonName = 'updateLessonName';
 export const updateChapterEditFlag = 'updateChapterEditFlag';
 export const updateLessonEditFlag = 'updateLessonEditFlag';
+
 export const prepareMatching = 'prepareMatching';
 export const lockResource = 'lockResource';
 export const lockCover = 'lockCover';
 export const getResources = 'getResources';
+export const backToCookTop = 'backToCookTop';
 export const releaseCourse = 'releaseCourse';
+
 export const getUserCourses = 'getUserCourses';
 export const getAllCourses = 'getAllCourses';
 export const learningTheCourse = 'learningTheCourse';

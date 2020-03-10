@@ -1,7 +1,5 @@
 <template>
   <main class="upload" id="file-drag-drop">
-    <!-- 方法二 -->
-    <!-- <main class="upload" id="file-drag-drop" ref="fileform" > -->
     <div class="upload__area">
       <svg class="upload__area--svg">
         <use xlink:href="../../../assets/img/all.svg#icon-upload"></use>
@@ -9,38 +7,35 @@
       <span class="upload__area--txt">拖拽文件到窗口灰色区域</span>
     </div>
     <div class="upload__drag" :style="{'background-color': (borderhover ? '#3d8cff':'#f9f7f6')}">
-      <div class="upload__drag--area " v-for="(item,index) in files" :key="index">
-        <img class="upload__drag--img preview" v-bind:ref="'preview'+parseInt( index )">
-        <button class="upload__drag--btn" v-on:click="removeFile( item )">删除</button>
+      <div class="upload__drag__area " v-for="(item,index) in files" :key="index">
+        <img class="upload__drag__area--img preview" v-bind:ref="'preview'+parseInt( index )">
+        <svg class="upload__drag__area--btn" v-on:click="removeFile( item )">
+          <use xlink:href="../../../assets/img/all.svg#icon-circle-with-cross"></use>
+        </svg>
       </div>
     </div>
 
-
-
     <div class="process" :style="{'background-color': (borderhover ? '#3d8cff':'#f9f7f6')}">
       <ul>
-        <li v-for="(file,index) in files" :key="index">
-          <div class="process__bar" max="100" :value.prop="uploadPercentage">
-            <svg>
-              <use xlink:href="../../../assets/img/sprite.svg#icon-key"></use>
-            </svg>
-            <div class="process__item">
-              <span class="process__item--name">{{ file.name }}</span>
-              <span class="process__item--info">60kb / {{ file.size | kb }} kb</span>
+        <li v-for="(file,index) in files" :key="index" class="process__block">
+          <div class="process__bar" max="100">
+            <div class="process__bar__detail">
+              <svg>
+                <use xlink:href="../../../assets/img/all.svg#icon-key"></use>
+              </svg>
+              <div class="process__bar__detail__item">
+                <span class="process__item--name">{{ file.name }}</span>
+                <span class="process__item--info">
+                  {{currentLoad[index] | fileSize | fileFormat }}{{ file.size | fileSize }}</span>
+              </div>
+              <div class="process__bar__detail--btn" @click="uploadBusiness(index)">上传</div>
             </div>
-            <div class="process__bar--btn" @click="uploadBusiness(index)">上传</div>
+            <div class="process__bar__view" id="index" :style="{'width':uploadPercentage[index]}">
+            </div>
           </div>
         </li>
-
       </ul>
-
-
-
     </div>
-    <div class="process__btn">
-      <a class="process__btn__link">上传资源文件<span>&plus;</span></a>
-    </div>
-
   </main>
 </template>
 <script>
@@ -53,11 +48,18 @@
         borderhover: false,
         dragAndDropCapable: false,
         files: [],
-        uploadPercentage: 0,
-        currentIndex: -1
+        // filesExtraInfo:[],
+        uploadPercentage: [],
+        uploadPercentageTxt: '',
+        currentLoad: [],
+        currentIndex: -1,
+        allowFlag: true
       }
     },
+    computed: {
+    },
     mounted: function () {
+
       //方法一
       let _this = this;
       var dropbox = document.getElementById('file-drag-drop');
@@ -66,40 +68,43 @@
         e.stopPropagation();
         e.preventDefault();
         _this.borderhover = false;
-        // _this.borderWeight =  false;
-      })
+      });
       dropbox.addEventListener("dragenter", function (e) {
         e.stopPropagation();
         e.preventDefault();
         _this.borderhover = true;
-        // _this.borderWeight =  true;
-      })
+      });
       dropbox.addEventListener("dragover", function (e) {
         e.stopPropagation();
         e.preventDefault();
         _this.borderhover = true
-        // _this.borderWeight =  true
-      })
+      });
 
-      //方法二 拖拽到时候背景或边框不能改变
-      /**
-      this.dragAndDropCapable = this.determineDragAndDropCapable();
-      console.log(this.dragAndDropCapable)
-      if (this.dragAndDropCapable) {
-        ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave','drop'].forEach(function (evt) {
-          this.$refs.fileform.addEventListener(evt, function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-          }.bind(this), false);
-        }.bind(this));
-        this.$refs.fileform.addEventListener('drop', function (e) {
-          for (let i = 0; i < e.dataTransfer.files.length; i++) {
-            this.files.push(e.dataTransfer.files[i]);
-            this.getImagePreviews();
-          }
-        }.bind(this));
+    },
+    filters: {
+      fileSize: function (value) {
+        if (null == value || value == '') {
+          return "";
+        }
+        var unitArr = new Array("Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
+        var index = 0;
+        var srcsize = parseFloat(value);
+        index = Math.floor(Math.log(srcsize) / Math.log(1024));
+        var size = srcsize / Math.pow(1024, index);
+        if (size % 1 === 0) {
+          size = size.toFixed(0); //如果是整数不保留小数
+        } else {
+          size = size.toFixed(2);//保留的小数位数
+        }
+        return size + "  " + unitArr[index];
+      },
+      fileFormat: function (value) {
+        if (null == value || value == '') {
+          return ""
+        } else {
+          return value + " / ";
+        }
       }
-      */
     },
     methods: {
       enentDrop: function (e) {
@@ -108,12 +113,15 @@
         e.stopPropagation();
         e.preventDefault();
 
-        // let fileData = e.dataTransfer.files;
-        // this.imgPreview(e.dataTransfer.files);
-        // this.uploadFile(fileData)
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-          this.files.push(e.dataTransfer.files[i]);
-          this.getImagePreviews()
+
+          if (/\.(jpe?g|png|gif|mp4)$/i.test(e.dataTransfer.files[i].name)) {
+            this.files.push(e.dataTransfer.files[i]);
+            console.log(e.dataTransfer.files[i]);
+            this.getImagePreviews();
+          } else {
+            this.$toast.error({ title: "注意注意注意", message: "该文件类型暂不支持" });
+          }
         }
       },
       determineDragAndDropCapable() {
@@ -130,51 +138,19 @@
             let reader = new FileReader();
             reader.addEventListener("load", function () {
               this.$refs['preview' + parseInt(i)][0].src = reader.result;
-              console.log("------------ 2 " + reader.result);
             }.bind(this), false);
             reader.readAsDataURL(this.files[i]);
+
           } else {
             this.$nextTick(function () {
-              this.$refs['preview' + parseInt(i)][0].src = '/images/file.png';
+              this.$refs['preview' + parseInt(i)][0].src = 'https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/public/index/mp4.png';
             });
+
           }
         }
-      },
-
-
-      submitFiles() {
-        let formData = new FormData();
-        /*
-          Iteate over any file sent over appending the files
-          to the form data.
-        */
-        for (var i = 0; i < this.files.length; i++) {
-          let file = this.files[i];
-          formData.append('files[' + i + ']', file);
-        }
-
-
-        axios.post('/file-drag-drop',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-            onUploadProgress: function (progressEvent) {
-              this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total));
-            }.bind(this)
-          }
-        ).then(function () {
-          console.log('SUCCESS!!');
-        })
-          .catch(function () {
-            console.log('FAILURE!!');
-          });
       },
 
       removeFile(file) {
-        // this.files.splice(key, 1);
-        
         this.files = this.files.filter(f => {
           console.log(file.name)
           return f != file;
@@ -185,41 +161,44 @@
 
       uploadBusiness(index) {
         console.log(index);
-        this.currentIndex = index
-        // this.$toast.info({ title: "上传失败", message: "出错啦，请重新上传！" })
+        this.currentIndex = index;
         this.getPass();
-        
-      },
 
+
+
+      },
       getPass() {
+
         const userId = localStorage.getItem("userId")
         const config = { headers: { Authorization: localStorage.getItem("token") } };
-        console.log(JSON.stringify(config));
-        console.log(this.files[this.currentIndex].name.split(".").pop());
-
         const fileType = this.files[this.currentIndex].name.split(".").pop();
-        const mimeType = mime.getType(fileType)
+        let mimeType = mime.getType(fileType)
+        if (fileType == "jpg") {
+          mimeType = "image/" + fileType
+        } else {
+          mimeType = mime.getType(fileType)
+        }
+        
         let tag = [];
 
         const data = {
           type: mimeType,
           name: this.files[this.currentIndex].name,
           size: this.files[this.currentIndex].size,
-          tag:tag,
+          tag: tag,
           editflag: false,
           userId: userId
         };
-        // console.log(JSON.stringify(data));
 
         axios.post("/rs-upload", data, config)
           .then(response => {
             console.log(response);
-            let { data,statusNumber } = response.data;
+            let { data, statusNumber } = response.data;
             if (statusNumber !== "rs-108") {
               throw new Error("upload attributes error");
             }
             const that = this;
-            let AWSConfig = { ...data.Credentials, path: "teaching/resources/"+userId+"", id:data.id};
+            let AWSConfig = { ...data.Credentials, path: "teaching/resources/" + userId + "", id: data.id };
             const upload = (err, data) => {
               // that.screenLoading = false;
               if (err || !data.ETag) {
@@ -227,20 +206,21 @@
                 that.$toast.error({ title: "上传失败", message: "出错啦，请重新上传！" })
               } else {
                 that.$toast.success({ title: "上传成功", message: "继续上传，或者创建课程吧" })
-                // that.cancelUpload();
               }
             };
             const progress = event => {
               let process = Number((event.loaded * 100) / event.total);
-              that.loadingTips = `连接成功，上传进度为 ${parseInt(process)}%`;
+              that.currentLoad[this.currentIndex] = event.loaded;
+              this.$set(this.uploadPercentage, this.currentIndex, this.uploadPercentage[this.currentIndex]);
+              that.uploadPercentage[this.currentIndex] = `${parseInt(process)}%`;
+              that.test = `${parseInt(process)}%`;
             };
-            console.log("----------"+AWSConfig)
             uploadFile(this.files[this.currentIndex], AWSConfig, upload, progress);
 
           }).catch(error => {
             console.error(error);
           });
-      }
+      },
     },
   }
 </script>

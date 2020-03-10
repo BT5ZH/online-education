@@ -18,7 +18,7 @@
     cursor: pointer;
 
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(3,1fr);
     grid-row-gap: 1rem;
     // justify-items: center;
 
@@ -31,8 +31,8 @@
 
     &__like {
         grid-row: 1 / 2;
-        grid-column: 2 / 3;
-        fill: $color-primary;
+        grid-column: 3 / 4;
+        fill: $color-favirate;
         height: 2.5rem;
         width: 2.5rem;
         z-index: 2;
@@ -90,24 +90,24 @@
         }
     }
 
-    &__author {
-        grid-row: 2 / 3;
-        grid-column: 1 / 2;
-    }
+    // &__author {
+    //     grid-row: 2 / 3;
+    //     grid-column: 1 / 2;
+    // }
 
     &__students {
         grid-row: 2 / 3;
-        grid-column: 2 / 3;
-    }
-
-    &__rank {
-        grid-row: 3 / 4;
         grid-column: 1 / 2;
     }
 
-    &__price {
-        grid-row: 3 / 4;
+    &__rank {
+        grid-row: 2 / 3;
         grid-column: 2 / 3;
+    }
+
+    &__price {
+        grid-row: 2 / 3;
+        grid-column: 3 / 4;
     }
 
     &__btn {
