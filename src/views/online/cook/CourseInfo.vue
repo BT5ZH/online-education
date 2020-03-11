@@ -10,7 +10,7 @@
                         <span v-if="!courseProfile.COURSE_NAME">课程内容</span>
                         <span v-if="courseProfile.COURSE_NAME">{{courseProfile.COURSE_NAME}}</span>
                     </label>
-                    <input v-if="courseNameEdit" v-model="courseName" type="text" name="courseName" id="courseName"
+                    <input v-if="courseNameEdit" v-model="courseProfile.COURSE_NAME" type="text" name="courseName" id="courseName"
                         placeholder="请输入课程名">
                 </div>
                 <div class="ci__header--tail">
@@ -38,8 +38,8 @@
                             <span v-if="!courseProfile.CHAPTER_LIST[index].CHAPTER_NAME">请输入章节名称</span>
                         </label>
                         <input v-if="courseProfile.CHAPTER_LIST[index].CHAPTER_EDITFLAG"
-                            v-model="courseProfile.CHAPTER_LIST[index].CHAPTER_NAME" type="text" name="courseName"
-                            id="courseName" placeholder="请输入章节名">
+                            v-model="courseProfile.CHAPTER_LIST[index].CHAPTER_NAME" type="text" name="chapterName"
+                            id="chapterName" placeholder="请输入章节名">
                     </div>
                     <div class="ci__list__title--tail">
                         <svg class="ci__list__title--tail--1" @click="addLesson(index)">
@@ -74,7 +74,7 @@
 
                             <input v-if="courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG"
                                 v-model="courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_NAME" type="text"
-                                name="courseName" id="courseName" placeholder="请输入课名">
+                                name="lessonName" id="lessonName" placeholder="请输入课名">
                         </div>
                         <div class="ci__list__nav__item--tail">
                             <svg class="ci__list__nav__item--tail--2">
@@ -107,10 +107,6 @@
                 chapterNameEdit: [],
                 lessonNameEdit: [],
                 lessonCompleteClass: 'ci__list__nav__complete'
-                // courseInfo: {
-                //     chapterList: [
-                //     ],
-                // }
             }
         },
         computed: {
@@ -195,20 +191,16 @@
                         courseName: this.courseName
                     }
                     if (!this.courseProfile.COURSE_NAME) {
-
                         this.$store.dispatch("updateCourseName", payload).then(() => {
                             console.log("添加课程名成功返回");
                         }).catch((err) => {
                             console.error(err);
                         })
                     }
-
-
                     this.courseName = "";
                 }
             },
             editChapterName: function (index) {
-                // this.$set(this.chapterNameEdit, index, !this.chapterNameEdit[index])
                 let pd = {
                     index: index
                 }
@@ -225,8 +217,6 @@
                         chapterName: this.chapterName,
                         index: index
                     }
-                    console.log("seesee" + this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME);
-                    console.log(!this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME);
                     if (!this.courseProfile.CHAPTER_LIST[index].CHAPTER_NAME) {
                         console.log("nihao:   " + index);
                         this.$store.dispatch("updateChapterName", payload).then(() => {

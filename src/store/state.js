@@ -9,7 +9,7 @@ const state = {
     courseInfo:{
         COURSE_NAME:"",
         COURSE_SUMMARY:"test for default",
-        COURSE_ANNOUNCCEMENT:"waiting",
+        COURSE_ANNOUNCEMENT:"waiting",
         COURSE_COVERURL:"http://lalalalallalalala",
         COURSE_STATUS:"pending",
         CHAPTER_LIST:[]

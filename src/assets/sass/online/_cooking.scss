@@ -40,11 +40,12 @@
       align-items: center;
       color: $color-secondary;
       &__item {
-        
         display: flex;
         justify-content: space-between;
+        border-right: 1px solid $color-grey-light-4;
         &__svg {
           padding-right: 2rem;
+          cursor: pointer;
           &--1 {
             height: 2rem;
             width: 2rem;
@@ -65,10 +66,13 @@
     &__content {
       padding-top: 2rem;
       display: grid;
-      grid-template-columns: 10rem 1fr;
+      grid-template-columns: 1fr 1fr;
     }
+    
     &__left {
       font-size: 1.4rem;
+      margin-left: 1.5rem;
+      
     }
     &__detail {
       font-size: 1.4rem;
@@ -228,11 +232,8 @@
     grid-row: 2 / 3;
     grid-column: 1 / -1;
     justify-self: center;
-
-    // font-family: initial;
     font-size: 1.4rem;
     font-weight: 400;
-    // margin-top: 2.5rem;
     color: $color-secondary;
   }
 

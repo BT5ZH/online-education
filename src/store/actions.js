@@ -132,6 +132,12 @@ const actions = {
   updateCourseName({commit},payload){
     commit(TYPES.updateCourseName, payload);
   },
+  updateCourseSummary({commit},payload){
+    commit(TYPES.updateCourseSummary, payload);
+  },
+  updateCourseAnnouncement({commit},payload){
+    commit(TYPES.updateCourseAnnouncement, payload);
+  },
   addChapter({commit},chapter){
     commit(TYPES.addChapter,chapter);
   },

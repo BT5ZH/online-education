@@ -1,5 +1,6 @@
 import Courses from './courses/Courses.vue';
 import Learning from './learning/Learning.vue';
+import MyCourses from './learning/MyCourses.vue';
 // import VideoBlock from './learning/UserVideoBlock.vue';
 import Upload from './upload/Upload.vue';
 import Cook from './cook/Cook.vue';
@@ -10,11 +11,8 @@ import TodoTwo from './todo/TodoTwo.vue';
 
 export const routes = [
     { path: '/', name: 'courses', component: Courses },
-    { path: '/learning/:courseId', name:'learning', component: Learning, 
-        // children:[
-        //     {path:'video/:rsId',component:VideoBlock}
-        // ] 
-    },
+    { path: '/learning/:courseId', name:'learning', component: Learning},
+    { path: '/learning', name:'myCourses', component: MyCourses},
     { path: '/upload', component: Upload },
     { path: '/cook-top', name:'cookFirst', component: Cook},
     { path: '/cook-template', component: Template },

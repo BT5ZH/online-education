@@ -6,6 +6,8 @@ export const updateChapterName = 'updateChapterName';
 export const addChapter = 'addChapter';
 export const addLesson = 'addLesson';
 export const updateLessonName = 'updateLessonName';
+export const updateCourseSummary = 'updateCourseSummary';
+export const updateCourseAnnouncement = 'updateCourseAnnouncement';
 export const updateChapterEditFlag = 'updateChapterEditFlag';
 export const updateLessonEditFlag = 'updateLessonEditFlag';
 

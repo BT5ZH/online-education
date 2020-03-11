@@ -14,10 +14,16 @@ const mutations ={
     },
     [TYPES.updateCourseName](state, payload) {
         console.log("updateCourseName + mutation 进来啦"+payload.courseName);
-        state.courseInfo.COURSE_NAME = payload.courseName;
-        
+        state.courseInfo.COURSE_NAME = payload.courseName;  
     },
-
+    [TYPES.updateCourseSummary](state, payload) {
+        console.log("updateCourseSummary + mutation 进来啦"+payload.courseSummary);
+        state.courseInfo.COURSE_SUMMARY = payload.courseSummary;  
+    },
+    [TYPES.updateCourseAnnouncement](state, payload) {
+        console.log("updateCourseAnnouncement + mutation 进来啦"+payload.courseAnnouncement);
+        state.courseInfo.COURSE_ANNOUNCEMENT = payload.courseAnnouncement;  
+    },
     [TYPES.addChapter](state, chapter) {
         console.log("addChapter + mutation 进来啦 "+chapter);
         console.log("addChapter + mutation 进来啦 "+JSON.stringify(chapter));

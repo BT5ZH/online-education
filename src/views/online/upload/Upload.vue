@@ -4,7 +4,10 @@
       <svg class="upload__area--svg">
         <use xlink:href="../../../assets/img/all.svg#icon-upload"></use>
       </svg>
-      <span class="upload__area--txt">拖拽文件到窗口灰色区域</span>
+      <span class="upload__area--txt">拖拽文件至下方</span>
+      <div class="upload__area--video">
+        <video :src="videoUrl" controls preload="auto" id="videoPlayer"></video>
+      </div>
     </div>
     <div class="upload__drag" :style="{'background-color': (borderhover ? '#3d8cff':'#f9f7f6')}">
       <div class="upload__drag__area " v-for="(item,index) in files" :key="index">
@@ -48,7 +51,7 @@
         borderhover: false,
         dragAndDropCapable: false,
         files: [],
-        // filesExtraInfo:[],
+        videoUrl:"",
         uploadPercentage: [],
         uploadPercentageTxt: '',
         currentLoad: [],
@@ -120,7 +123,7 @@
             console.log(e.dataTransfer.files[i]);
             this.getImagePreviews();
           } else {
-            this.$toast.error({ title: "注意注意注意", message: "该文件类型暂不支持" });
+            this.$toast.error({ title: "注意!注意!注意!", message: "该文件类型暂不支持" });
           }
         }
       },
