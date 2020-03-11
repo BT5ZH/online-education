@@ -14,10 +14,20 @@ const state = {
         COURSE_STATUS:"pending",
         CHAPTER_LIST:[]
     },
-    //
+
+    //创建好的课程的列表信息---作者身份用
     courseShortList:{},
+
+    //用户选择或加入的课程列表信息--用户身份用
+    myCoursesShortList:{},
+
+    //查询出来所有课程的列表信息--所有课程页面
     courseAllList:{},
+
+    //正在学习的课程页面
     learningCourseInfo:{},
+
+
     currentLessonRSUrl:"",
     //     lessonAssignment:"",
     //     lessonQuestionList:[],
