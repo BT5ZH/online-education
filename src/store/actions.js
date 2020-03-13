@@ -33,140 +33,194 @@ const actions = {
         console.log(error);
       });
   },
-  getResources({commit}){
+  getResources({ commit }) {
     console.log(localStorage.getItem("token"));
-    return axios.get('/rs-activity/RESOURCEGET',{
+    return axios.get('/rs-activity/RESOURCEGET', {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
       }
-    }).then(response=>{
+    }).then(response => {
       console.log(response);
       const payload = response.data.data
-      commit(TYPES.getResources,payload);
+      commit(TYPES.getResources, payload);
     }, error => {
       console.log(error);
     });
     // commit(TYPES.getResources, payload);
   },
-  releaseCourse({commit},payload){
+  releaseCourse({ commit }, payload) {
     console.log(localStorage.getItem("token"));
-    return axios.post('/rs-activity/CREATECOURSEPOST',payload,{
+    return axios.post('/rs-activity/CREATECOURSEPOST', payload, {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
       }
-    }).then(response=>{
+    }).then(response => {
       console.log(response);
       let payload = {
-        rscode:response.data.statusNumber
+        rscode: response.data.statusNumber
       }
-      if(response.data.statusNumber=='rs-122'){
+      if (response.data.statusNumber == 'rs-122') {
         // this.$toast.success({title:"您辛苦啦",message:"该课程已经创建成功"});
         console.log("releaseCourse + ------ success")
-        commit(TYPES.releaseCourse,payload);
-      }else{
+        commit(TYPES.releaseCourse, payload);
+      } else {
         // this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
         console.log("releaseCourse + ------ failed")
       }
-      
-      
+
+
     }, error => {
       console.log(error);
     });
   },
-  getUserCourses({commit}){
+  getUserCourses({ commit }) {
     console.log(localStorage.getItem("token"));
-    return axios.get('/rs-activity/USERCOURSESGET',{
+    return axios.get('/rs-activity/USERCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
       }
-    }).then(response=>{
+    }).then(response => {
       console.log(response);
       const payload = response.data.data
-      commit(TYPES.getUserCourses,payload);
+      commit(TYPES.getUserCourses, payload);
     }, error => {
       console.log(error);
     });
-  },
-  getAllCourses({commit}){
-    console.log(localStorage.getItem("token"));
-    return axios.get('/rs-activity/ALLCOURSESGET',{
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-      }
-    }).then(response=>{
-      const payload = response.data.data
-      commit(TYPES.getAllCourses,payload);
-    }, error => {
-      console.log(error);
-    });
-  },
-  learningTheCourse({commit},payload){
-    console.log(localStorage.getItem("token"));
-    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/"+payload.courseId;
-    return axios.get(queryUrl,{
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-      }
-    }).then(response=>{
-      console.log(response);
-      const payload = response.data.data
-      commit(TYPES.learningTheCourse,payload);
-      commit(TYPES.showCurrentLesson,{index:0,number:0});
-    }, error => {
-      console.log(error);
-    });
-  },
-  showCurrentLesson({commit},payload){
-    commit(TYPES.showCurrentLesson,payload);
   },
 
-  backToCookTop({commit},payload){
-    commit(TYPES.backToCookTop,payload)
+  //用户选择的课程f
+  getMyCourses({ commit }) {
+    return axios.get('/rs-user/course/COURSEGET', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getMyCourses, payload);
+    }, error => {
+      console.log(error);
+    });
   },
-  
-  updateCourseName({commit},payload){
+  getAllCourses({ commit }) {
+    console.log(localStorage.getItem("token"));
+    return axios.get('/rs-activity/ALLCOURSESGET', {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+      const payload = response.data.data
+      commit(TYPES.getAllCourses, payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+
+  selectToLearn({ commit }, payload) {
+    console.log(localStorage.getItem("token"));
+    return axios.post('/rs-user/course/SELECTCOURSEPOST', payload, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.selectToLearn, payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+
+  learningTheCourse({ commit }, payload) {
+    console.log(localStorage.getItem("token"));
+    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId;
+    return axios.get(queryUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.learningTheCourse, payload);
+      commit(TYPES.showCurrentLesson, { index: 0, number: 0 });
+    }, error => {
+      console.log(error);
+    });
+  },
+  showCurrentLesson({ commit }, payload) {
+    commit(TYPES.showCurrentLesson, payload);
+  },
+
+  backToCookTop({ commit }, payload) {
+    commit(TYPES.backToCookTop, payload)
+  },
+
+  editTheCourse({ commit }, payload) {
+    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId;
+    return axios.get(queryUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+
+      const payload = response.data.data
+      console.log("%%%%%%%%%%%%%%%%%%" + payload);
+      console.log(payload);
+      commit(TYPES.editTheCourse, payload);
+    }, error => {
+      console.log(error);
+    });
+  },
+
+  updateCourseName({ commit }, payload) {
     commit(TYPES.updateCourseName, payload);
   },
-  updateCourseSummary({commit},payload){
+  updateCourseStatus({ commit }, payload) {
+    commit(TYPES.updateCourseStatus, payload);
+  },
+  updateCourseSummary({ commit }, payload) {
     commit(TYPES.updateCourseSummary, payload);
   },
-  updateCourseAnnouncement({commit},payload){
+  updateCourseAnnouncement({ commit }, payload) {
     commit(TYPES.updateCourseAnnouncement, payload);
   },
-  addChapter({commit},chapter){
-    commit(TYPES.addChapter,chapter);
+  addChapter({ commit }, chapter) {
+    commit(TYPES.addChapter, chapter);
   },
-  addLesson({commit},payload){
-    commit(TYPES.addLesson,payload);
+  addLesson({ commit }, payload) {
+    commit(TYPES.addLesson, payload);
   },
-  updateChapterName({commit},payload){
+  updateChapterName({ commit }, payload) {
     commit(TYPES.updateChapterName, payload);
   },
-  updateChapterEditFlag({commit},payload){
+  updateChapterEditFlag({ commit }, payload) {
     commit(TYPES.updateChapterEditFlag, payload);
   },
-  updateLessonName({commit},payload){
+  updateLessonName({ commit }, payload) {
     commit(TYPES.updateLessonName, payload);
-                //  updateLessonName
+    //  updateLessonName
   },
-  updateLessonEditFlag({commit},payload){
+  updateLessonEditFlag({ commit }, payload) {
     commit(TYPES.updateLessonEditFlag, payload);
   },
-  prepareMatching({commit},payload){
+  prepareMatching({ commit }, payload) {
     commit(TYPES.prepareMatching, payload);
   },
-  lockResource({commit}, payload){
+  lockResource({ commit }, payload) {
     commit(TYPES.lockResource, payload);
   },
-  lockCover({commit}, payload){
+  lockCover({ commit }, payload) {
     commit(TYPES.lockCover, payload);
   },
-  authUser({commit}, payload){
+  authUser({ commit }, payload) {
     commit(TYPES.authUser, payload);
   }
 

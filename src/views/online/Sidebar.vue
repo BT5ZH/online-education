@@ -36,7 +36,7 @@
                 </router-link>
             </li>
             <li class="side-nav__item">
-                <router-link class="side-nav__link" to="">
+                <router-link class="side-nav__link" to="/profile">
                     <svg class="side-nav__icon">
                         <use xlink:href="../../assets/img/all.svg#icon-user"></use>
                     </svg>

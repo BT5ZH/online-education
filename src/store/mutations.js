@@ -16,6 +16,10 @@ const mutations ={
         console.log("updateCourseName + mutation 进来啦"+payload.courseName);
         state.courseInfo.COURSE_NAME = payload.courseName;  
     },
+    [TYPES.updateCourseStatus](state, payload) {
+        console.log("updateCourseStatus + mutation 进来啦"+payload.courseStatus);
+        state.courseInfo.COURSE_STATUS = payload.courseStatus;  
+    },
     [TYPES.updateCourseSummary](state, payload) {
         console.log("updateCourseSummary + mutation 进来啦"+payload.courseSummary);
         state.courseInfo.COURSE_SUMMARY = payload.courseSummary;  
@@ -118,13 +122,19 @@ const mutations ={
     },
     [TYPES.lockResource](state,payload) {
         console.log("lockResource + mutation 进来啦 "+state.currentResourceIndex+" lalal");
+
+        const matching = {
+            RS_ID:payload.id,
+            RS_TAG:[]
+        }
         const newLesson = {
             ...state.courseInfo.CHAPTER_LIST[payload.index].LESSON_LIST[payload.number], 
             LESSON_RESOURCE_ID:state.resourceList[state.currentResourceIndex].id,
             LESSON_RESOURCE_NAME:state.resourceList[state.currentResourceIndex].name,
             LESSON_RESOURCE_SIZE:state.resourceList[state.currentResourceIndex].size,
             LESSON_RESOURCE_TYPE:state.resourceList[state.currentResourceIndex].type,
-            LESSON_RESOURCE_URL:state.resourceList[state.currentResourceIndex].url
+            LESSON_RESOURCE_URL:state.resourceList[state.currentResourceIndex].url,
+            RS:matching
         }
         state.courseInfo.CHAPTER_LIST[payload.index].LESSON_LIST[payload.number] = newLesson;
         const newLessonList = [...state.courseInfo.CHAPTER_LIST[payload.index].LESSON_LIST];
@@ -141,7 +151,10 @@ const mutations ={
         //完成关联之后恢复状态标志 
         //资源列表中当前选中资源编辑状态 重置为false 完成标志重置为trues
         const tagContent = {
-            userId : state.userId
+            userId : state.userId,
+            courseName: state.courseInfo.COURSE_NAME,
+            chapterIndex: payload.index,
+            lessonId:payload.number,
         }
         const tagList = [...state.resourceList[state.currentResourceIndex].RS_TAG, tagContent];
         const newResource = {
@@ -192,9 +205,17 @@ const mutations ={
         console.log("getAllCourses + mutation 进来啦 "+state.currentResourceIndex);
         state.courseAllList = payload
     },
+    [TYPES.getMyCourses](state,payload){
+        console.log("getAllCourses + mutation 进来啦 "+state.currentResourceIndex);
+        state.myCoursesShortList = payload;
+    },
     [TYPES.learningTheCourse](state,payload){
         console.log("learningTheCourse + mutation 进来啦 "+state.currentResourceIndex);
         state.learningCourseInfo = payload;
+    },
+    [TYPES.editTheCourse](state,payload){
+        console.log("editTheCourse + mutation 进来啦 "+state.currentResourceIndex);
+        state.courseInfo = payload;
     },
     [TYPES.showCurrentLesson](state,payload){
         console.log("showCurrentLesson + mutation 进来啦 "+state.currentResourceIndex);
@@ -203,6 +224,10 @@ const mutations ={
     },
     [TYPES.backToCookTop](state,payload){
         state. courseInfo = payload;
+    },
+    [TYPES.selectToLearn](state,payload){
+        console.log("selectToLearn + mutation 进来啦 "+state.myCoursesShortList);
+        console.log("selectToLearn + mutation 进来啦 "+payload);
     }
 }
 export default mutations;

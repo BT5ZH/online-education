@@ -1,14 +1,13 @@
 <template>
     <main class="rs-courses">
         <div class="courses-list">
-            <div v-for="(course,index) in allTreasure" :key="index" class="course" @click="startToLearn(index)">
-                <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME"
-                    class="course__img">
-                <svg class="course__like">
+            <div v-for="(course,index) in allTreasure" :key="index" class="course">
+                <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME" class="course__img">
+                <svg class="course__like" @click="selectToLearn(index)">
                     <use xlink:href="../../../assets/img/all.svg#icon-heart-outlined"></use>
                 </svg>
-                <h5 class="course__name">{{course.COURSE_NAME}}</h5>
-                
+                <h5 class="course__name" @click="startToLearn(index)">{{course.COURSE_NAME}}</h5>
+
                 <!-- <div class="course__author">
                     <svg>
                         <use xlink:href="../../../assets/img/all.svg#icon-eye"></use>
@@ -67,13 +66,28 @@
             });
         },
         methods: {
-            getLinkAddress:function(index){
+            getLinkAddress: function (index) {
                 let link = "/learning/";
-                let temp = link+this.allTreasure[index].COURSE_ID
+                let temp = link + this.allTreasure[index].COURSE_ID
                 return temp;
             },
-            startToLearn:function(index){
-                this.$router.push({name:'learning',params:{courseId:this.allTreasure[index].COURSE_ID}})
+            startToLearn: function (index) {
+                this.$router.push({ name: 'learning', params: { courseId: this.allTreasure[index].COURSE_ID } })
+            },
+            selectToLearn: function (index) {
+                let payload = {
+                    courseId: this.allTreasure[index].COURSE_ID,
+                    courseName: this.allTreasure[index].COURSE_NAME,
+                    courseStatus: this.allTreasure[index].COURSE_STATUS,
+                    coverUrl: this.allTreasure[index].COURSE_COVERURL
+                }
+                console.log("-------------->");
+                console.log(payload)
+                this.$store.dispatch("selectToLearn", payload).then(() => {
+                    console.log("-----------");
+                }).catch((err) => {
+                    console.error(err);
+                });
             }
         },
     }

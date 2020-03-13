@@ -30,17 +30,19 @@
         },
         computed: {
             courseList(){
-                return this.$store.state.courseShortList;
+                return this.$store.state.myCoursesShortList;
             }
 
         },
+        mounted() {
+            
+        },
         created() {
-            this.$store.dispatch("getUserCourses").then(() => {
+            this.$store.dispatch("getMyCourses").then(() => {
                 console.log("-----------");
             }).catch((err) => {
                 console.error(err);
             });
-
         }
     }
 </script>

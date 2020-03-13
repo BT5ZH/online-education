@@ -6,6 +6,7 @@ import Upload from './upload/Upload.vue';
 import Cook from './cook/Cook.vue';
 import Template from './cook/Template.vue';
 import Test from './test/Test.vue';
+import Profile from './profile/Profile.vue';
 import Todo from './todo/Todo.vue';
 import TodoTwo from './todo/TodoTwo.vue';
 
@@ -15,7 +16,9 @@ export const routes = [
     { path: '/learning', name:'myCourses', component: MyCourses},
     { path: '/upload', component: Upload },
     { path: '/cook-top', name:'cookFirst', component: Cook},
-    { path: '/cook-template', component: Template },
+    // { path: '/cook-template', component: Template },
+    { path: '/cook-template/:courseId', name:'editCourse', component: Template },
+    { path: '/profile', name:'profile', component: Profile},
     { path: '/test', component: Test },
     { path: '/todo', component: Todo },
     { path: '/todotwo', component: TodoTwo },

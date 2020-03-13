@@ -2,6 +2,7 @@ export const authUser = 'authUser';
 
 export const courseInfo = 'courseInfo';
 export const updateCourseName = 'updateCourseName';
+export const updateCourseStatus = 'updateCourseStatus';
 export const updateChapterName = 'updateChapterName';
 export const addChapter = 'addChapter';
 export const addLesson = 'addLesson';
@@ -17,8 +18,12 @@ export const lockCover = 'lockCover';
 export const getResources = 'getResources';
 export const backToCookTop = 'backToCookTop';
 export const releaseCourse = 'releaseCourse';
+export const editTheCourse = 'editTheCourse';
 
 export const getUserCourses = 'getUserCourses';
 export const getAllCourses = 'getAllCourses';
+//用户选择的课程
+export const getMyCourses = 'getMyCourses';
+export const selectToLearn = 'selectToLearn';
 export const learningTheCourse = 'learningTheCourse';
 export const showCurrentLesson = 'showCurrentLesson';

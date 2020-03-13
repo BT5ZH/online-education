@@ -195,6 +195,7 @@
 .cooking-card {
   background-color: $color-grey-light-1;
   border-radius: 10px;
+  cursor: pointer;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);

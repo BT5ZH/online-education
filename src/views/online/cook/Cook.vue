@@ -2,7 +2,7 @@
     <main class="rs-cooking">
         <div class="cooking-area">
             <div class="cooking-card">
-                <router-link class="cooking-card__add" to="/cook-template">
+                <router-link class="cooking-card__add" to="/cook-template/new">
                     <svg>
                         <use xlink:href="../../../assets/img/all.svg#icon-plus"></use>
                     </svg>
@@ -11,7 +11,7 @@
                     点“+”号，创建课程
                 </div>
             </div>
-            <div v-for = "(course,index) in courseList" :key="index" class="cooking-card">
+            <div v-for = "(course,index) in courseList" :key="index" class="cooking-card" @click="editThisCourse(index)">
                 <img :src="courseList[index].COURSE_COVERURL" alt="House 3" class="cooking-card__img">
                 <h5 class="cooking-card__name">{{courseList[index].COURSE_STATUS}}</h5>
                 <div class="cooking-card__title">
@@ -43,8 +43,8 @@
 
         },
         methods: {
-            goDetail() {
-
+            editThisCourse: function(index){
+                this.$router.push({ name: 'editCourse', params: { courseId: this.courseList[index].COURSE_ID }});
             }
         },
     }
