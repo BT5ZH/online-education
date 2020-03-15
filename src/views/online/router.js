@@ -12,7 +12,7 @@ import TodoTwo from './todo/TodoTwo.vue';
 
 export const routes = [
     { path: '/', name: 'courses', component: Courses },
-    { path: '/learning/:courseId', name:'learning', component: Learning},
+    { path: '/learning/:authorId/:courseId', name:'learning', component: Learning},
     { path: '/learning', name:'myCourses', component: MyCourses},
     { path: '/upload', component: Upload },
     { path: '/cook-top', name:'cookFirst', component: Cook},

@@ -24,7 +24,7 @@
                 </svg>
                 <span class="user-nav__notification">90</span>
             </div>
-            <div class="user-nav__user">
+            <div class="user-nav__user" @click="profileInfo">
                 <img src="../../assets/img/user.jpg" alt="User photo" class="user-nav__user-photo">
                 <span class="user-nav__user-name">Joshsa</span>
             </div>
@@ -40,6 +40,11 @@ export default {
             platformIcon:"../../assets/img/favicon.png",
             publicPath: process.env.BASE_URL
         }
-    }
+    },
+    methods: {
+        profileInfo:function(){
+            location.href="#popup"
+        }
+    },
 }
 </script>

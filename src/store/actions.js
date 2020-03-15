@@ -11,12 +11,18 @@ const actions = {
       password: authData.password
     }).then(
       response => {
+        console.log("login 拿到的token"+response.data.data.token)
+        console.log(response);
         checkToken = response.data.data.token;
         if (checkToken == undefined || checkToken == "") {
           commit(TYPES.authUser, {
             token: null,
             userId: null
           });
+          localStorage.setItem("token", null);
+          localStorage.setItem("userId", null);
+          localStorage.setItem("roleId", null);
+          localStorage.setItem("expirationDate", null);
         } else {
           commit(TYPES.authUser, {
             token: response.data.data.token,
@@ -138,8 +144,9 @@ const actions = {
   },
 
   learningTheCourse({ commit }, payload) {
-    console.log(localStorage.getItem("token"));
-    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId;
+    console.log("999999"+payload.authorId);
+    let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId+"?authorId="+payload.authorId;
+    console.log("999999"+queryUrl);
     return axios.get(queryUrl, {
       headers: {
         "Content-Type": "application/json",

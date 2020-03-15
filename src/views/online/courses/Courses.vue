@@ -79,7 +79,8 @@
                     courseId: this.allTreasure[index].COURSE_ID,
                     courseName: this.allTreasure[index].COURSE_NAME,
                     courseStatus: this.allTreasure[index].COURSE_STATUS,
-                    coverUrl: this.allTreasure[index].COURSE_COVERURL
+                    coverUrl: this.allTreasure[index].COURSE_COVERURL,
+                    authorId: this.allTreasure[index].AUTHOR_ID
                 }
                 console.log("-------------->");
                 console.log(payload)

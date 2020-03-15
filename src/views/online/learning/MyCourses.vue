@@ -11,7 +11,7 @@
                     您一共收藏了 XX 门课程
                 </div>
             </div>
-            <div v-for = "(course,index) in courseList" :key="index" class="myCourses__area__card">
+            <div v-for = "(course,index) in courseList" :key="index" class="myCourses__area__card" @click="startToLearn(index)">
                 <img :src="courseList[index].COURSE_COVERURL" alt="House 3" class="myCourses__area__card--img">
                 <h5 class="myCourses__area__card--name">{{courseList[index].COURSE_STATUS}}</h5>
                 <div class="myCourses__area__card--title">
@@ -43,6 +43,18 @@
             }).catch((err) => {
                 console.error(err);
             });
-        }
+        },
+        methods: {
+            startToLearn:function(index){
+                console.log("8888"+this.courseList[index].COURSE_ID)
+                console.log("8888"+this.courseList[index].AUTHOR_ID)
+                this.$router.push({name:'learning',
+                    params:{
+                        courseId:this.courseList[index].COURSE_ID,
+                        authorId:this.courseList[index].AUTHOR_ID
+                    }
+                });
+            }
+        },
     }
 </script>

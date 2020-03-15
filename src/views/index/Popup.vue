@@ -9,7 +9,7 @@
                         </div>
                         <div class="form-middle">
                             <div class="form__group">
-                                <input v-model="username" type="text" class="form__input" placeholder="用户名 / 手机号"
+                                <input v-model="username" type="text" class="form__input" placeholder="邮箱 / 手机号"
                                     id="username" name="username" required>
                                 <label for="username" class="form__label">用户名</label>
                             </div>
@@ -24,7 +24,11 @@
                                 <label for="password_" class="form__label">密码</label>
                             </div>
                         </div>
-
+                        <div class="form__code" v-if="regisflag=='reg'">
+                            <input v-model="passcode" type="text" class="form__code__txt" placeholder="验证码"
+                                id="passcode" name="passcode">
+                            <button type="button" class="form__code__btn" @click="sendPassCode">验证码</button>
+                        </div>
 
                         <div class="form__group form__role">
                             <div class="form__radio-group">
@@ -64,31 +68,32 @@
                 username: '',
                 password: '',
                 password_: '',
+                passcode: '',
                 regisflag: 'login',
-                isLog: false
+                isLog: false,
+                tempType: 'REGPOST',
+                codeType: ''
             }
         },
         watch: {
-            username() {
-                const rule1 = /[`~!@$%^&()\-+=<>?:"{}|,./;'#*·~！@￥%……&（）——\-+={}|《》？：“”【】、；‘’，。、]/g;
-                const rule2 = /[^_A-Za-z0-9\u4e00-\u9fa5]/g;
-                if (rule1.test(this.account) || rule2.test(this.account)) {
-                    this.$toast.error({
-                        type: "error",
-                        message: "账号不支持此符号, 请更换其他符号"
-                    });
-                    this.account = this.account.replace(rule1, "");
-                    this.account = this.account.replace(rule2, "");
-                }
-            },
-            password() {
-                const rule1 = /[^a-zA-Z/a-zA-Z0-9/`~!@$%^&()\-+=<>?:"{}|,./;'_#*·~！@￥%……&（）——\-+={}|《》？：“”【】、；‘’，。、]/g;
-                if (rule1.test(this.password)) {
-                    this.$toast.error({
-                        type: "error",
-                        message: "密码不支持此符号, 请更换其他符号"
-                    });
-                    this.password = this.password.replace(rule1);
+            // password() {
+            //     const rule1 = /[^a-zA-Z/a-zA-Z0-9/`~!@$%^&()\-+=<>?:"{}|,./;'_#*·~！@￥%……&（）——\-+={}|《》？：“”【】、；‘’，。、]/g;
+            //     if (rule1.test(this.password)) {
+            //         this.$toast.error({
+            //             title: "error",
+            //             message: "密码不支持此符号, 请更换其他符号"
+            //         });
+            //         this.password = this.password.replace(rule1);
+            //     }
+            // },
+            regisflag: function () {
+                if (this.regisflag) {
+                    this.username = '';
+                    this.password = '';
+                    this.password_ = '';
+                } else {
+                    this.username = '';
+                    this.password = '';
                 }
             }
         },
@@ -96,10 +101,11 @@
             submit() {
                 switch (this.regisflag) {
                     case "reg":
+                        console.log("+++++")
                         this.registerBusiness();
-
                         break;
                     case "login":
+                        console.log("=====")
                         this.loginBusiness();
                         break;
                     default:
@@ -114,32 +120,36 @@
                     const formData = {
                         username: this.username,
                         password: this.password,
+                        tempType: this.tempType,
+                        codeType: this.codeType,
+                        code: this.passcode
                     }
                     console.log(formData);
 
                     this.$http.post("rs-user/register",
                         {
                             username: this.username,
-                            password: this.password
+                            password: this.password,
+                            tempType: this.tempType,
+                            codeType: this.codeType,
+                            code: this.passcode
                         })
                         .then(res => {
                             console.log(res);
                             console.log("结束");
                             this.$toast.success({ title: "注册成功", message: "可以登录了哦" });
                             this.regisflag = "reg"
-                            // window.location.href="online.html";
 
                         }, err => {
                             console.log(err);
-                        })
+                        });
                 }
             },
             loginBusiness() {
-                if (this.checkLogin) {
-                    console.log("我要登录");
+                if (this.checkLogin()) {
+
                     let username = this.username;
                     let password = this.password;
-
                     const formData = {
                         password,
                         username,
@@ -147,41 +157,132 @@
                     this.$store.dispatch("login", formData).then(() => {
                         const result = this.$store.getters.isAuthenticated;
                         console.log("登录结果" + result);
-                        if ((!result)) {
+                        if (!result) {
                             this.$toast.error({ title: "登录失败", message: "出错啦！" })
                         } else {
                             this.$toast.success({ title: "登录成功", message: "页面即将跳转" })
+                            window.location.href = "online.html";
                         }
-                        window.location.href="online.html";
+
                     }, () => {
 
                     })
                 }
             },
             checkRegister() {
-                console.log(this.username)
-                console.log(this.password)
                 if (!this.username || !this.password) {
+                    console.log("11111");
                     this.$toast.error({ title: "输入有误", message: "用户名/密码不能为空" });
                     return false;
                 } else if (this.password != this.password_) {
+                    console.log("22222");
                     this.$toast.error({ title: "输入有误", message: "两次密码不一致" });
                     return false;
+                } else if (!this.passcode) {
+                    console.log("33333");
+                    this.$toast.error({ title: "输入有误", message: "请输入验证码" });
+                    return false;
                 }
-                return true
+                const isPhone = /^1[3456789]\d{9}$/;
+                if (isPhone.test(this.username)) {
+                    console.log("--+++++");
+                    this.codeType = "PHONE";
+                    return true;
+                } else {
+                    console.log("44444");
+                    const isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if (isEmail.test(this.username)) {
+                        this.codeType = "EMAIL";
+                        return true;
+                    } else {
+                        this.$toast.error({
+                            title: "注意",
+                            message: "请输入正确的手机或邮箱符号"
+                        });
+                        return false
+                    }
+                }
             },
             checkLogin() {
-                if (!this.user) {
-                    this.$toast.warning({ title: "请注意", message: "用户名不能为空" });
+                console.log("guolaia====")
+                if (!this.username) {
+                    this.$toast.warn({ title: "请注意", message: "用户名不能为空" });
                     return false;
                 }
                 if (!this.password) {
-                    this.$toast.warning({ title: "请注意", message: "密码不能为空" });
+                    this.$toast.warn({ title: "请注意", message: "密码不能为空" });
                     return false;
                 }
-                return true;
-            }
+                const isPhone = /^1[3456789]\d{9}$/;
+                if (isPhone.test(this.username)) {
+                    console.log("--+++++");
+                    this.codeType = "PHONE";
+                    return true;
+                } else {
+                    const isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if (isEmail.test(this.username)) {
+                        this.codeType = "EMAIL";
+                        return true;
+                    } else {
+                        this.$toast.error({
+                            title: "注意",
+                            message: "请输入正确的手机或邮箱符号"
+                        });
+                        return false
+                    }
+                }
+            },
+            clearInputInfo: function () {
+                this.username = "",
+                    this.password = "",
+                    this.password_ = ""
+            },
+            sendPassCode: function () {
+                let flag = false;
+                if (!this.username || !this.password) {
+                    console.log("11111");
+                    this.$toast.error({ title: "输入有误", message: "用户名/密码不能为空" });
+                    flag = false;
+                }
+                const isPhone = /^1[3456789]\d{9}$/;
+                if (isPhone.test(this.username)) {
+                    console.log("--+++++");
+                    this.codeType = "PHONE";
+                    flag = true;
+                } else {
+                    console.log("44444");
+                    const isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if (isEmail.test(this.username)) {
+                        this.codeType = "EMAIL";
+                        flag = true;
+                    } else {
+                        flag = false
+                    }
+                }
+                if (flag == true) {
+                    console.log("发验证码");
+                    console.log(this.codeType)
+                    console.log(this.username)
+                    this.$http.post("rs-user/register/code",
+                        {
+                            tempType: this.codeType,
+                            tos: this.username
+                        })
+                        .then(res => {
+                            console.log(res);
+                            this.$toast.success({ title: "验证码已发", message: "请勿将验证码透漏给他人" });
+                            this.regisflag = "reg"
 
+                        }, err => {
+                            console.log(err);
+                        });
+                } else {
+                    this.$toast.error({
+                        title: "注意",
+                        message: "请输入正确的手机或邮箱符号"
+                    });
+                }
+            }
         },
     }
 </script>

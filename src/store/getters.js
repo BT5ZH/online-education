@@ -1,6 +1,6 @@
 const getters = {
     isAuthenticated(state) {
-        return state.idToken !== null
+        return state.token !== null
     },
 }
 export default getters
