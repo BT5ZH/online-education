@@ -11,12 +11,10 @@
         </div>
         <div class="iblock__content">
             <div class="iblock__left">
-                test
+                测试
             </div>
             <div class="iblock__detail">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam sed ipsam maxime a consequatur
-                repellendus, explicabo fugit quisquam soluta tempore. Optio iure provident eaque illum expedita
-                veritatis cum! Aut, quibusdam!
+                {{learningCourse.COURSE_SUMMARY}}
             </div>
 
         </div>
@@ -24,3 +22,17 @@
 
     
 </template>
+<script>
+export default {
+    data() {
+            return {
+                // rsId:this.$route.params.rsId
+            }
+        },
+        computed: {
+            learningCourse() {
+                return this.$store.state.learningCourseInfo;
+            }
+        },
+}
+</script>

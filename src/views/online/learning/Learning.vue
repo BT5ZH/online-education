@@ -24,8 +24,6 @@
                 courseId: this.courseId,
                 authorId:this.authorId
             }
-            console.log("7777"+this.authorId)
-            console.log("7777"+this.courseId)
             this.$store.dispatch("learningTheCourse",payload).then(() => {
                 console.log("-----------");
             }).catch((err) => {

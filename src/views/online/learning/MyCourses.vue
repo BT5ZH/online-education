@@ -8,7 +8,7 @@
                     </svg>
                 </li>
                 <div class="myCourses__area__card--title">
-                    您一共收藏了 XX 门课程
+                    您一共收藏了 <span style="font-size: 2.8rem;color:goldenrod">{{courseList.length}}</span> 门课程
                 </div>
             </div>
             <div v-for = "(course,index) in courseList" :key="index" class="myCourses__area__card" @click="startToLearn(index)">

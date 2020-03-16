@@ -26,7 +26,7 @@
             </div>
             <div class="user-nav__user" @click="profileInfo">
                 <img src="../../assets/img/user.jpg" alt="User photo" class="user-nav__user-photo">
-                <span class="user-nav__user-name">Joshsa</span>
+                <span class="user-nav__user-name">张汇泉</span>
             </div>
         </nav>
         

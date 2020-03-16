@@ -4,7 +4,7 @@
             <div v-for="(course,index) in allTreasure" :key="index" class="course">
                 <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME" class="course__img">
                 <svg class="course__like" @click="selectToLearn(index)">
-                    <use xlink:href="../../../assets/img/all.svg#icon-heart-outlined"></use>
+                    <use xlink:href="../../../assets/img/all.svg#icon-circle-with-plus"></use>
                 </svg>
                 <h5 class="course__name" @click="startToLearn(index)">{{course.COURSE_NAME}}</h5>
 
@@ -60,7 +60,7 @@
         },
         created() {
             this.$store.dispatch("getAllCourses").then(() => {
-                console.log("-----------");
+                console.log("获取全部课程成功");
             }).catch((err) => {
                 console.error(err);
             });
@@ -82,12 +82,12 @@
                     coverUrl: this.allTreasure[index].COURSE_COVERURL,
                     authorId: this.allTreasure[index].AUTHOR_ID
                 }
-                console.log("-------------->");
-                console.log(payload)
                 this.$store.dispatch("selectToLearn", payload).then(() => {
-                    console.log("-----------");
+                    console.log("选择课程成功");
+                    this.$toast.success({title:"添加成功",message:"本课程添加成功"});
                 }).catch((err) => {
                     console.error(err);
+                    this.$toast.error({title:"添加失败",message:"出错啦，课程添加失败"});
                 });
             }
         },

@@ -11,7 +11,6 @@ const actions = {
       password: authData.password
     }).then(
       response => {
-        console.log("login 拿到的token"+response.data.data.token)
         console.log(response);
         checkToken = response.data.data.token;
         if (checkToken == undefined || checkToken == "") {
@@ -40,7 +39,7 @@ const actions = {
       });
   },
   getResources({ commit }) {
-    console.log(localStorage.getItem("token"));
+    
     return axios.get('/rs-activity/RESOURCEGET', {
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +55,7 @@ const actions = {
     // commit(TYPES.getResources, payload);
   },
   releaseCourse({ commit }, payload) {
-    console.log(localStorage.getItem("token"));
+    
     return axios.post('/rs-activity/CREATECOURSEPOST', payload, {
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +81,7 @@ const actions = {
     });
   },
   getUserCourses({ commit }) {
-    console.log(localStorage.getItem("token"));
+    
     return axios.get('/rs-activity/USERCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
@@ -113,7 +112,7 @@ const actions = {
     });
   },
   getAllCourses({ commit }) {
-    console.log(localStorage.getItem("token"));
+    
     return axios.get('/rs-activity/ALLCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
@@ -128,7 +127,7 @@ const actions = {
   },
 
   selectToLearn({ commit }, payload) {
-    console.log(localStorage.getItem("token"));
+    
     return axios.post('/rs-user/course/SELECTCOURSEPOST', payload, {
       headers: {
         "Content-Type": "application/json",

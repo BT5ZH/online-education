@@ -134,6 +134,7 @@ const mutations ={
             LESSON_RESOURCE_SIZE:state.resourceList[state.currentResourceIndex].size,
             LESSON_RESOURCE_TYPE:state.resourceList[state.currentResourceIndex].type,
             LESSON_RESOURCE_URL:state.resourceList[state.currentResourceIndex].url,
+            LESSON_TIMEDURATION:state.resourceList[state.currentResourceIndex].RS_DURATION,
             RS:matching
         }
         state.courseInfo.CHAPTER_LIST[payload.index].LESSON_LIST[payload.number] = newLesson;

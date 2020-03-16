@@ -14,24 +14,22 @@
                         <span class="heading-7 heading-7--dark">7 / 13 &nbsp;|&nbsp; 33 分钟</span>
                     </div>
                 </div>
-                
+
                 <ul class="cs__list__nav">
-                    <li v-for="(lesson, number) in learningChapterList[index].LESSON_LIST" 
-                        :key="number"
-                        class="cs__list__nav__item"
-                        @click="activeCurrentLesson(index,number)">
+                    <li v-for="(lesson, number) in learningChapterList[index].LESSON_LIST" :key="number"
+                        class="cs__list__nav__item" @click="activeCurrentLesson(index,number)">
 
                         <svg class="user-nav__icon">
                             <use xlink:href="img/all.svg#icon-bookmark"></use>
                         </svg>
                         <div class="link-item">
                             <a href="#" class="cs__list__nav__link">第{{number+1}}课:{{lesson.LESSON_NAME}}</a>
-                            <span class="heading-7 heading-7--dark">{{lesson.LESSON_TIMEDURATION}}分钟</span>
+                            <span class="heading-7 heading-7--dark">{{timeFormat(lesson.LESSON_TIMEDURATION)}}</span>
                         </div>
                     </li>
-                    
 
-                </ul> 
+
+                </ul>
             </div>
         </div>
     </div>
@@ -52,7 +50,7 @@
             },
         },
         watch: {
-            '$route'(to, from){
+            '$route'(to, from) {
                 this.rsId = to.params.rsId;
                 console.log(from)
             }
@@ -60,17 +58,34 @@
         created() {
         },
         methods: {
-            activeCurrentLesson:function(index,number){
-                let payload ={
+            activeCurrentLesson: function (index, number) {
+                let payload = {
                     index,
                     number
                 }
-                this.$store.dispatch("showCurrentLesson",payload).then(() => {
+                this.$store.dispatch("showCurrentLesson", payload).then(() => {
                     console.log("播放视频成功");
                 }).catch((err) => {
                     console.error(err);
                 });
-            }
+            },
+            timeFormat: function (s) {
+                let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
+                let hour = Math.floor((s - day * 24 * 3600) / 3600);
+                let minute = Math.floor((s - day * 24 * 3600 - hour * 3600) / 60);
+                let second = Math.floor(s - day * 24 * 3600 - hour * 3600 - minute * 60);
+                let result = "";
+                if (day > 0) {
+                    result = day + "天" + hour + "时" + minute + "分" + second + "秒";
+                } else if (day == 0 && hour > 0) {
+                    result = hour + "时" + minute + "分" + second + "秒";
+                } else if (day == 0 && hour == 0 && minute > 0) {
+                    result = minute + "分" + second + "秒";
+                } else if (day == 0 && hour == 0 && minute == 0 && second > 0) {
+                    result = second + "秒";
+                }
+                return result
+            },
         },
     }
 </script>
