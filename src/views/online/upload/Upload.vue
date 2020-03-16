@@ -51,10 +51,11 @@
         borderhover: false,
         dragAndDropCapable: false,
         files: [],
-        videoUrl:"",
+        videoUrl: "",
         uploadPercentage: [],
         uploadPercentageTxt: '',
         currentLoad: [],
+        duration: [],
         currentIndex: -1,
         allowFlag: true
       }
@@ -143,19 +144,52 @@
               this.$refs['preview' + parseInt(i)][0].src = reader.result;
             }.bind(this), false);
             reader.readAsDataURL(this.files[i]);
+            this.duration[i] = 0;
 
           } else {
+            let videoFile = this.files[i];
+            let url = URL.createObjectURL(videoFile);
+            this.videoUrl = url;
+            setTimeout(() => {
+              // this.files[i].duration=document.getElementById("videoPlayer").duration;
+              
+              // console.log(this.timeFormat(document.getElementById("videoPlayer").duration));
+              if(this.duration[i]==null || this.duration==""){
+                console.log(document.getElementById("videoPlayer").duration);
+                this.duration[i] = document.getElementById("videoPlayer").duration;
+              }
+              
+            }, 800);
+
             this.$nextTick(function () {
               this.$refs['preview' + parseInt(i)][0].src = 'https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/public/index/mp4.png';
+
             });
 
           }
         }
       },
-
+      timeFormat: function (s) {
+        let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
+        let hour = Math.floor((s - day * 24 * 3600) / 3600);
+        let minute = Math.floor((s - day * 24 * 3600 - hour * 3600) / 60);
+        let second = Math.floor (s - day * 24 * 3600 - hour * 3600 - minute * 60);
+        let result = "";
+        if(day >0) {
+          result = day + "天" + hour + "时" + minute + "分" + second + "秒";
+        }else if(day==0 && hour>0){
+          result =  hour + "时" + minute + "分" + second + "秒";
+        }else if(day==0 && hour ==0 && minute>0){
+          result =   minute + "分" + second + "秒";
+        } else if(day==0 && hour ==0 && minute==0 && second>0){
+          result =    second + "秒";
+        }
+        return result
+      },
       removeFile(file) {
-        this.files = this.files.filter(f => {
+        this.files = this.files.filter((f,i) => {
           console.log(file.name)
+          this.duration.splice(i,1);
           return f != file;
         });
         console.log(this.files);
@@ -175,19 +209,25 @@
         const userId = localStorage.getItem("userId")
         const config = { headers: { Authorization: localStorage.getItem("token") } };
         const fileType = this.files[this.currentIndex].name.split(".").pop();
+
+        // if(fileType=="mp4"){
+        //   this.videoUrl=
+        // }
+
         let mimeType = mime.getType(fileType)
         if (fileType == "jpg") {
           mimeType = "image/" + fileType
         } else {
           mimeType = mime.getType(fileType)
         }
-        
+
         let tag = [];
 
         const data = {
           type: mimeType,
           name: this.files[this.currentIndex].name,
           size: this.files[this.currentIndex].size,
+          duration: this.duration[this.currentIndex],
           tag: tag,
           editflag: false,
           userId: userId
