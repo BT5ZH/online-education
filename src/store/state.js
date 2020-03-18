@@ -5,6 +5,9 @@ const state = {
     roleId:"",
     expirationDate:"",
 
+    //
+    dataLoading:false,
+
     //创建课程时候，用于存放正在创建的课程 的 所有信息的 课程对象
     courseInfo:{
         COURSE_NAME:"",

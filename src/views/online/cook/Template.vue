@@ -45,7 +45,6 @@
                     console.error(err);
                 });
             }
-            // console.log("%%%%%%%%%%%%"+temp);
         },
         methods: {
             releaseCourse: function () {
@@ -57,23 +56,12 @@
                 }).catch((err) => {
                     console.error(err);
                 });
-                // let payloadContent = {
-                //     course:this.$store.state.resourceList,
-                //     resource:this.$store.state.courseInfo
-                // }
-                // console.log(payloadContent)
                 this.$store.dispatch("releaseCourse", this.$store.state.courseInfo).then(() => {
                     console.log("课程发布标志成功返回");
                     
                 }).catch((err) => {
                     console.error(err);
                 });
-                // this.$store.dispatch("updateResourceList",this.$store.state.resourceList).then(()=>{
-                //     console.log("资源状态标志成功返回");
-                //     this.$router.push({ name: 'cookFirst' })
-                // }).catch((err) => {
-                //     console.error(err);
-                // });
             },
             saveCourse: function () {
                 let payload = {

@@ -1,14 +1,12 @@
 <template>
-    <div id="online" class="rs-online" >
+    <div id="online" class="rs-online">
         <online-header></online-header>
         <profile-info></profile-info>
         <div class="rs-content">
             <side-bar></side-bar>
             <router-view></router-view>
-            <!-- <online-courses v-if="show"></online-courses>
-            <online-learning v-if="show"></online-learning>
-            <online-upload v-if="!show"></online-upload> -->
         </div>
+        <data-loading :active="isActive" :is-full-screen="true" spinner="bar-fade-scale" color="#FF6700"></data-loading>
     </div>
 </template>
 
@@ -17,36 +15,33 @@
     import Header from './Header.vue'
     import Sidebar from './Sidebar.vue'
     import Popup from './Popup.vue'
-    // import Courses from './courses/Courses.vue'
-    // import Learning from './learning/Learning.vue'
-    // import Upload from './upload/Upload.vue'
+    import VueElementLoading from 'vue-element-loading'
+    import { mapState } from 'vuex'
     export default {
         name: "online",
-        data: function() {
+        data: function () {
             return {
                 show: false,
             }
         },
+        computed: {
+            ...mapState({  //...对象扩展符
+                isActive: 'dataLoading'
+            })
+        },
         components: {
             'online-header': Header,
             'side-bar': Sidebar,
-            'profile-info': Popup
+            'profile-info': Popup,
+            'data-loading': VueElementLoading
             // 'online-courses': Courses,
             // 'online-learning': Learning,
             // 'online-upload': Upload
         },
-        // beforeRouteEnter (to, from, next) {
-            // if(true){
-            //     next();
-            // }else{
-            //     next(false);
-            // }
-        // }
     }
 </script>
 <style lang="scss">
-/* .test {
+    /* .test {
     color: red;
 } */
 </style>
-

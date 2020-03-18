@@ -7,6 +7,15 @@ const mutations ={
         state.roleId = userData.roleId;
         state.expirationDate = userData.expirationDate;
     },
+    [TYPES.unAuthUser](state) {
+        state.token = null;
+        state.userId = null;
+        state.roleId = null;
+        state.expirationDate = null;
+    },
+    [TYPES.dataLoading](state,payload){
+        state.dataLoading = payload;
+    },
     [TYPES.courseInfo](state, userData) {
         console.log("mutation进来啦 "+userData.coverUrl);
         state.tempRsUrl = userData.coverUrl;

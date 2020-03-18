@@ -1,4 +1,6 @@
 export const authUser = 'authUser';
+export const unAuthUser = 'unAuthUser';
+export const dataLoading = 'dataLoading';
 
 export const courseInfo = 'courseInfo';
 export const updateCourseName = 'updateCourseName';

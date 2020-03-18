@@ -36,14 +36,10 @@
                     <router-link :to="{name:'learning',params:{courseId:course.COURSE_ID}}">开始学习</router-link>
                 </button> -->
             </div>
+            
         </div>
     </main>
 </template>
-<style>
-    .test {
-        background-image: url("../../../assets/img/all.svg#icon-heart-full");
-    }
-</style>
 <script>
     export default {
         data() {
@@ -59,10 +55,13 @@
             }
         },
         created() {
+            // this.$store.commit("dataLoading",true);
             this.$store.dispatch("getAllCourses").then(() => {
                 console.log("获取全部课程成功");
+                // this.$store.commit("dataLoading",false);
             }).catch((err) => {
                 console.error(err);
+                // this.$store.commit("dataLoading",false);
             });
         },
         methods: {

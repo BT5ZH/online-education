@@ -24,6 +24,11 @@
                 </svg>
                 <span class="user-nav__notification">90</span>
             </div>
+            <div class="user-nav__icon-box" @click="signout">
+                <svg class="user-nav__icon">
+                    <use xlink:href="../../assets/img/all.svg#icon-exit"></use>
+                </svg>
+            </div>
             <div class="user-nav__user" @click="profileInfo">
                 <img src="../../assets/img/user.jpg" alt="User photo" class="user-nav__user-photo">
                 <span class="user-nav__user-name">张汇泉</span>
@@ -44,6 +49,15 @@ export default {
     methods: {
         profileInfo:function(){
             location.href="#popup"
+        },
+        signout:function(){
+
+            this.$store.dispatch("signout").then(() => {
+                    console.log("登出成功");
+                    window.location.href = "index.html";
+                }).catch((err) => {
+                    console.error(err);
+                });
         }
     },
 }
