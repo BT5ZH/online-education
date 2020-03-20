@@ -1,79 +1,303 @@
-@mixin asCenter  {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+@mixin asCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .profilePop {
-    height: 100vh;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba($color-black, .7);
-    z-index: 9999;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-black, 0.7);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+  &__content {
+    @include asCenter;
+    width: 80%;
+    height: 60rem;
+    // background-color: $color-white;
+    // box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    border-radius: 3px;
+    display: table;
+    overflow: hidden;
     opacity: 0;
-    visibility: hidden;
-    transition: all .4s;
-    &__content {
-        @include asCenter;
-        width: 75%;
-        height: 50rem;
-        background-color: $color-white;
-        box-shadow: 0 2rem 4rem rgba($color-black, .2);
-        border-radius: 3px;
-        display: table;
-        overflow: hidden;
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
-        transition: all .5s .2s;
-    }    
-    //open state
-    &:target {
-        opacity: 1;
-        visibility: visible;
+    transform: translate(-50%, -50%) scale(0);
+    transition: all 0.5s 0.2s;
+  }
+  //open state
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+  &:target &__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  &__close {
+    &:link,
+    &:visited {
+      color: #fff;
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+      line-height: 1;
     }
-    &:target &__content {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    &__close {
-        &:link,
-        &:visited {
-            color: #fff;
-            position: absolute;
-            top: 2.5rem;
-            right: 2.5rem;
-            font-size: 3rem;
-            text-decoration: none;
-            display: inline-block;
-            transition: all .3s;
-            line-height: 1;
-        }
 
-        &:hover {
-            color: $color-primary;
-        }
+    &:hover {
+      color: $color-primary;
     }
+  }
 }
 
-
-
-.profileBlock {
-    background-image: linear-gradient(90deg,
-    rgba($color-white, .9) 0%,
-    rgba($color-white, .9) 50%,
-    transparent 50%), url("https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/public/index/login-bkg_1920.jpg");
-    background-size: 100%;
-    border-radius: 3px;
-    box-shadow: 2px 5px 5px rgba($color-black, 0.7);
-    height: 50rem;
+.profile {
+  //   background-image: linear-gradient(90deg, rgba($color-white, 0.9) 0%, rgba($color-white, 0.9) 50%, transparent 50%);
+  //   background-size: 100%;
+  border-radius: 3px;
+  //   box-shadow: 2px 5px 5px rgba($color-black, 0.7);
+  height: 60rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  &__l {
+    grid-column: 1 / 2;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    &__b {
-      grid-column: 1 / 2;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    background-color: transparent;
+    &__card {
+      grid-column: 3 / 6;
+      grid-row: 1 / 6;
+      margin: 1rem;
+      border-radius: 5px;
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
+      //   overflow: hidden; 这个位置会影响阴影
+
+      &__side {
+        display: grid;
+        grid-template-rows: repeat(9, 1fr);
+        grid-template-columns: repeat(6, 1fr);
+        overflow: hidden;
+        transition: all 0.8s ease;
+        backface-visibility: hidden;
+        box-shadow: 0.5rem 0.5rem 0.3rem rgba($color-secondary, 0.3);
+        overflow: hidden;
+        &--front {
+          grid-row: 1 /10;
+          grid-column: 1 /7;
+          border-radius: 5px;
+        }
+        &--back {
+          grid-row: 1 /10;
+          grid-column: 1 /7;
+          background-color: $color-white;
+          border-radius: 5px;
+          transform: rotateY(180deg);
+        }
+      }
+
+      &:hover &__side--front {
+        transform: rotateY(-180deg);
+      }
+
+      &:hover &__side--back {
+        transform: rotateY(0);
+      }
+    }
+
+    // transition: all .8s ease;
+  }
+  &__r {
+    grid-column: 2 / 3;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.user__card {
+  &__header {
+    background-color: rgba($color-secondary, 0.5);
+    z-index: 1;
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: flex-start;
+    justify-items: flex-end;
+    &--left {
+      justify-self: start;
+      svg {
+        fill: $color-white;
+        height: 2.25rem;
+        width: 2.25rem;
+        padding: 1rem 0 0 1rem;
+      }
+    }
+    &--right {
+      svg {
+        fill: $color-white;
+        height: 2.25rem;
+        width: 2.25rem;
+        padding: 1rem 1rem 0;
+      }
     }
   }
+  &__img {
+    grid-column: 1 / 7;
+    grid-row: 1 / 9;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-secondary, 0.5);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__cover {
+    grid-column: 1 /7;
+    grid-row: 6 / 9;
+    background-color: rgba($color-secondary, 0.7);
+    color: $color-white;
+
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    grid-template-rows: 2fr 1fr 1fr 2fr;
+    align-items: center;
+
+    &--name {
+      grid-column: 1 / 2;
+      grid-row: 1 /2;
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 1rem;
+      padding-left: 1rem;
+    }
+    &--age {
+      grid-column: 1 /2;
+      grid-row: 2 / 3;
+
+      font-size: 1.5rem;
+      padding-left: 1rem;
+    }
+    &--occ {
+      grid-column: 2 /3;
+      grid-row: 2 / 3;
+      font-size: 1.5rem;
+    }
+    &--company {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+
+      font-size: 1.5rem;
+      padding-left: 1rem;
+    }
+    &--department {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+
+      font-size: 1.5rem;
+      padding-left: 1rem;
+    }
+    &--des {
+      grid-column: 1 / 3;
+      grid-row: 4 / 5;
+
+      font-size: 1.5rem;
+      padding-left: 1rem;
+    }
+  }
+
+  &__footer {
+    grid-column: 1 /7;
+    grid-row: 9 / 10;
+    background-color: $color-grey-light-1;
+    display: grid;
+    grid-template-columns: 7fr, 3fr;
+    align-items: center;
+    font-weight: 400;
+    &--email {
+      grid-column: 1 /2;
+      padding-left: 1rem;
+      color: $color-secondary;
+      font-size: 1.6rem;
+    }
+    &--right {
+      grid-column: 2 /3;
+      color: $color-secondary;
+      font-size: 1.6rem;
+    }
+  }
+}
+.user__card__back {
+  &__input {
+    font-size: 1.2rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    border-radius: 2px;
+    background-color: rgba($color-white, 0.7);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 90%;
+    display: block;
+  }
+
+  &__inner {
+    // grid-column: 2 / 6;
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    &--show {
+    }
+    &--op {
+      svg {
+        fill: #01a1fd;
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  &--name {
+    grid-row: 1 / 2;
+    grid-column: 2 / 6;
+  }
+  &--company {
+    grid-row: 2 / 3;
+    grid-column: 2 / 6;
+  }
+  &--department {
+    grid-row: 3 / 4;
+    grid-column: 2 / 6;
+  }
+  &--title {
+    grid-row: 4 / 5;
+    grid-column: 2 / 6;
+  }
+  &--cid {
+    grid-row: 5 / 6;
+    grid-column: 2 / 6;
+  }
+  &--email {
+    grid-row: 6 / 7;
+    grid-column: 2 / 6;
+  }
+  &--mobile {
+    grid-row: 7 / 8;
+    grid-column: 2 / 6;
+  }
+  &--birthday {
+    grid-row: 8 / 9;
+    grid-column: 2 / 6;
+  }
+}

@@ -1,10 +1,8 @@
 const state = {
-
     token: "",
     userId: "",
     roleId:"",
     expirationDate:"",
-
     //
     dataLoading:false,
 
@@ -35,7 +33,19 @@ const state = {
     //     lessonAssignment:"",
     //     lessonQuestionList:[],
     resourceList:[],
-    currentResourceIndex:-1
+    currentResourceIndex:-1,
+
+    // 用户个人情报
+    userProfile: {
+        REAL_NAME:"",
+        COMPANY:"",
+        DEPARTMENT:"",
+        TITLE:"",
+        COMPANY_ID:"",
+        EMAIL:"",
+        MOBILE:"",
+        BIRTHDAY:""
+    }
 }
 
 export default state

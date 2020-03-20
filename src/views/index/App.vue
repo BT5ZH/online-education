@@ -1,6 +1,5 @@
 <template>
   <div id="xyz" class="container">
-    <page-loading></page-loading>
     <app-header></app-header>
     <app-features></app-features>
     <app-footer></app-footer>
@@ -17,7 +16,7 @@ import Features from './Features.vue'
 import Footer from './Footer.vue'
 import Popup from './Popup.vue'
 import DataLoading from 'vue-element-loading'
-
+import {mapState} from 'vuex'
 export default {
   name: 'App',
   components: {
@@ -26,7 +25,12 @@ export default {
     'app-footer': Footer,
     'app-login': Popup,
     'data-loading':DataLoading
-  }
+  },
+  computed: {
+    ...mapState({  //...对象扩展符
+                isActive: 'dataLoading'
+            })
+  },
 }
 </script>
 
