@@ -29,3 +29,15 @@ export const getMyCourses = 'getMyCourses';
 export const selectToLearn = 'selectToLearn';
 export const learningTheCourse = 'learningTheCourse';
 export const showCurrentLesson = 'showCurrentLesson';
+
+//用户信息
+export const updateRealName = 'updateRealName';
+export const updateCompany = 'updateCompany';
+export const updateDepartment = 'updateDepartment';
+export const updateMajor = 'updateMajor';
+export const updateTitle = 'updateTitle';
+export const updateCid = 'updateCid';
+export const updateEmail = 'updateEmail';
+export const updateMobile = 'updateMobile';
+export const updatebirthday = 'updatebirthday';
+export const updateIndividual = 'updateIndividual';

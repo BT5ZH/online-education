@@ -2,10 +2,61 @@ import * as TYPES from "./mutation-types"
 import axios from "./axios-auth";
 
 const actions = {
-  //登录注册
+  //发送验证码
+  sendCode({ commit }, payload) {
+
+    console.log("sendCode action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    return new Promise((resolve, reject) => {
+      axios.post("rs-user/register/code",
+      payload)
+        .then(res => {
+          commit(TYPES.dataLoading, false);
+          console.log(res.data.statusCode);
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+
+    });
+
+  },
+  //注册
+  register({ commit }, payload) {
+    console.log("register action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    return new Promise((resolve, reject) => {
+      axios.post("rs-user/register",
+        payload)
+        .then(res => {
+          console.log("register  + 注册成功" + res);
+          console.log(res);
+          commit(TYPES.dataLoading, false);
+          Object.prototype.hasOwnProperty.call(res.data, "errorMessage")
+          if (Object.prototype.hasOwnProperty.call(res.data, "errorMessage") || Object.prototype.hasOwnProperty.call(res.data, "errorType")) {
+            // console.log("注册失败")
+            resolve("验证失败")
+          } else if (res.data.statusNumber == "rs-102") {
+            resolve("rs-102")
+          } else if (res.data.statusNumber == "rs-403") {
+            resolve("rs-403")
+          }
+
+
+        }, error => {
+          commit(TYPES.dataLoading, false);
+          reject(error)
+        });
+    });
+
+
+  },
+  //登录
   login({ commit, state }, authData) {
     let checkToken = "";
-    console.log("进来啦")
+    console.log("login action 进来啦")
     return axios.post("/rs-user/login", {
       username: authData.username,
       password: authData.password
@@ -55,7 +106,7 @@ const actions = {
     // commit(TYPES.getResources, payload);
   },
   releaseCourse({ commit }, payload) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     return axios.post('/rs-activity/CREATECOURSEPOST', payload, {
       headers: {
         "Content-Type": "application/json",
@@ -74,15 +125,15 @@ const actions = {
         // this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
         console.log("releaseCourse + ------ failed")
       }
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
 
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
   getUserCourses({ commit }) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     return axios.get('/rs-activity/USERCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
@@ -92,16 +143,16 @@ const actions = {
       console.log(response);
       const payload = response.data.data
       commit(TYPES.getUserCourses, payload);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
 
   //用户选择的课程f
   getMyCourses({ commit }) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     return axios.get('/rs-user/course/COURSEGET', {
       headers: {
         "Content-Type": "application/json",
@@ -111,14 +162,14 @@ const actions = {
       console.log(response);
       const payload = response.data.data
       commit(TYPES.getMyCourses, payload);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
   getAllCourses({ commit }) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     return axios.get('/rs-activity/ALLCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
@@ -127,10 +178,10 @@ const actions = {
     }).then(response => {
       const payload = response.data.data
       commit(TYPES.getAllCourses, payload);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
 
@@ -151,7 +202,7 @@ const actions = {
   },
 
   learningTheCourse({ commit }, payload) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId + "?authorId=" + payload.authorId;
     return axios.get(queryUrl, {
       headers: {
@@ -163,10 +214,10 @@ const actions = {
       const payload = response.data.data
       commit(TYPES.learningTheCourse, payload);
       commit(TYPES.showCurrentLesson, { index: 0, number: 0 });
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
   showCurrentLesson({ commit }, payload) {
@@ -178,7 +229,7 @@ const actions = {
   },
 
   editTheCourse({ commit }, payload) {
-    commit(TYPES.dataLoading,true);
+    commit(TYPES.dataLoading, true);
     let queryUrl = "/rs-activity/COOKCOURSEGET/" + payload.courseId;
     return axios.get(queryUrl, {
       headers: {
@@ -189,10 +240,10 @@ const actions = {
 
       const payload = response.data.data
       commit(TYPES.editTheCourse, payload);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     }, error => {
       console.log(error);
-      commit(TYPES.dataLoading,false);
+      commit(TYPES.dataLoading, false);
     });
   },
 
@@ -240,11 +291,44 @@ const actions = {
     commit(TYPES.authUser, payload);
   },
   signout({ commit }) {
-    localStorage.setItem("token", null) ;
-    localStorage.setItem("userId", null) ;
-    localStorage.setItem("roleId", null) ;
-    localStorage.setItem("expirationDate", null) ;
+    localStorage.setItem("token", null);
+    localStorage.setItem("userId", null);
+    localStorage.setItem("roleId", null);
+    localStorage.setItem("expirationDate", null);
     commit(TYPES.unAuthUser);
+  },
+
+  //updateInfo
+  updateRealName({commit}, payload){
+    commit(TYPES.updateCourseName, payload);
+  },
+  updateCompany({commit}, payload){
+    console.log("updateCompany action");
+    commit(TYPES.updateCompany, payload);
+  },
+  updateDepartment({commit}, payload){
+    commit(TYPES.updateDepartment, payload);
+  },
+  updateMajor({commit}, payload){
+    commit(TYPES.updateMajor, payload);
+  },
+  updateTitle({commit}, payload){
+    commit(TYPES.updateTitle, payload);
+  },
+  updateCid({commit}, payload){
+    commit(TYPES.updateCid, payload);
+  },
+  updateEmail({commit}, payload){
+    commit(TYPES.updateEmail, payload);
+  },
+  updateMobile({commit}, payload){
+    commit(TYPES.updateMobile, payload);
+  },
+  updatebirthday({commit}, payload){
+    commit(TYPES.updatebirthday, payload);
+  },
+  updateIndividual({commit},payload){
+    commit(TYPES.updateIndividual, payload)
   }
 
 };

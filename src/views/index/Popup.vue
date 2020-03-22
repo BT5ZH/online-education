@@ -27,7 +27,7 @@
                         <div class="form__code" v-if="regisflag=='reg'">
                             <input v-model="passcode" type="text" class="form__code__txt" placeholder="验证码"
                                 id="passcode" name="passcode">
-                            <button type="button" class="form__code__btn" @click="sendPassCode">验证码</button>
+                            <button type="button" class="form__code__btn" @click="sendPassCode" :disabled="timerShow">验证码<span v-if="timerShow">{{timerCount}}</span></button>
                         </div>
 
                         <div class="form__group form__role">
@@ -72,28 +72,23 @@
                 regisflag: 'login',
                 isLog: false,
                 tempType: 'REGPOST',
-                codeType: ''
+                codeType: '',
+                timerShow:false,
+                timerCount:0,
+                timer:null
             }
         },
         watch: {
-            // password() {
-            //     const rule1 = /[^a-zA-Z/a-zA-Z0-9/`~!@$%^&()\-+=<>?:"{}|,./;'_#*·~！@￥%……&（）——\-+={}|《》？：“”【】、；‘’，。、]/g;
-            //     if (rule1.test(this.password)) {
-            //         this.$toast.error({
-            //             title: "error",
-            //             message: "密码不支持此符号, 请更换其他符号"
-            //         });
-            //         this.password = this.password.replace(rule1);
-            //     }
-            // },
             regisflag: function () {
                 if (this.regisflag) {
                     this.username = '';
                     this.password = '';
                     this.password_ = '';
+                    console.log(this.regisflag);
                 } else {
                     this.username = '';
                     this.password = '';
+                    console.log(this.regisflag);
                 }
             }
         },
@@ -101,11 +96,9 @@
             submit() {
                 switch (this.regisflag) {
                     case "reg":
-                        console.log("+++++")
                         this.registerBusiness();
                         break;
                     case "login":
-                        console.log("=====")
                         this.loginBusiness();
                         break;
                     default:
@@ -125,24 +118,24 @@
                         code: this.passcode
                     }
                     console.log(formData);
+                    this.$store.dispatch("register", formData).then((res) => {
+                        // const result = res.data;
+                        // console.log("注册结果" + res);
+                        // this.$toast.success({ title: "注册成功", message: "可以登录了哦" });
 
-                    this.$http.post("rs-user/register",
-                        {
-                            username: this.username,
-                            password: this.password,
-                            tempType: this.tempType,
-                            codeType: this.codeType,
-                            code: this.passcode
-                        })
-                        .then(res => {
-                            console.log(res);
-                            console.log("结束");
-                            this.$toast.success({ title: "注册成功", message: "可以登录了哦" });
-                            this.regisflag = "reg"
+                        if (res == "验证失败") {
+                            this.$toast.error({ title: "注册失败", message: "出错啦！" })
+                        } else if (res == "rs-102") {
+                            this.$toast.success({ title: "注册成功", message: "请您直接登录" })
+                        } else if (res == "rs-403") {
+                            this.$toast.error({ title: "注册失败", message: "该号码已经被注册" })
+                        }
 
-                        }, err => {
-                            console.log(err);
-                        });
+                    }, () => {
+
+                    })
+
+
                 }
             },
             loginBusiness() {
@@ -171,25 +164,20 @@
             },
             checkRegister() {
                 if (!this.username || !this.password) {
-                    console.log("11111");
                     this.$toast.error({ title: "输入有误", message: "用户名/密码不能为空" });
                     return false;
                 } else if (this.password != this.password_) {
-                    console.log("22222");
                     this.$toast.error({ title: "输入有误", message: "两次密码不一致" });
                     return false;
                 } else if (!this.passcode) {
-                    console.log("33333");
                     this.$toast.error({ title: "输入有误", message: "请输入验证码" });
                     return false;
                 }
                 const isPhone = /^1[3456789]\d{9}$/;
                 if (isPhone.test(this.username)) {
-                    console.log("--+++++");
                     this.codeType = "PHONE";
                     return true;
                 } else {
-                    console.log("44444");
                     const isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                     if (isEmail.test(this.username)) {
                         this.codeType = "EMAIL";
@@ -204,7 +192,6 @@
                 }
             },
             checkLogin() {
-                console.log("guolaia====")
                 if (!this.username) {
                     this.$toast.warn({ title: "请注意", message: "用户名不能为空" });
                     return false;
@@ -215,7 +202,6 @@
                 }
                 const isPhone = /^1[3456789]\d{9}$/;
                 if (isPhone.test(this.username)) {
-                    console.log("--+++++");
                     this.codeType = "PHONE";
                     return true;
                 } else {
@@ -240,17 +226,14 @@
             sendPassCode: function () {
                 let flag = false;
                 if (!this.username || !this.password) {
-                    console.log("11111");
-                    this.$toast.error({ title: "输入有误", message: "用户名/密码不能为空" });
+
                     flag = false;
                 }
                 const isPhone = /^1[3456789]\d{9}$/;
                 if (isPhone.test(this.username)) {
-                    console.log("--+++++");
                     this.codeType = "PHONE";
                     flag = true;
                 } else {
-                    console.log("44444");
                     const isEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                     if (isEmail.test(this.username)) {
                         this.codeType = "EMAIL";
@@ -260,22 +243,35 @@
                     }
                 }
                 if (flag == true) {
-                    console.log("发验证码");
-                    console.log(this.codeType)
-                    console.log(this.username)
-                    this.$http.post("rs-user/register/code",
-                        {
-                            tempType: this.codeType,
-                            tos: this.username
-                        })
-                        .then(res => {
-                            console.log(res);
-                            this.$toast.success({ title: "验证码已发", message: "请勿将验证码透漏给他人" });
-                            this.regisflag = "reg"
+                    let formData = {
+                        tempType: this.codeType,
+                        tos: this.username
+                    }
 
-                        }, err => {
-                            console.log(err);
-                        });
+                    this.$store.dispatch("sendCode", formData).then((res) => {
+                        if (res == "rs-444") {
+                            this.$toast.error({ title: "出错啦！", message: "验证码发送失败" })
+                        } else if (res == "rs-102") {
+                            this.$toast.success({ title: "验证码已发", message: "请勿将验证码透漏给他人" });
+                            const TIME_COUNT = 300;
+                            if (!this.timer) {
+                                this.timerCount = TIME_COUNT;
+                                this.timerShow = true;
+                                this.timer = setInterval(() => {
+                                    if (this.timerCount > 0 && this.timerCount <= TIME_COUNT) {
+                                        this.timerCount--;
+                                    } else {
+                                        this.timerShow = false;
+                                        clearInterval(this.timer);
+                                        this.timer = null;
+                                    }
+                                }, 1000)
+                            }
+                        }
+                    }, () => {
+
+                    })
+
                 } else {
                     this.$toast.error({
                         title: "注意",

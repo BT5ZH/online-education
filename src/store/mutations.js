@@ -15,6 +15,7 @@ const mutations ={
     },
     [TYPES.dataLoading](state,payload){
         state.dataLoading = payload;
+        console.log(state.dataLoading)
     },
     [TYPES.courseInfo](state, userData) {
         console.log("mutation进来啦 "+userData.coverUrl);
@@ -238,6 +239,42 @@ const mutations ={
     [TYPES.selectToLearn](state,payload){
         console.log("selectToLearn + mutation 进来啦 "+state.myCoursesShortList);
         console.log("selectToLearn + mutation 进来啦 "+payload);
-    }
+    },
+    [TYPES.updateRealName](state, payload) {
+        console.log("updateRealName + mutation 进来啦"+payload.realName);
+        state.userProfile.NAME = payload.realName;  
+    },
+    [TYPES.updateCompany](state, payload) {
+        console.log("updateCompany + mutation 进来啦"+payload.company);
+        state.userProfile.COMPANY = payload.company;  
+    },
+    [TYPES.updateDepartment](state, payload) {
+        console.log("updateDepartment + mutation 进来啦"+payload.department);
+        state.userProfile.DEPARTMENT = payload.department;  
+    },
+    [TYPES.updateMajor](state, payload) {
+        console.log("updateMajor + mutation 进来啦"+payload.major);
+        state.userProfile.MAJOR = payload.major;  
+    },
+    [TYPES.updateTitle](state, payload) {
+        console.log("updateTitle + mutation 进来啦"+payload.title);
+        state.userProfile.TITLE = payload.title;  
+    },
+    [TYPES.updateCid](state, payload) {
+        console.log("updateCid + mutation 进来啦"+payload.cid);
+        state.userProfile.COMPANY_ID = payload.cid;  
+    },
+    [TYPES.updateEmail](state, payload) {
+        console.log("updateEmail + mutation 进来啦"+payload.email);
+        state.userProfile.EMAIL = payload.email;  
+    },
+    [TYPES.updateMobile](state, payload) {
+        console.log("updateMobile + mutation 进来啦"+payload.mobile);
+        state.userProfile.MOBILE = payload.mobile;  
+    },
+    [TYPES.updateIndividual](state, payload) {
+        console.log("updateIndividual + mutation 进来啦"+payload);
+        state.courseInfo.userProfile = payload;  
+    },
 }
 export default mutations;

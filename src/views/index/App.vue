@@ -15,7 +15,7 @@ import Header from './Header.vue'
 import Features from './Features.vue'
 import Footer from './Footer.vue'
 import Popup from './Popup.vue'
-import DataLoading from 'vue-element-loading'
+import VueElementLoading from 'vue-element-loading'
 import {mapState} from 'vuex'
 export default {
   name: 'App',
@@ -24,7 +24,7 @@ export default {
     'app-features': Features,
     'app-footer': Footer,
     'app-login': Popup,
-    'data-loading':DataLoading
+    'data-loading':VueElementLoading
   },
   computed: {
     ...mapState({  //...对象扩展符

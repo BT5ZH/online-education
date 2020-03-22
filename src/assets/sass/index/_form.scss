@@ -35,19 +35,25 @@
       border-radius: 2px;
       border: none;
     }
-    &__btn{
-        font-size: 1.4rem;
-        font-family: inherit;
-        background-color: rgba($color-primary,.7);
-        margin-left: 2rem;
-        padding: 1.2rem 2rem 1.2rem 2rem;
-        color: $color-white;
-        width: 5rem;
-        border: none;
-        cursor: pointer;
+    &__btn {
+      font-size: 1.4rem;
+      font-family: inherit;
+      background-color: rgba($color-primary, 0.7);
+      margin-left: 2rem;
+      padding: 1.2rem 2rem 1.2rem 2rem;
+      color: $color-white;
+      width: 6rem;
+      border: none;
+      cursor: pointer;
     }
-    &__btn:hover{
-        background-color: rgba($color-secondary,.7);
+    &__btn:hover {
+      background-color: rgba($color-secondary, 0.7);
+    }
+    &__btn:disabled {
+      color: #666;
+    }
+    &__btn:disabled:hover {
+      background-color: rgba($color-white, 0.7);
     }
   }
 
