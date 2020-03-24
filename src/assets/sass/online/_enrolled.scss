@@ -1,0 +1,58 @@
+.enrolled__header {
+  grid-row: 1/2;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+.enrolled__content {
+  grid-row: 2/3;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  &__l {
+    grid-column: 1/2;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    overflow-y: scroll;
+    height: 66.6rem;
+    &__progress{
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-rows: 8fr 2fr;
+        align-items: center;
+        &--image{
+            grid-row: 1/2;
+            align-self: flex-end;
+            margin-left: 1rem;
+            img{
+                height: 5rem;
+                width: 5rem;
+                border-radius: 50%;
+            }
+            
+        }
+        &--short{
+            display: none;
+        }
+        &--bar {
+            grid-row: 2/3;
+            height: 6px;
+            border: 1px solid $color-grey-light-6;
+            border-radius: .5rem;
+            margin: 0 1rem;
+            &--in{
+                background-image: linear-gradient(to right, rgba($color-tertiary-light, .7), rgba($color-tertiary-dark, .8));
+                height: 100%;
+                width:0;
+            }
+        }
+    }
+  }
+  &__r {
+    grid-column: 2/3;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+  }
+}
