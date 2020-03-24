@@ -29,11 +29,18 @@ function uploadFile(file, AWSConfig, callback, progress) {
      mimeType = mime.getType(fileType)
   }
   
+  let keyValue=""
+  if(AWSConfig.flag=="avatar"){
+    keyValue=`${AWSConfig.path}/${AWSConfig.userId}.${fileType}`
+  }else{
+    keyValue=`${AWSConfig.path}/${AWSConfig.id}.${fileType}`
+  }
+  console.log(keyValue)
   const params = {
     ACL: "public-read",
     Bucket: "rs-learning-resources",
     Body: file,
-    Key: `${AWSConfig.path}/${AWSConfig.id}.${fileType}`,
+    Key: keyValue,
     ContentType: mimeType,
     Metadata: {
       uploader: localStorage.getItem("userId")

@@ -176,8 +176,8 @@
                                         <span v-if="!userInfo.BIRTHDAY">生年月日</span>
                                         <span v-if="userInfo.BIRTHDAY">{{userInfo.BIRTHDAY}}</span>
                                     </label>
-                                    <input v-if="birthdayEdit" type="text" class="user__card__back__input" name="birthday"
-                                        placeholder="生年月日">
+                                    <input v-if="birthdayEdit" type="text" class="user__card__back__input"
+                                        name="birthday" placeholder="生年月日">
                                 </div>
                                 <div class="user__card__back__inner--op" @click="editBirthday">
                                     <svg class="">
@@ -197,22 +197,23 @@
                             <div class="pass__card__front__header">
                                 修改密码
                             </div>
-                            <div class="pass__card__front__btn">
+                            <div class="pass__card__front__btn" @click="updatePassword">
                                 <svg>
                                     <use xlink:href="../../assets/img/all.svg#icon-paper-plane"></use>
                                 </svg>
                             </div>
                             <div class="pass__card__front__oldPass">
                                 <label for="oldPass">旧密码：</label>
-                                <input type="text" placeholder="请输入旧密码" name="oldPass" id="oldPass">
+                                <input v-model="oldPass" type="text" placeholder="请输入旧密码" name="oldPass" id="oldPass">
                             </div>
                             <div class="pass__card__front__newPass">
                                 <label for="newPass">新密码：</label>
-                                <input type="text" placeholder="请输入新密码" name="newPass" id="newPass">
+                                <input v-model="newPass" type="text" placeholder="请输入新密码" name="newPass" id="newPass">
                             </div>
                             <div class="pass__card__front__newPassC">
                                 <label for="newPassC">防手抖：</label>
-                                <input type="text" placeholder="请再输入一遍新密码" name="newPassC" id="newPassC">
+                                <input v-model="newPassC" type="text" placeholder="请再输入一遍新密码" name="newPassC"
+                                    id="newPassC">
                             </div>
                         </div>
                         <div class="pass__card__back profile__r__card__side profile__r__card__side--back">
@@ -239,16 +240,33 @@
                             </div>
                             <div class="connect__card__front__getBtn">
 
-                                <button @click="getSMSCode" :disabled="timerShow">获取验证码<span v-if="timerShow">{{timerCount}}</span></button>
+                                <button @click="getSMSCode" :disabled="timerShow">获取验证码<span
+                                        v-if="timerShow">{{timerCount}}</span></button>
                             </div>
                         </div>
                     </div>
-                    <div class="profile__r__avatar">
+                    <div class="profile__r__avatar" id="file-drag-drop">
                         <div class="avatar__card__front profile__r__avatar__side profile__r__avatar__side--front">
                             <div class="avatar__card__front__header">
-                                上传头像
+                                拖拽头像到此卡片
                             </div>
-                            
+                            <div class="avatar__card__front__area" v-for="(item,index) in files" :key="index">
+                                <img class=" preview" v-bind:ref="'preview'+parseInt( index )">
+                                <svg class="avatar__card__front__area--remove" v-on:click="removeFile( item )">
+                                    <use xlink:href="../../assets/img/all.svg#icon-circle-with-cross"></use>
+                                </svg>
+                                <svg class="avatar__card__front__area--send" v-on:click="uploadBusiness( index )">
+                                    <use xlink:href="../../assets/img/all.svg#icon-paper-plane"></use>
+                                </svg>
+                                <div class="avatar__card__front__area--upload">{{currentLoad }}</div>
+                            </div>
+                            <!-- <div class="avatar__card__front__area " v-for="(item,index) in files" :key="index">
+                                <img class="avatar__card__front__area--img preview"
+                                    v-bind:ref="'preview'+parseInt( index )">
+                                <svg class="avatar__card__front__area--btn" v-on:click="removeFile( item )">
+                                    <use xlink:href="../../assets/img/all.svg#icon-circle-with-cross"></use>
+                                </svg>
+                            </div> -->
                         </div>
                     </div>
                     <div class="profile__r__profile">
@@ -256,12 +274,13 @@
                             <div class="profile__card__front__header">
                                 修改个人情报
                             </div>
-                            <div v-if="!individualInfoEdit" class="profile__card__front__edit" @click="editIndividualInfo">
+                            <div class="profile__card__front__edit" @click="editIndividualInfo">
                                 <svg>
                                     <use xlink:href="../../assets/img/all.svg#icon-new-message"></use>
                                 </svg>
                             </div>
-                            <div v-if="individualInfoEdit" class="profile__card__front__btn" @click="submitIndividualInfo">
+                            <div v-if="individualInfoEdit" class="profile__card__front__btn"
+                                @click="submitIndividualInfo">
                                 <svg>
                                     <use xlink:href="../../assets/img/all.svg#icon-paper-plane"></use>
                                 </svg>
@@ -269,48 +288,58 @@
                             <div class="profile__card__front__realName">
                                 <label for="realName">姓名：</label>
                                 <div class="profile__card__front--specific">
-                                    <input v-if="individualInfoEdit" type="text" placeholder="您的姓名" name="realName" id="realName">
+                                    <input v-if="individualInfoEdit" v-model="userInfo.NAME" type="text"
+                                        placeholder="您的姓名" name="realName" id="realName">
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>韦小宝</span>
+                                        <span v-if="!userInfo.NAME">韦小宝</span>
+                                        <span v-if="userInfo.NAME">{{userInfo.NAME}}</span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="profile__card__front__company">
                                 <label for="company">企业：</label>
                                 <div class="profile__card__front--specific">
-                                    <input v-if="individualInfoEdit" type="text" placeholder="公司/学校" name="company" id="company">
+                                    <input v-if="individualInfoEdit" v-model="userInfo.WORKPLACE" type="text"
+                                        placeholder="公司/学校" name="company" id="company">
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>陕西师范大学</span>
+                                        <span v-if="!userInfo.COMPANY">陕西师范大学</span>
+                                        <span v-if="userInfo.COMPANY">{{userInfo.WORKPLACE}}</span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="profile__card__front__department">
                                 <label for="department">部门：</label>
                                 <div class="profile__card__front--specific">
-                                    <input v-if="individualInfoEdit" type="text" placeholder="部门/学院" name="department" id="department">
+                                    <input v-if="individualInfoEdit" v-model="userInfo.DEPARTMENT" type="text"
+                                        placeholder="部门/学院" name="department" id="department">
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>计算机科学学院</span>
+                                        <span v-if="!userInfo.DEPARTMENT">计算机科学学院</span>
+                                        <span v-if="userInfo.DEPARTMENT">{{userInfo.DEPARTMENT}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="profile__card__front__major">
                                 <label for="major">专业：</label>
                                 <div class="profile__card__front--specific">
-                                    <input v-if="individualInfoEdit" type="text" placeholder="组/专业" name="major" id="major">
+                                    <input v-if="individualInfoEdit" v-model="userInfo.MAJOR" type="text"
+                                        placeholder="组/专业" name="major" id="major">
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>软件工程</span>
+                                        <span v-if="!userInfo.MAJOR">软件工程</span>
+                                        <span v-if="userInfo.MAJOR">{{userInfo.MAJOR}}</span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="profile__card__front__cid">
                                 <label for="cid">身份：</label>
                                 <div class="profile__card__front--specific">
-                                    <input v-if="individualInfoEdit" type="text" placeholder="企业ID/学号" name="cid" id="cid">
+                                    <input v-model="userInfo.COMPANY_ID" v-if="individualInfoEdit" type="text"
+                                        placeholder="企业ID/学号" name="cid" id="cid">
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>41628888</span>
+                                        <span v-if="!userInfo.COMPANY_ID">41778888</span>
+                                        <span v-if="userInfo.COMPANY_ID">{{userInfo.COMPANY_ID}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -318,48 +347,52 @@
                                 <label for="title">头衔：</label>
                                 <div class="profile__card__front--specific">
                                     <!-- <input v-if="!individualInfoEdit" type="text" placeholder="企业ID/学号" name="cid" id="cid"> -->
-                                    <div v-if="individualInfoEdit" class="profile__card__front__title--sel" @click="showTitle()">
-                                        <div class="profile__card__front__title--sel__show" >
-                                            <input v-model="titleValue" type="text" placeholder="头衔" name="title" id="title">
+                                    <div v-if="individualInfoEdit" class="profile__card__front__title--sel"
+                                        @click="showTitle()">
+                                        <div class="profile__card__front__title--sel__show">
+                                            <input v-model="titleValue" type="text" placeholder="头衔" name="title"
+                                                id="title">
                                             <svg>
                                                 <use xlink:href="../../assets/img/all.svg#icon-chevron-down"></use>
                                             </svg>
                                         </div>
                                         <div class="profile__card__front__title--list" v-show="titleShow">
                                             <ul>
-                                                <li @click="getTitleValue(index,item)" v-for="(item,index) in titleList" :key="index">{{item.title}}</li>
+                                                <li @click="getTitleValue(index,item)" v-for="(item,index) in titleList"
+                                                    :key="index">{{item.title}}</li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>学生</span>
+                                        <span>{{userInfo.TITLE}}</span>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="profile__card__front__gender">
                                 <label for="gender">性别：</label>
                                 <div class="profile__card__front--specific">
-                                    <div v-if="individualInfoEdit" class="profile__card__front__gender--sel" @click="showGender()">
-                                        <div class="profile__card__front__gender--sel__show" >
-                                            <input v-model="genderValue" type="text" placeholder="性别" name="gender" id="gender">
+                                    <div v-if="individualInfoEdit" class="profile__card__front__gender--sel"
+                                        @click="showGender()">
+                                        <div class="profile__card__front__gender--sel__show">
+                                            <input v-model="genderValue" type="text" placeholder="性别" name="gender"
+                                                id="gender">
                                             <svg>
                                                 <use xlink:href="../../assets/img/all.svg#icon-chevron-down"></use>
                                             </svg>
                                         </div>
                                         <div class="profile__card__front__gender--list" v-show="genderShow">
                                             <ul>
-                                                <li @click="getGenderValue(index,item)" v-for="(item,index) in gender" :key="index">{{item.gender}}</li>
+                                                <li @click="getGenderValue(index,item)" v-for="(item,index) in gender"
+                                                    :key="index">{{item.gender}}</li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
-                                        <span>男</span>
+                                        <span>{{userInfo.GENDER}}</span>
                                     </div>
                                 </div>
-                                
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -370,48 +403,81 @@
 </template>
 
 <script>
+    import axios from '../../store/axios-auth';
+    import { uploadFile } from "../../store/uploadFile";
+    // import mime from "mime";
     export default {
         data: function () {
             return {
+                avatar: "https://example",
                 realNameEdit: false,
                 realName: "",
                 companyEdit: false,
                 company: "",
                 departmentEdit: false,
                 department: "",
-                majorEdit:false,
-                major:"",
+                devices: [],
+                majorEdit: false,
+                major: "",
                 titleEdit: false,
                 title: "",
                 cidEdit: false,
                 cid: "",
                 emailEdit: false,
-                email: "",
+                email: "example@example.com",
                 mobileEdit: false,
                 mobile: "",
                 birthdayEdit: false,
-                birthday: "",
-                genderShow:false,
-                genderValue:"",
-                gender:[
-                    {"gender":"男"},
-                    {"gender":"女"},
-                    {"gender":"无法分辨"},
+                birthday: "1999-09-09",
+                genderShow: false,
+                genderValue: "",
+                gender: [
+                    { "gender": "男" },
+                    { "gender": "女" },
+                    { "gender": "无法分辨" },
                 ],
-                titleShow:false,
-                titleValue:"",
-                titleList:[
-                    {"title":"学生"},
-                    {"title":"讲师"},
-                    {"title":"副教授"},
-                    {"title":"教授"},
+                titleShow: false,
+                titleValue: "",
+                titleList: [
+                    { "title": "学生" },
+                    { "title": "讲师" },
+                    { "title": "副教授" },
+                    { "title": "教授" },
                 ],
-                individualInfoEdit:false,
-                timerShow:false,
-                timerCount:0,
-                timer:null
-
+                individualInfoEdit: false,
+                timerShow: false,
+                timerCount: 0,
+                timer: null,
+                borderhover: false,
+                dragAndDropCapable: false,
+                files: [],
+                oldPass: "",
+                newPass: "",
+                newPassC: "",
+                uploadPercentage: 0,
+                currentLoad: "",
             }
+        },
+        mounted: function () {
+            let _this = this;
+            var dropbox = document.getElementById('file-drag-drop');
+            dropbox.addEventListener("drop", this.enentDrop, false)
+            dropbox.addEventListener("dragleave", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                _this.borderhover = false;
+            });
+            dropbox.addEventListener("dragenter", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                _this.borderhover = true;
+            });
+            dropbox.addEventListener("dragover", function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                _this.borderhover = true
+            });
+
         },
         watch: {
 
@@ -420,6 +486,17 @@
             userInfo() {
                 return this.$store.state.userProfile;
             }
+        },
+        created() {
+            this.$store.dispatch("getUserProfile").then(() => {
+                console.log("获取个人情报信息");
+            }).catch((err) => {
+                console.error(err);
+            });
+
+            this.titleValue = this.$store.state.userProfile.TITLE;
+            this.genderValue = this.$store.state.userProfile.GENDER;
+
         },
         methods: {
             editRealName: function () {
@@ -575,57 +652,213 @@
                     }
                 }
             },
-            showGender:function(){
-                this.genderShow=!this.genderShow
+            updatePassword: function () {
+                if (!this.newPass || !this.newPassC || !this.oldPass) {
+                    this.$toast.error({ title: "出错啦", message: "输入不能为空" });
+                    return false
+                } else if (this.newPass != this.newPassC) {
+                    this.$toast.error({ title: "出错啦", message: "新密码两次输入不一致" });
+                    return false;
+                }
+                let payload = {
+                    password: this.newPass,
+                    old: this.oldPass
+                }
+                this.$store.dispatch("updatePassword", payload).then((res) => {
+                    if (res == "rs-102") {
+                        this.$toast.success({ title: "成功啦", message: "您的密码已经更新" });
+                    } else {
+                        this.$toast.error({ title: "出错啦", message: "密码更改失败" });
+                    }
+                }).catch((err) => {
+                    console.error(err);
+                    this.$toast.error({ title: "出错啦", message: "密码更改失败" });
+                })
             },
-            getGenderValue:function(index, item){
+            showGender: function () {
+                this.genderShow = !this.genderShow
+            },
+            getGenderValue: function (index, item) {
+                event.stopPropagation();
                 this.genderValue = item.gender;
                 this.genderShow = false;
             },
-            showTitle:function(){
-                this.titleShow=!this.titleShow
+            showTitle: function () {
+                this.titleShow = !this.titleShow
             },
-            getTitleValue:function(index, item){
+            getTitleValue: function (index, item) {
+                event.stopPropagation();
                 this.titleValue = item.title;
                 this.titleShow = false;
             },
-            editIndividualInfo:function(){
-                this.individualInfoEdit=!this.individualInfoEdit;
+            editIndividualInfo: function () {
+                this.individualInfoEdit = !this.individualInfoEdit;
             },
-            submitIndividualInfo:function(){
-                
-                    let payload = {
-                        realName: this.realName,
-                        company: this.company,
-                        department: this.department,
-                        major: this.major,
-                        title: this.titleValue,
-                        gender: this.gendervalue
-                    }
-                    if (!this.userInfo.BIRTHDAY) {
-                        this.$store.dispatch("updateIndividual", payload).then(() => {
-                            console.log("添加姓名成功返回");
-                        }).catch((err) => {
-                            console.error(err);
-                        })
-                    }
-                this.individualInfoEdit=!this.individualInfoEdit
+            submitIndividualInfo: function () {
+                let payload = {
+                    AVATAR: this.userInfo.AVATAR,
+                    BIRTHDAY: this.userInfo.BIRTHDAY,
+                    DEPARTMENT: this.userInfo.DEPARTMENT,
+                    DEVICES: this.userInfo.DEVICES,
+                    EMAIL: this.userInfo.EMAIL,
+                    GENDER: this.genderValue,
+                    MAJOR: this.userInfo.MAJOR,
+                    COMPANY_ID: this.userInfo.COMPANY_ID,
+                    NAME: this.userInfo.NAME,
+                    TITLE: this.titleValue,
+                    WORKPLACE: this.userInfo.WORKPLACE,
+                    EDITAVATAR:false
+                }
+                let flag = this.checkProfile(payload);
+                if (flag == true) {
+                    this.$store.dispatch("updateIndividual", payload).then((res) => {
+                        console.log("添加姓名成功返回");
+                        if (res == "rs-102") {
+                            this.$toast.success({ title: "成功", message: "信息更新成功" })
+                        }
+                    }).catch((err) => {
+                        console.error(err);
+                        this.$toast.error({ title: "失败", message: "肯定是哪儿出问题啦" })
+                    })
+                }
+                this.individualInfoEdit = !this.individualInfoEdit
             },
-            getSMSCode:function(){
+            getSMSCode: function () {
                 const TIME_COUNT = 300;
-                if(!this.timer){
+                if (!this.timer) {
                     this.timerCount = TIME_COUNT;
                     this.timerShow = true;
-                    this.timer = setInterval(()=>{
-                        if(this.timerCount>0 && this.timerCount <=TIME_COUNT){
+                    this.timer = setInterval(() => {
+                        if (this.timerCount > 0 && this.timerCount <= TIME_COUNT) {
                             this.timerCount--;
-                        }else {
+                        } else {
                             this.timerShow = false;
                             clearInterval(this.timer);
-                            this.timer =null;
+                            this.timer = null;
                         }
-                    },1000)
+                    }, 1000)
                 }
+            },
+            enentDrop: function (e) {
+                this.borderhover = false
+                this.borderWeight = false
+                e.stopPropagation();
+                e.preventDefault();
+
+                for (let i = 0; i < e.dataTransfer.files.length; i++) {
+
+                    if (/\.(jpe?g|png|gif)$/i.test(e.dataTransfer.files[i].name)) {
+                        this.files.push(e.dataTransfer.files[i]);
+                        console.log(e.dataTransfer.files[i]);
+                        this.getImagePreviews();
+                    } else {
+                        this.$toast.error({ title: "注意!注意!注意!", message: "该文件类型暂不支持" });
+                    }
+                }
+            },
+            getImagePreviews() {
+                for (let i = 0; i < this.files.length; i++) {
+                    if (/\.(jpe?g|png|gif)$/i.test(this.files[i].name)) {
+                        let reader = new FileReader();
+                        reader.addEventListener("load", function () {
+                            this.$refs['preview' + parseInt(i)][0].src = reader.result;
+                        }.bind(this), false);
+                        reader.readAsDataURL(this.files[i]);
+                    }
+                }
+            },
+            checkProfile: function (payload) {
+                let flag = false;
+                if (payload.AVATAR && payload.BIRTHDAY
+                    && payload.DEPARTMENT && payload.MAJOR && payload.EMAIL
+                    && payload.GENDER && payload.COMPANY_ID && payload.NAME
+                    && payload.TITLE && payload.WORKPLACE && payload.DEVICES) {
+                    flag = true
+                }
+                return flag;
+            },
+            removeFile(file) {
+                this.files = this.files.filter((f) => {
+                    console.log(file.name)
+
+                    return f != file;
+                });
+                console.log(this.files);
+                this.getImagePreviews();
+            },
+            uploadBusiness(index) {
+                console.log(index);
+                this.currentIndex = index;
+                this.getPass();
+            },
+            getPass() {
+                const userId = localStorage.getItem("userId")
+                const config = { headers: { Authorization: localStorage.getItem("token") } };
+                const fileType = this.files[this.currentIndex].name.split(".").pop();
+                // let mimeType = mime.getType(fileType)
+                // if (fileType == "jpg") {
+                //     mimeType = "image/" + fileType
+                // } else {
+                //     mimeType = mime.getType(fileType)
+                // }
+                // let tag = [];
+                // const data = {
+                //     type: mimeType,
+                //     name: this.files[this.currentIndex].name,
+                //     size: this.files[this.currentIndex].size,
+                //     duration: this.duration[this.currentIndex],
+                //     tag: tag,
+                //     editflag: false,
+                //     userId: userId
+                // };
+                let baseUrl = "https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/user/avatar/"
+
+                let payload = {
+                    AVATAR: baseUrl + userId + "." + fileType,
+                    BIRTHDAY: this.userInfo.BIRTHDAY,
+                    DEPARTMENT: this.userInfo.DEPARTMENT,
+                    DEVICES: this.userInfo.DEVICES,
+                    EMAIL: this.userInfo.EMAIL,
+                    GENDER: this.genderValue,
+                    MAJOR: this.userInfo.MAJOR,
+                    COMPANY_ID: this.userInfo.COMPANY_ID,
+                    NAME: this.userInfo.NAME,
+                    TITLE: this.titleValue,
+                    WORKPLACE: this.userInfo.WORKPLACE,
+                    EDITAVATAR:true
+                }
+
+                axios.put("rs-user/profile/UPDATEPERSONALMESSAGE", payload, config)
+                    .then(response => {
+                        console.log(response);
+                        console.log("写入数据库成功");
+                        let { data, statusNumber } = response.data;
+                        if (statusNumber !== "rs-120") {
+                            throw new Error("upload attributes error");
+                        }
+                        const that = this;
+                        let AWSConfig = { ...data.Credentials, path: "user/avatar" , id: data.id ,flag:"avatar" ,userId:userId};
+                        const upload = (err, data) => {
+                            // that.screenLoading = false;
+                            if (err || !data.ETag) {
+                                // console.error(err, data);
+                                that.$toast.error({ title: "上传失败", message: "出错啦，请重新上传！" })
+                            } else {
+                                that.$toast.success({ title: "上传成功", message: "继续上传，或者创建课程吧" })
+                            }
+                        };
+                        const progress = event => {
+                            let process = Number((event.loaded * 100) / event.total);
+                            that.currentLoad = event.loaded;
+                            // this.$set(this.uploadPercentage, this.currentIndex, this.uploadPercentage[this.currentIndex]);
+                            that.uploadPercentage = `${parseInt(process)}%`;
+                            // that.test = `${parseInt(process)}%`;
+                        };
+                        uploadFile(this.files[this.currentIndex], AWSConfig, upload, progress);
+
+                    }).catch(error => {
+                        console.error(error);
+                    });
             },
 
         },

@@ -41,3 +41,5 @@ export const updateEmail = 'updateEmail';
 export const updateMobile = 'updateMobile';
 export const updatebirthday = 'updatebirthday';
 export const updateIndividual = 'updateIndividual';
+export const updatePassword = 'updatePassword';
+export const getUserProfile = 'getUserProfile';

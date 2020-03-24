@@ -30,7 +30,7 @@
                 </svg>
             </div>
             <div class="user-nav__user" @click="profileInfo">
-                <img src="../../assets/img/user.jpg" alt="User photo" class="user-nav__user-photo">
+                <img :src="avatar" alt="User photo" class="user-nav__user-photo">
                 <span class="user-nav__user-name">张汇泉</span>
             </div>
         </nav>
@@ -45,6 +45,14 @@ export default {
             platformIcon:"../../assets/img/favicon.png",
             publicPath: process.env.BASE_URL
         }
+    },
+    computed: {
+        avatar(){
+            return this.$store.state.userProfile.AVATAR;
+        }
+    },
+    created() {
+        
     },
     methods: {
         profileInfo:function(){

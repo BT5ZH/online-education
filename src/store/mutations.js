@@ -274,7 +274,11 @@ const mutations ={
     },
     [TYPES.updateIndividual](state, payload) {
         console.log("updateIndividual + mutation 进来啦"+payload);
-        state.courseInfo.userProfile = payload;  
+        state.userProfile = payload;  
+    },
+    [TYPES.getUserProfile](state, payload) {
+        console.log("getUserProfile + mutation 进来啦"+payload);
+        state.userProfile = payload;  
     },
 }
 export default mutations;

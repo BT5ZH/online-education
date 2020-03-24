@@ -1,12 +1,12 @@
 <template>
     <main class="rs-courses">
         <div class="courses-list">
-            <div v-for="(course,index) in allTreasure" :key="index" class="course">
+            <div v-for="(course,index) in allTreasure" :key="index" class="course" @click="enrolledInfo">
                 <img :src="course.COURSE_COVERURL" :alt="course.COURSE_NAME" class="course__img">
                 <svg class="course__like" @click="selectToLearn(index)">
                     <use xlink:href="../../../assets/img/all.svg#icon-circle-with-plus"></use>
                 </svg>
-                <h5 class="course__name" @click="startToLearn(index)">{{course.COURSE_NAME}}</h5>
+                <h5 class="course__name" @click="enrolledInfo">{{course.COURSE_NAME}}</h5>
 
                 <!-- <div class="course__author">
                     <svg>
@@ -85,7 +85,11 @@
                     console.error(err);
                     this.$toast.error({title:"添加失败",message:"出错啦，课程添加失败"});
                 });
-            }
+            },
+            enrolledInfo:function(){
+                console.log("---")
+                this.$router.push( {name:'enrolled'}, ()=>{})
+            },
         },
     }
 </script>

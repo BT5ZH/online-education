@@ -128,14 +128,13 @@
           }
         }
       },
-      determineDragAndDropCapable() {
-
-        var div = document.createElement('div');
-        return (('draggable' in div)
-          || ('ondragstart' in div && 'ondrop' in div))
-          && 'FormData' in window
-          && 'FileReader' in window;
-      },
+      // determineDragAndDropCapable() {
+      //   var div = document.createElement('div');
+      //   return (('draggable' in div)
+      //     || ('ondragstart' in div && 'ondrop' in div))
+      //     && 'FormData' in window
+      //     && 'FileReader' in window;
+      // },
       getImagePreviews() {
         for (let i = 0; i < this.files.length; i++) {
           if (/\.(jpe?g|png|gif)$/i.test(this.files[i].name)) {
@@ -151,24 +150,18 @@
             let url = URL.createObjectURL(videoFile);
             this.videoUrl = url;
             setTimeout(() => {
-              // this.files[i].duration=document.getElementById("videoPlayer").duration;
-              
-              // console.log(this.timeFormat(document.getElementById("videoPlayer").duration));
               if(this.duration[i]==null || this.duration==""){
                 console.log(document.getElementById("videoPlayer").duration);
                 this.duration[i] = document.getElementById("videoPlayer").duration;
               }
-              
             }, 800);
-
             this.$nextTick(function () {
               this.$refs['preview' + parseInt(i)][0].src = 'https://rs-learning-resources.s3.cn-northwest-1.amazonaws.com.cn/public/index/mp4.png';
-
             });
-
           }
         }
       },
+      
       timeFormat: function (s) {
         let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
         let hour = Math.floor((s - day * 24 * 3600) / 3600);
@@ -200,29 +193,18 @@
         console.log(index);
         this.currentIndex = index;
         this.getPass();
-
-
-
       },
       getPass() {
-
         const userId = localStorage.getItem("userId")
         const config = { headers: { Authorization: localStorage.getItem("token") } };
         const fileType = this.files[this.currentIndex].name.split(".").pop();
-
-        // if(fileType=="mp4"){
-        //   this.videoUrl=
-        // }
-
         let mimeType = mime.getType(fileType)
         if (fileType == "jpg") {
           mimeType = "image/" + fileType
         } else {
           mimeType = mime.getType(fileType)
         }
-
         let tag = [];
-
         const data = {
           type: mimeType,
           name: this.files[this.currentIndex].name,

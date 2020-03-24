@@ -64,6 +64,16 @@
   grid-template-columns:  1fr;
 }
 
+.enrolled {
+  background-color: #fff;
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+  height: 80rem;
+  display: grid;
+  grid-template-columns:  1fr;
+  grid-template-rows:  2fr 10fr;
+}
+
 .rs-cooking {
   background-color: #fff;
   grid-column: 2 / 3;

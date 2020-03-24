@@ -19,9 +19,7 @@ const actions = {
           console.log(err);
           reject("rs-444");
         });
-
     });
-
   },
   //注册
   register({ commit }, payload) {
@@ -328,8 +326,76 @@ const actions = {
     commit(TYPES.updatebirthday, payload);
   },
   updateIndividual({commit},payload){
-    commit(TYPES.updateIndividual, payload)
-  }
+
+    console.log("updateIndividual action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    console.log(payload);
+    return new Promise((resolve, reject) => {
+      axios.put("rs-user/profile/UPDATEPERSONALMESSAGE",
+      payload,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(() => {
+          commit(TYPES.dataLoading, false);
+          commit(TYPES.updateIndividual, payload)
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+    });
+  },
+  updatePassword({commit},payload){
+    console.log("updateIndividual action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    console.log(payload);
+    return new Promise((resolve, reject) => {
+      axios.put("rs-user/profile/PASSWORDUPDATE",
+      payload,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => {
+          commit(TYPES.dataLoading, false);
+          console.log(res);
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+    });
+  },
+  getUserProfile({commit}){
+    console.log("updateIndividual action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    return new Promise((resolve, reject) => {
+      axios.get("rs-user/profile",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => {
+          commit(TYPES.dataLoading, false);
+          const payload = res.data.data
+          commit(TYPES.getUserProfile, payload)
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+    });
+    
+  },
 
 };
 export default actions;
