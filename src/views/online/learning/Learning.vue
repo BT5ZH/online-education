@@ -24,11 +24,18 @@
                 courseId: this.courseId,
                 authorId:this.authorId
             }
-            this.$store.dispatch("learningTheCourse",payload).then(() => {
-                console.log("-----------");
+            this.$store.dispatch("learningTheCourse",payload).then((res) => {
+                if(res=="rs-102"){
+                    // let data= {
+                    //     key:"startTime",
+                    //     value: new Date
+                    // }
+                    // this.$store.commit("learningActivity", data)
+                }
             }).catch((err) => {
                 console.error(err);
             });
+
         },
         components: {
             'user-course': UserCourseInfo,

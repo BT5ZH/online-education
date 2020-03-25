@@ -45,6 +45,18 @@ const state = {
         EMAIL:"",
         MOBILE:"",
         BIRTHDAY:""
+    },
+
+    //课程统计情报
+    courseStsInfo:{
+
+    },
+
+    //学习活动
+    learningActivity:{
+        courseID:"",
+        authorID:"",
+        startTime:-1,
     }
 }
 

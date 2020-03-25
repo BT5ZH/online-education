@@ -463,7 +463,8 @@
             var dropbox = document.getElementById('file-drag-drop');
             dropbox.addEventListener("drop", this.enentDrop, false)
             dropbox.addEventListener("dragleave", function (e) {
-                e.stopPropagation();
+                
+                
                 e.preventDefault();
                 _this.borderhover = false;
             });

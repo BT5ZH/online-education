@@ -20,6 +20,18 @@
     }
     &__like {
         grid-row: 1 / 2;
+        grid-column: 1 / 2;
+        fill: $color-favirate;
+        height: 2.5rem;
+        width: 2.5rem;
+        z-index: 2;
+        // justify-self: start;
+        margin: 1rem;
+        cursor: pointer;
+    }
+
+    &__cart {
+        grid-row: 1 / 2;
         grid-column: 3 / 4;
         fill: $color-favirate;
         height: 2.5rem;

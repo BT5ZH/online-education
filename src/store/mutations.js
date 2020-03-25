@@ -280,5 +280,13 @@ const mutations ={
         console.log("getUserProfile + mutation 进来啦"+payload);
         state.userProfile = payload;  
     },
+    [TYPES.getCourseStsInfo](state, payload) {
+        console.log("getCourseStsInfo + mutation 进来啦"+payload);
+        state.courseStsInfo = payload;  
+    },
+    [TYPES.updateLearningActivity](state, payload) {
+        console.log("updateLearningActivity + mutation 进来啦"+payload);
+        state.learningActivity = payload;  
+    },
 }
 export default mutations;

@@ -9,7 +9,7 @@ const actions = {
     commit(TYPES.dataLoading, true);
     return new Promise((resolve, reject) => {
       axios.post("rs-user/register/code",
-      payload)
+        payload)
         .then(res => {
           commit(TYPES.dataLoading, false);
           console.log(res.data.statusCode);
@@ -202,20 +202,25 @@ const actions = {
   learningTheCourse({ commit }, payload) {
     commit(TYPES.dataLoading, true);
     let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId + "?authorId=" + payload.authorId;
-    return axios.get(queryUrl, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-      }
-    }).then(response => {
-      console.log(response);
-      const payload = response.data.data
-      commit(TYPES.learningTheCourse, payload);
-      commit(TYPES.showCurrentLesson, { index: 0, number: 0 });
-      commit(TYPES.dataLoading, false);
-    }, error => {
-      console.log(error);
-      commit(TYPES.dataLoading, false);
+    return new Promise((resolve, reject) => {
+
+      axios.get(queryUrl, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      }).then(response => {
+        console.log(response);
+        const payload = response.data.data
+        commit(TYPES.learningTheCourse, payload);
+        commit(TYPES.showCurrentLesson, { index: 0, number: 0 });
+        commit(TYPES.dataLoading, false);
+        resolve("rs-102");
+      }, error => {
+        console.log(error);
+        commit(TYPES.dataLoading, false);
+        reject("rs-444");
+      });
     });
   },
   showCurrentLesson({ commit }, payload) {
@@ -297,42 +302,42 @@ const actions = {
   },
 
   //updateInfo
-  updateRealName({commit}, payload){
+  updateRealName({ commit }, payload) {
     commit(TYPES.updateCourseName, payload);
   },
-  updateCompany({commit}, payload){
+  updateCompany({ commit }, payload) {
     console.log("updateCompany action");
     commit(TYPES.updateCompany, payload);
   },
-  updateDepartment({commit}, payload){
+  updateDepartment({ commit }, payload) {
     commit(TYPES.updateDepartment, payload);
   },
-  updateMajor({commit}, payload){
+  updateMajor({ commit }, payload) {
     commit(TYPES.updateMajor, payload);
   },
-  updateTitle({commit}, payload){
+  updateTitle({ commit }, payload) {
     commit(TYPES.updateTitle, payload);
   },
-  updateCid({commit}, payload){
+  updateCid({ commit }, payload) {
     commit(TYPES.updateCid, payload);
   },
-  updateEmail({commit}, payload){
+  updateEmail({ commit }, payload) {
     commit(TYPES.updateEmail, payload);
   },
-  updateMobile({commit}, payload){
+  updateMobile({ commit }, payload) {
     commit(TYPES.updateMobile, payload);
   },
-  updatebirthday({commit}, payload){
+  updatebirthday({ commit }, payload) {
     commit(TYPES.updatebirthday, payload);
   },
-  updateIndividual({commit},payload){
+  updateIndividual({ commit }, payload) {
 
     console.log("updateIndividual action + 进来啦");
     commit(TYPES.dataLoading, true);
     console.log(payload);
     return new Promise((resolve, reject) => {
       axios.put("rs-user/profile/UPDATEPERSONALMESSAGE",
-      payload,{
+        payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token")
@@ -349,13 +354,13 @@ const actions = {
         });
     });
   },
-  updatePassword({commit},payload){
+  updatePassword({ commit }, payload) {
     console.log("updateIndividual action + 进来啦");
     commit(TYPES.dataLoading, true);
     console.log(payload);
     return new Promise((resolve, reject) => {
       axios.put("rs-user/profile/PASSWORDUPDATE",
-      payload,{
+        payload, {
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token")
@@ -372,17 +377,17 @@ const actions = {
         });
     });
   },
-  getUserProfile({commit}){
+  getUserProfile({ commit }) {
     console.log("updateIndividual action + 进来啦");
     commit(TYPES.dataLoading, true);
     return new Promise((resolve, reject) => {
       axios.get("rs-user/profile",
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token")
-        }
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token")
+          }
+        })
         .then(res => {
           commit(TYPES.dataLoading, false);
           const payload = res.data.data
@@ -394,8 +399,31 @@ const actions = {
           reject("rs-444");
         });
     });
-    
+
   },
+  // getCourseStsInfo({commit}){
+  //   console.log("getCourseStsInfo action + 进来啦");
+  //   commit(TYPES.dataLoading, true);
+  //   return new Promise((resolve, reject) => {
+  //     axios.get("rs-user/profile",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: localStorage.getItem("token")
+  //       }
+  //     })
+  //       .then(res => {
+  //         commit(TYPES.dataLoading, false);
+  //         const payload = res.data.data
+  //         commit(TYPES.getUserProfile, payload)
+  //         resolve("rs-102");
+  //       }, err => {
+  //         commit(TYPES.dataLoading, false);
+  //         console.log(err);
+  //         reject("rs-444");
+  //       });
+  //   });
+  // },
 
 };
 export default actions;

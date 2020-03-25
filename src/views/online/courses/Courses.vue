@@ -6,6 +6,10 @@
                 <svg class="course__like" @click="selectToLearn(index)">
                     <use xlink:href="../../../assets/img/all.svg#icon-circle-with-plus"></use>
                 </svg>
+                <svg class="course__cart" >
+                    <use xlink:href="../../../assets/img/all.svg#icon-shopping-cart"></use>
+                </svg>
+                
                 <h5 class="course__name" @click="enrolledInfo">{{course.COURSE_NAME}}</h5>
 
                 <!-- <div class="course__author">
@@ -71,6 +75,7 @@
                 this.$router.push({ name: 'learning', params: { courseId: this.allTreasure[index].COURSE_ID } })
             },
             selectToLearn: function (index) {
+                event.stopPropagation();
                 let payload = {
                     courseId: this.allTreasure[index].COURSE_ID,
                     courseName: this.allTreasure[index].COURSE_NAME,

@@ -43,3 +43,7 @@ export const updatebirthday = 'updatebirthday';
 export const updateIndividual = 'updateIndividual';
 export const updatePassword = 'updatePassword';
 export const getUserProfile = 'getUserProfile';
+
+//课程统计信息
+export const getCourseStsInfo = 'getCourseStsInfo';
+export const updateLearningActivity = 'updateLearningActivity';
