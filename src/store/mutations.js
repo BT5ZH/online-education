@@ -288,5 +288,10 @@ const mutations ={
         console.log("updateLearningActivity + mutation 进来啦"+payload);
         state.learningActivity = payload;  
     },
+    //支付课程
+    [TYPES.updatePayCourse](state, payload) {
+        console.log("updatePayCourse + mutation 进来啦"+payload);
+        state.payCourse = payload;  
+    },
 }
 export default mutations;

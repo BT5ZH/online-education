@@ -10,6 +10,7 @@ import Test from './test/Test.vue';
 import Profile from './profile/Profile.vue';
 import Todo from './todo/Todo.vue';
 import TodoTwo from './todo/TodoTwo.vue';
+import Payment from './pay/payment.vue';
 
 export const routes = [
     { path: '/', name: 'courses', component: Courses },
@@ -24,5 +25,6 @@ export const routes = [
     { path: '/test', component: Test },
     { path: '/todo', component: Todo },
     { path: '/todotwo', component: TodoTwo },
+    { path: '/payment/:courseId',name:'payment', component: Payment },
     { path: '*', redirect: '/' }
 ]

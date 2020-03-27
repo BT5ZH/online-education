@@ -47,3 +47,5 @@ export const getUserProfile = 'getUserProfile';
 //课程统计信息
 export const getCourseStsInfo = 'getCourseStsInfo';
 export const updateLearningActivity = 'updateLearningActivity';
+//支付课程
+export const updatePayCourse = 'updatePayCourse';

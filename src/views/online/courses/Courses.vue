@@ -6,7 +6,7 @@
                 <svg class="course__like" @click="selectToLearn(index)">
                     <use xlink:href="../../../assets/img/all.svg#icon-circle-with-plus"></use>
                 </svg>
-                <svg class="course__cart" >
+                <svg class="course__cart" @click.stop="gotoPay(index)">
                     <use xlink:href="../../../assets/img/all.svg#icon-shopping-cart"></use>
                 </svg>
                 
@@ -94,6 +94,18 @@
             enrolledInfo:function(){
                 console.log("---")
                 this.$router.push( {name:'enrolled'}, ()=>{})
+            },
+            gotoPay: function (index) {
+                let payload = {
+                    courseCover: this.allTreasure[index].COURSE_COVERURL,
+                    courseName: this.allTreasure[index].COURSE_NAME,
+                    coursePrice : this.allTreasure[index].COURSE_PRICE,
+                }
+                
+                //this.$store.state.payCourse = payload
+                this.$store.commit('updatePayCourse',payload)
+                console.log(this.$store.state.payCourse)
+                this.$router.push({ name: 'payment', params: { courseId: this.allTreasure[index].COURSE_ID } })
             },
         },
     }

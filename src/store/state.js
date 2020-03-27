@@ -57,6 +57,10 @@ const state = {
         courseID:"",
         authorID:"",
         startTime:-1,
+    },
+    //支付课程
+    payCourse:{
+
     }
 }
 
