@@ -4,8 +4,8 @@
             <li class="nav__item"><a href="#" class="nav__link">发现</a></li>
             <li class="nav__item"><a href="#" class="nav__link">咨询</a></li>
             <li class="nav__item"><a href="#" class="nav__link">联系我们</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">学习计划</a></li>
-            <li class="nav__item"><a href="#" class="nav__link">学习计划</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">名师计划</a></li>
+            <li class="nav__item"><a href="#" class="nav__link">达人计划</a></li>
             <li class="nav__item"><a href="#" class="nav__link">加入我们</a></li>
         </ul>
         <p class="copyright">

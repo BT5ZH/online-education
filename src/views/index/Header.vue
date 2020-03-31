@@ -8,7 +8,7 @@
             </ul>
         </nav>
 
-        <h1 class="heading-title">研创小课堂</h1>
+        <h1 class="heading-title">研创未来</h1>
         <div class="header__seperator"></div>
         <h3 class="heading-1">我们每一天都在关注您的成长</h3>
         <a href="#popup" class="btn btn--primary">加入我们</a>
