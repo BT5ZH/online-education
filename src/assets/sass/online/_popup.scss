@@ -796,6 +796,13 @@
       }
     }
   }
+  &__timeFlag {
+    justify-self: stretch;
+    grid-column: 1 / 7;
+    grid-row: 9 / 10;
+    display: flex;
+    justify-content: space-evenly;
+  }
 }
 .profile__card__back {
 }

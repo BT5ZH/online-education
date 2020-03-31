@@ -16,6 +16,9 @@ const state = {
         CHAPTER_LIST:[]
     },
 
+    //
+    courseBrifInfo:{},
+
     //创建好的课程的列表信息---作者身份用
     courseShortList:{},
 
@@ -30,6 +33,11 @@ const state = {
 
 
     currentLessonRSUrl:"",
+    currentLessonIndex:{
+        chapter: -1,
+        lesson: -1,
+        index: -1,
+    },
     //     lessonAssignment:"",
     //     lessonQuestionList:[],
     resourceList:[],
@@ -42,6 +50,7 @@ const state = {
         DEPARTMENT:"",
         TITLE:"",
         COMPANY_ID:"",
+        TIME_FLAG:"",
         EMAIL:"",
         MOBILE:"",
         BIRTHDAY:""
@@ -49,15 +58,20 @@ const state = {
 
     //课程统计情报
     courseStsInfo:{
-
+        detail:[],
+        progress:[]
     },
 
     //学习活动
-    learningActivity:{
-        courseID:"",
-        authorID:"",
+    currentActivity:{
+        courseId:"1",
+        authorId:"1",
         startTime:-1,
+        ACTION_LIST:[]
     },
+    courseLearningStatus:[],
+    courseLearningStatusRead:[],
+    
     //支付课程
     payCourse:{
 

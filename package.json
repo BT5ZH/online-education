@@ -32,7 +32,8 @@
     "njwt": "^1.0.0",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^3.3.11"
   },
   "eslintConfig": {
     "root": true,

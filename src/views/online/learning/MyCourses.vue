@@ -46,8 +46,6 @@
         },
         methods: {
             startToLearn:function(index){
-                console.log("8888"+this.courseList[index].COURSE_ID)
-                console.log("8888"+this.courseList[index].AUTHOR_ID)
                 this.$router.push({name:'learning',
                     params:{
                         courseId:this.courseList[index].COURSE_ID,

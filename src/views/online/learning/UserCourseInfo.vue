@@ -2,16 +2,19 @@
     <div class="course__info">
         <div class="cs">
             <div class="cs__header">
-                <span class="cs__header-text">{{learningCourseInfo.COURSE_NAME}}</span>
-                <svg class="search__icon">
-                    <use xlink:href="img/all.svg#icon-key"></use>
+                <div class="cs__header__text">
+                    <span class="cs__header__text--title">{{learningCourseInfo.COURSE_NAME}}</span>
+                    <span class="heading-7 heading-7--dark">{{timeFormat(learningCourseInfo.COURSE_TIMEDURATION)}}</span>
+                </div>
+                <svg>
+                    <use xlink:href="../../../assets/img/all.svg#icon-key"></use>
                 </svg>
             </div>
             <div v-for="(chapter,index) in learningChapterList" :key="index" class="cs__list">
                 <div class="cs__list__title">
                     <div class="cs__list__title--text">
                         <span>第{{index+1}}章：{{chapter.CHAPTER_NAME}}</span>
-                        <span class="heading-7 heading-7--dark">7 / 13 &nbsp;|&nbsp; 33 分钟</span>
+                        <span class="heading-7 heading-7--dark"> {{timeFormat(chapter.CHAPTER_TIMEDURATION)}} </span>
                     </div>
                 </div>
 
@@ -23,7 +26,7 @@
                             <use xlink:href="img/all.svg#icon-bookmark"></use>
                         </svg>
                         <div class="link-item">
-                            <a href="#" class="cs__list__nav__link">第{{number+1}}课:{{lesson.LESSON_NAME}}</a>
+                            <a href="#" class="cs__list__nav__link">第{{lesson.LESSON_INDEX}}课:{{lesson.LESSON_NAME}}</a>
                             <span class="heading-7 heading-7--dark">{{timeFormat(lesson.LESSON_TIMEDURATION)}}</span>
                         </div>
                     </li>

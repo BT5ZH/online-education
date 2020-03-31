@@ -105,6 +105,7 @@ const actions = {
   },
   releaseCourse({ commit }, payload) {
     commit(TYPES.dataLoading, true);
+    commit(TYPES.addLessonIndex, payload);
     return axios.post('/rs-activity/CREATECOURSEPOST', payload, {
       headers: {
         "Content-Type": "application/json",
@@ -116,11 +117,9 @@ const actions = {
         rscode: response.data.statusNumber
       }
       if (response.data.statusNumber == 'rs-122') {
-        // this.$toast.success({title:"您辛苦啦",message:"该课程已经创建成功"});
         console.log("releaseCourse + ------ success")
         commit(TYPES.releaseCourse, payload);
       } else {
-        // this.$toast.error({title:"抱歉",message:"您的课程创建失败"});
         console.log("releaseCourse + ------ failed")
       }
       commit(TYPES.dataLoading, false);
@@ -174,13 +173,47 @@ const actions = {
         Authorization: localStorage.getItem("token")
       }
     }).then(response => {
+      commit(TYPES.dataLoading, false);
       const payload = response.data.data
       commit(TYPES.getAllCourses, payload);
+      
+    }).catch(error=>{
       commit(TYPES.dataLoading, false);
-    }, error => {
-      console.log(error);
-      commit(TYPES.dataLoading, false);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response);
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+        console.log(error.request.data);
+        console.log(error.request.status);
+        console.log(error.request.headers);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+   
     });
+    // , error => {
+    //   commit(TYPES.dataLoading, false);
+    //   console.log(error.response);
+    //   switch (error.response.status) {
+    //     case 401:
+    //       this.$router.push({ name: 'blank' })
+    //       break;
+      
+    //     default:
+    //       break;
+    //   }
+      
+    // }
   },
 
   selectToLearn({ commit }, payload) {
@@ -211,11 +244,16 @@ const actions = {
         }
       }).then(response => {
         console.log(response);
+        commit(TYPES.dataLoading, false);
         const payload = response.data.data
         commit(TYPES.learningTheCourse, payload);
         commit(TYPES.showCurrentLesson, { index: 0, number: 0 });
-        commit(TYPES.dataLoading, false);
-        resolve("rs-102");
+        if (response.data.statusNumber == "rs-120") {
+          resolve("rs-120");
+        } else {
+          resolve("rs-444");
+        }
+
       }, error => {
         console.log(error);
         commit(TYPES.dataLoading, false);
@@ -225,6 +263,38 @@ const actions = {
   },
   showCurrentLesson({ commit }, payload) {
     commit(TYPES.showCurrentLesson, payload);
+  },
+
+  submitLearningActivityInfo({ commit },payload) {
+    let data = {
+      key: "stepOut",
+      endTime: new Date().getTime(),
+
+    };
+    commit("updateActivityInfo", data);
+
+    console.log("这一次学习活动结束啦");
+    // let payload = state.currentActivity;
+    commit(TYPES.dataLoading, true);
+    // let queryUrl = "/rs-user/course/detail/"+payload.courseId+"/UPDATELEARNINGDETAIL";
+    let queryUrl = "/rs-user/learning/UPDATELEARNINGDETAIL"+"/?courseId="+payload.courseId;
+    return new Promise((resolve, reject) => {
+      axios.post(queryUrl, payload.data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      }).then(response => {
+        console.log(response);
+        commit(TYPES.clearCurrentActivity);
+        commit(TYPES.dataLoading, false);
+        resolve("rs-120");
+      }, error => {
+        console.log(error);
+        commit(TYPES.dataLoading, false);
+        reject("rs-444");
+      });
+    });
   },
 
   backToCookTop({ commit }, payload) {
@@ -294,6 +364,7 @@ const actions = {
     commit(TYPES.authUser, payload);
   },
   signout({ commit }) {
+    
     localStorage.setItem("token", null);
     localStorage.setItem("userId", null);
     localStorage.setItem("roleId", null);
@@ -381,7 +452,7 @@ const actions = {
     console.log("updateIndividual action + 进来啦");
     commit(TYPES.dataLoading, true);
     return new Promise((resolve, reject) => {
-      axios.get("rs-user/profile",
+      axios.get("/rs-user/profile",
         {
           headers: {
             "Content-Type": "application/json",
@@ -393,37 +464,65 @@ const actions = {
           const payload = res.data.data
           commit(TYPES.getUserProfile, payload)
           resolve("rs-102");
+        }).catch(error=>{
+          commit(TYPES.dataLoading, false);
+          console.log(error)
+          if(error.response){
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          }
+          reject("rs-444");
+        });
+        // , err => {
+        //   commit(TYPES.dataLoading, false);
+        //   console.log(err);
+        //   console.log(err.response.status);
+        //   reject("rs-444");
+        // }
+    });
+
+  },
+  updateCourseLearningStatus({ commit }, payload) {
+    commit(TYPES.updateCourseLearningStatus, payload.lessonStatus);
+    commit(TYPES.addAction, payload.actionContent);
+  },
+  addAction({ commit }, actionContent) {
+    commit(TYPES.addAction, actionContent);
+  },
+  updateActivityInfo({ commit }, payload){
+    commit(TYPES.updateActivityInfo, payload);
+  },
+  
+  getCourseStsInfo({commit},payload){
+    console.log("getCourseStsInfo action + 进来啦");
+    commit(TYPES.dataLoading, true);
+    let queryStr= "/?courseId="+payload.courseId+"&authorId="+payload.authorId
+      +"&workPlace="+payload.workPlace+"&department="+payload.department
+      +"&major="+payload.major+"&timeFlag="+payload.timeFlag
+    return new Promise((resolve, reject) => {
+      axios.get("rs-user/learning/GETLEARNINGDETAIL"+queryStr,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => {
+          
+          commit(TYPES.dataLoading, false);
+          console.log(res);
+          const payload = res.data.data
+          commit(TYPES.getCourseStsInfo, payload.userDetail)
+          commit(TYPES.getCourseBrifInfo, payload.courseDetail)
+          resolve("rs-102");
         }, err => {
           commit(TYPES.dataLoading, false);
           console.log(err);
           reject("rs-444");
         });
     });
-
   },
-  // getCourseStsInfo({commit}){
-  //   console.log("getCourseStsInfo action + 进来啦");
-  //   commit(TYPES.dataLoading, true);
-  //   return new Promise((resolve, reject) => {
-  //     axios.get("rs-user/profile",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: localStorage.getItem("token")
-  //       }
-  //     })
-  //       .then(res => {
-  //         commit(TYPES.dataLoading, false);
-  //         const payload = res.data.data
-  //         commit(TYPES.getUserProfile, payload)
-  //         resolve("rs-102");
-  //       }, err => {
-  //         commit(TYPES.dataLoading, false);
-  //         console.log(err);
-  //         reject("rs-444");
-  //       });
-  //   });
-  // },
 
 };
 export default actions;

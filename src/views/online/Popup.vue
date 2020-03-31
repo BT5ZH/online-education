@@ -393,6 +393,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="profile__card__front__timeFlag">
+                                <label for="cid">时间：</label>
+                                <div class="profile__card__front--specific">
+                                    <input v-model="userInfo.TIME_FLAG" v-if="individualInfoEdit" type="text"
+                                        placeholder="时间标签" name="cid" id="cid">
+                                    <div v-if="!individualInfoEdit" class="profile__card__front--specific__text">
+                                        <span v-if="!userInfo.TIME_FLAG">2017级</span>
+                                        <span v-if="userInfo.TIME_FLAG">{{userInfo.TIME_FLAG}}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -493,6 +504,7 @@
                 console.log("获取个人情报信息");
             }).catch((err) => {
                 console.error(err);
+                this.$router.push({ name: 'blank' })
             });
 
             this.titleValue = this.$store.state.userProfile.TITLE;
@@ -705,6 +717,7 @@
                     GENDER: this.genderValue,
                     MAJOR: this.userInfo.MAJOR,
                     COMPANY_ID: this.userInfo.COMPANY_ID,
+                    TIME_FLAG:this.userInfo.TIME_FLAG,
                     NAME: this.userInfo.NAME,
                     TITLE: this.titleValue,
                     WORKPLACE: this.userInfo.WORKPLACE,
@@ -823,6 +836,7 @@
                     GENDER: this.genderValue,
                     MAJOR: this.userInfo.MAJOR,
                     COMPANY_ID: this.userInfo.COMPANY_ID,
+                    TIME_FLAG:this.userInfo.TIME_FLAG,
                     NAME: this.userInfo.NAME,
                     TITLE: this.titleValue,
                     WORKPLACE: this.userInfo.WORKPLACE,

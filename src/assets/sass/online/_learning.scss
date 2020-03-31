@@ -273,17 +273,25 @@
   &__header {
     background-color: $color-grey-light-4;
     height: 2rem;
-    padding: 2rem 0;
+    padding: 1rem 0 3rem 0;
     box-shadow: 0px 1px 1px $color-grey-light-6;
-    display: flex;
+    display: grid;
     justify-content: space-between;
-    // align-content: center;
-    &-text {
-      font-size: 1.6rem;
-      font-weight: 400;
+    grid-template-columns: 7fr 3fr;
+    justify-items: start;
+    align-items: center;
+    &__text {
+      display: flex;
+      flex-direction: column;
       margin-left: 2rem;
+      &--title {
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+      
     }
     svg {
+      justify-self: end;
       fill: $color-primary;
       height: 2rem;
       width: 2rem;

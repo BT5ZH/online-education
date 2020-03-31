@@ -37,5 +37,17 @@ module.exports = {
           },
           // assetsDir: `@/assets/`
         }
-      }
+      },
+    // devServer:{
+    //   proxy:{
+    //     '/aws/*':{
+    //       target:'https://67yra4mxye.execute-api.cn-northwest-1.amazonaws.com.cn/rsuser',
+    //       changeOrigin:true,
+    //       secure:true,
+    //       pathRewrite:{
+    //         '^/aws':'/aws'
+    //       }
+    //     }
+    //   }
+    // }
 }

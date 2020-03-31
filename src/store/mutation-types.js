@@ -20,6 +20,7 @@ export const lockCover = 'lockCover';
 export const getResources = 'getResources';
 export const backToCookTop = 'backToCookTop';
 export const releaseCourse = 'releaseCourse';
+export const addLessonIndex = 'addLessonIndex';
 export const editTheCourse = 'editTheCourse';
 
 export const getUserCourses = 'getUserCourses';
@@ -46,6 +47,12 @@ export const getUserProfile = 'getUserProfile';
 
 //课程统计信息
 export const getCourseStsInfo = 'getCourseStsInfo';
+export const getCourseBrifInfo = 'getCourseBrifInfo';
+export const addAction = 'addAction';
+export const updateActivityInfo = 'updateActivityInfo';
+export const clearCurrentActivity = 'clearCurrentActivity';
+export const updateCourseLearningStatus = 'updateCourseLearningStatus';
 export const updateLearningActivity = 'updateLearningActivity';
 //支付课程
 export const updatePayCourse = 'updatePayCourse';
+// export const updateTestActivity = 'updateTestActivity';
