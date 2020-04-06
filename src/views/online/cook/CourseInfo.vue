@@ -59,9 +59,8 @@
                     <li :class="[courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_RESOURCE_URL?lessonCompleteClass:'','ci__list__nav__item ']"
                         v-for="(content,number) in courseProfile.CHAPTER_LIST[index].LESSON_LIST" :key="number">
                         <!-- <div class="ci__list__nav__item__layout"> -->
-                        <svg class="search__icon">
-                            <use xlink:href="../../../assets/img/all.svg#icon-check"
-                                @click="lockResource(index,number)"></use>
+                        <svg class="search__icon" @click="lockResource(index,number)">
+                            <use xlink:href="../../../assets/img/all.svg#icon-check"></use>
                         </svg>
                         <div class="link-item">
                             <label v-if="!courseProfile.CHAPTER_LIST[index].LESSON_LIST[number].LESSON_EDITFLAG" for="">

@@ -1,5 +1,5 @@
 <template>
-  <main class="upload" id="file-drag-drop">
+  <main class="upload" id="file-upload">
     <div class="upload__area">
       <svg class="upload__area--svg">
         <use xlink:href="../../../assets/img/all.svg#icon-upload"></use>
@@ -66,7 +66,7 @@
 
       //方法一
       let _this = this;
-      var dropbox = document.getElementById('file-drag-drop');
+      var dropbox = document.getElementById('file-upload');
       dropbox.addEventListener("drop", this.enentDrop, false)
       dropbox.addEventListener("dragleave", function (e) {
         e.stopPropagation();
@@ -128,13 +128,13 @@
           }
         }
       },
-      // determineDragAndDropCapable() {
-      //   var div = document.createElement('div');
-      //   return (('draggable' in div)
-      //     || ('ondragstart' in div && 'ondrop' in div))
-      //     && 'FormData' in window
-      //     && 'FileReader' in window;
-      // },
+      determineDragAndDropCapable() {
+        var div = document.createElement('div');
+        return (('draggable' in div)
+          || ('ondragstart' in div && 'ondrop' in div))
+          && 'FormData' in window
+          && 'FileReader' in window;
+      },
       getImagePreviews() {
         for (let i = 0; i < this.files.length; i++) {
           if (/\.(jpe?g|png|gif)$/i.test(this.files[i].name)) {
