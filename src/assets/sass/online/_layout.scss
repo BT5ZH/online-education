@@ -1,5 +1,5 @@
 .rs-online {
-  max-width: 130rem;
+  max-width: 150rem;
   // height: 130rem;
   margin: 0 auto;
   display: grid;
@@ -40,6 +40,7 @@
 .rs-content {
   grid-column: sidebar-start / full-end;
   grid-row: 2 / 4;
+  height: 80rem;
 
   display: grid;
   grid-template-columns: 1fr 7fr;

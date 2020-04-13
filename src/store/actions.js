@@ -232,6 +232,12 @@ const actions = {
     });
   },
 
+
+  //学习活动
+  initLearningStatus({ commit }, payload) {
+    console.log("initLearningStatus action + 进来啦");
+    commit(TYPES.initLearningStatus, payload)
+  },
   learningTheCourse({ commit }, payload) {
     commit(TYPES.dataLoading, true);
     let queryUrl = "/rs-activity/LEARNINGCOURSEGET/" + payload.courseId + "?authorId=" + payload.authorId;
@@ -484,8 +490,13 @@ const actions = {
 
   },
   updateCourseLearningStatus({ commit }, payload) {
-    commit(TYPES.updateCourseLearningStatus, payload.lessonStatus);
-    commit(TYPES.addAction, payload.actionContent);
+    console.log("updateCourseLearningStatus action + 进来啦");
+    const data = payload.lessonStatus
+    commit(TYPES.updateCourseLearningStatus, data);
+    if(Object.prototype.hasOwnProperty.call(payload,"actionContent")){
+      commit(TYPES.addAction, payload.actionContent);
+    }
+    
   },
   addAction({ commit }, actionContent) {
     commit(TYPES.addAction, actionContent);

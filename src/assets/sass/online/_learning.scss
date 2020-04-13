@@ -19,7 +19,7 @@
     justify-items: center;
     align-items: flex-start;
     overflow: hidden;
-  
+
     &--img {
       width: 100%;
       grid-row: 1 / 2;
@@ -32,7 +32,7 @@
       justify-self: center;
       align-self: end;
       z-index: 3;
-  
+
       width: 80%;
       font-family: $font-display;
       font-size: 1.6rem;
@@ -53,7 +53,7 @@
       font-weight: 400;
       color: $color-secondary;
     }
-  
+
     &--add {
       grid-row: 1 / 2;
       grid-column: 1 / 3;
@@ -80,25 +80,23 @@
 
   display: grid;
   grid-template-rows: max-content 1fr;
-  
 }
 
 .course__learn {
   // background-color: blueviolet;
   grid-row: 1 / -1;
   grid-column: 2 / 3;
-  
 
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 6fr 4fr;
-//   grid-gap: 1rem;
+  //   grid-gap: 1rem;
 }
 
 .video-block {
   margin: 1.5rem 3rem;
   // border-radius:5px;
-//   border-bottom: 2px solid $color-grey-dark-3;
+  //   border-bottom: 2px solid $color-grey-dark-3;
   width: 90%;
   overflow: hidden;
   display: grid;
@@ -110,109 +108,104 @@
   }
   // video::-webkit-media-controls-enclosure {overflow:hidden;}
   // video::-webkit-media-controls-panel {width: calc(100% + 30px);}
-   
 }
-
-
 
 .rs-card {
   background-color: $color-grey-light-1;
   border-radius: 10px;
-  
 
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   // grid-row-gap: 1rem;
   justify-items: center;
   align-items: flex-start;
   overflow: hidden;
 
   &__img {
-      width: 100%;
-      grid-row: 1 / -1;
-      grid-column: 1 /-1;
-      z-index: 1;
+    width: 100%;
+    grid-row: 1 / -1;
+    grid-column: 1 /-1;
+    z-index: 1;
   }
   &__name {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
 
-      grid-row: 1 / -1;
-      grid-column: 1 / -1;
-      
-      justify-self: center;
-      align-self: end;
-      z-index: 3;
+    justify-self: center;
+    align-self: end;
+    z-index: 3;
 
-      width: 80%;
-      font-family: $font-display;
-      font-size: 1rem;
-      text-align: center;
-      padding: 1rem;
-      margin: 0;
-      background-color: $color-secondary;
-      color: #fff;
-      font-weight: 400;
-      opacity: .7;
-      transform: translateY(-50%);
+    width: 80%;
+    font-family: $font-display;
+    font-size: 1rem;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+    background-color: $color-secondary;
+    color: #fff;
+    font-weight: 400;
+    opacity: 0.7;
+    transform: translateY(-50%);
   }
   &__title {
-      grid-row: 2 / 3;
-      grid-column: 1 / -1;
-      justify-self: center;
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    justify-self: center;
 
-      // font-family: initial;
-      font-size: 1.4rem;
-      font-weight: 400;
-      // margin-top: 2.5rem;
-      color: $color-secondary;
+    // font-family: initial;
+    font-size: 1.4rem;
+    font-weight: 400;
+    // margin-top: 2.5rem;
+    color: $color-secondary;
   }
 }
 
 .iblock {
-    border-top: 1px solid $color-grey-light-3;
-    &__header {
-        border-bottom: 1px solid $color-grey-light-3;
+  border-top: 1px solid $color-grey-light-3;
+  &__header {
+    border-bottom: 1px solid $color-grey-light-3;
+  }
+  &__content {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+  }
+  &__left {
+    font-size: 1.4rem;
+  }
+  &__detail {
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+  &__nav {
+    list-style: none;
+    display: flex;
+    justify-items: center;
+    &__item {
+      height: 2rem;
+      width: 10rem;
+      padding: 2rem 0;
     }
-    &__content {
-        padding-top: 2rem;
-        display: grid;
-        grid-template-columns: 10rem 1fr;
+    &__item--active,
+    &__item:hover {
+      background-color: $color-grey-light-3;
     }
-    &__left {
-        font-size: 1.4rem;
+    &__link:link,
+    &__link:visited {
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-align: center;
+      color: $color-secondary;
+      display: block;
+      transition: all 0.2s;
     }
-    &__detail {
-        font-size: 1.4rem;
-        font-weight: 300;
+    &__link:active {
+      background-color: rgba(#fff, 0.1);
+      transform: translateY(1px);
     }
-    &__nav {
-        list-style: none;
-        display: flex;
-        justify-items: center;
-        &__item {
-          height: 2rem;
-          width: 10rem;
-          padding: 2rem 0;
-        }
-        &__item--active,
-        &__item:hover {
-          background-color: $color-grey-light-3;
-        }
-        &__link:link,
-        &__link:visited {
-          font-size: 1.4rem;
-          font-weight: 400;
-          text-decoration: none;
-          text-transform: uppercase;
-          text-align: center;
-          color:$color-secondary;
-          display: block;
-          transition: all 0.2s;
-        }
-        &__link:active {
-          background-color: rgba(#fff, 0.1);
-          transform: translateY(1px);
-        }
-      }
+  }
 }
 
 .course__block {
@@ -220,7 +213,7 @@
   // margin-left: 2rem;
   // margin-right: 2rem;
   margin-bottom: 2rem;
-//   border-bottom: 1px solid $color-grey-dark-3;
+  //   border-bottom: 1px solid $color-grey-dark-3;
 }
 .course__tutor {
   background-color: $color-grey-light-4;
@@ -288,7 +281,6 @@
         font-size: 1.6rem;
         font-weight: 400;
       }
-      
     }
     svg {
       justify-self: end;
@@ -316,6 +308,29 @@
         display: flex;
         flex-direction: column;
       }
+      &--show {
+        
+        &__check {
+          display: none;
+        }
+        &__check:checked + &__button &__icon {
+          transform: rotate(-90deg);
+        }
+        &__button {
+          cursor: pointer;
+        }
+        &__icon {
+          fill: $color-grey-dark-1;
+            height: 2.5rem;
+            width: 2.5rem;
+            transition: all .3s;
+        }
+        
+      }
+    }
+
+    &__h {
+      display: none;
     }
 
     &__nav {
@@ -337,7 +352,7 @@
         text-decoration: none;
         text-transform: uppercase;
         text-align: left;
-        color:$color-grey-dark-2;
+        color: $color-grey-dark-2;
         // padding: 1.5rem;
         display: block;
         transition: all 0.2s;

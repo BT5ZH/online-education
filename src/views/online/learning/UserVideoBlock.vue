@@ -41,7 +41,7 @@
                 let coordinates = this.$store.state.currentLessonIndex;
                 console.log(coordinates);
                 let actionContent = {
-                    key: "action",
+                    key: "play",
                     type: "videoStart",
                     startTime: timeStart,
                     lessonCoordinates: this.$store.state.currentLessonIndex,
@@ -51,6 +51,7 @@
                     // totalLesson: this.learningCourseInfo.COURSE_TOTALLESSON,
                 }
                 let lessonStatus = {
+                    key:'play',
                     index: this.$store.state.currentLessonIndex.index - 1,
                     progress: 0,
                     startTime: timeStart,
@@ -81,7 +82,7 @@
                 if (document.getElementById('user-video') == null) {
                     console.log("播放暂停啦");
                     let actionContent = {
-                        key: "action",
+                        key: "pause",
                         type: "videoPause",
                         pauseTime: new Date().getTime(),
                         lessonCoordinates: this.$store.state.currentLessonIndex-1,
@@ -96,7 +97,7 @@
                 } else {
                     console.log("播放暂停啦");
                     let actionContent = {
-                        key: "action",
+                        key: "pause",
                         type: "videoPause",
                         pauseTime: new Date().getTime(),
                         lessonCoordinates: this.$store.state.currentLessonIndex-1,
@@ -114,7 +115,7 @@
                 console.log("播放结束啦");
                 const timeEnd = new Date().getTime();
                 let actionContent = {
-                    key: "action",
+                    key: "end",
                     type: "videoEnd",
                     endTime: timeEnd,
                     lessonCoordinates: this.$store.state.currentLessonIndex-1,
@@ -124,16 +125,12 @@
 
                 let lessonStatus = {
                     index: this.$store.state.currentLessonIndex.index - 1,
+                    key:"end",
                     progress: 100,
                     endTime: timeEnd,
                     
                 }
-                // this.$store.commit("updateCourseLearningStatus", lessonStatus);
-                // this.$store.dispatch("addAction", actionContent).then(() => {
-                //     console.log("返回");
-                // }).catch((err) => {
-                //     console.error(err);
-                // });
+                
                 let payload ={
                     lessonStatus:lessonStatus,
                     actionContent:actionContent
@@ -153,10 +150,13 @@
                     let up=document.getElementById('user-video').currentTime
                     let bottom=document.getElementById('user-video').duration
                     let lessonStatus = {
+                        key:'time',
                         index: this.$store.state.currentLessonIndex.index - 1,
                         currentTime: document.getElementById('user-video').currentTime,
+                        lessonCoordinates: this.$store.state.currentLessonIndex,
                         progress:parseInt(up*100/bottom)
                     }
+                    
                     this.$store.commit("updateCourseLearningStatus", lessonStatus);
                 }
                 this.currentIndex++

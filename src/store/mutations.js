@@ -211,18 +211,22 @@ const mutations = {
         console.log("addLessonIndex + mutation 进来啦 " + state.currentResourceIndex);
         let counter = 0;
         let courseDuration = 0;
+        let chapterNumber = 0;
         state.courseInfo.CHAPTER_LIST.forEach(element => {
             let chapterDuration = 0;
+
             element.LESSON_LIST.forEach(element => {
                 element.LESSON_INDEX = counter + 1;
                 chapterDuration += element.LESSON_TIMEDURATION;
                 counter++;
             })
             element.CHAPTER_TIMEDURATION = chapterDuration;
-            courseDuration+=chapterDuration;
+            courseDuration += chapterDuration;
+            chapterNumber++;
         });
         state.courseInfo.COURSE_TIMEDURATION = courseDuration;
         state.courseInfo.COURSE_TOTALLESSON = counter;
+        state.courseInfo.COURSE_CHAPTERNUMBER = chapterNumber;
         counter = 0;
         courseDuration = 0;
     },
@@ -241,8 +245,19 @@ const mutations = {
     [TYPES.learningTheCourse](state, payload) {
         console.log("learningTheCourse + mutation 进来啦 " + state.currentResourceIndex);
         state.learningCourseInfo = payload.courseDetail;
-        state.courseLearningStatusRead = payload.courseProgress;
+        // state.courseLearningStatusRead = payload.courseProgress;
         state.courseLearningStatus = payload.courseProgress;
+    },
+    [TYPES.initLearningStatus](state, payload) {
+        console.log("initLearningStatus + mutation 进来啦 ");
+
+        let progress = []
+        let temp = {}
+        for (let i = 0; i < payload.counter; i++) {
+            progress.push(temp)
+        }
+
+        state.courseLearningStatus = [...progress];
     },
     [TYPES.editTheCourse](state, payload) {
         console.log("editTheCourse + mutation 进来啦 " + state.currentResourceIndex);
@@ -405,9 +420,7 @@ const mutations = {
         }
     },
     [TYPES.updateCourseLearningStatus](state, payload) {
-        console.log("updateCourseLearningStatus + mutation 进来啦" );
-        console.log(payload );
-        // let test = {...payload}
+        console.log("updateCourseLearningStatus + mutation 进来啦");
         let tempData = {
             startTime: payload.startTime,
             endTime: payload.endTime,
@@ -416,45 +429,66 @@ const mutations = {
             coordinates: payload.coordinates,
             duration: payload.duration
         }
-        console.log(payload.index)
         console.log("---11111")
-        console.log(state.courseLearningStatus[payload.index])
-        if (!state.courseLearningStatus[payload.index]) {
-            console.log("---2222")
-            console.log("-----start   ")
-            console.log(tempData)
-            
-            state.courseLearningStatus.push(tempData);
-            console.log(state.courseLearningStatus[payload.index])
-        } else {
-            if (tempData.endTime) {
-                console.log("-----end   ")
-                // console.log(tempData)
-                const newEnd = {
-                    ...state.courseLearningStatus[payload.index],
-                    endTime:tempData.endTime,
-                    progress: tempData.progress
-                }
-                state.courseLearningStatus[payload.index] = newEnd;
-//
-            } else if (tempData.currentTime) {
-                console.log("-----current   ")
-                console.log(state.courseLearningStatus[payload.index])
+        // console.log(state.courseLearningStatus[payload.index])
+        // console.log(tempData)
 
-                const newPro = {
-                    ...state.courseLearningStatus[payload.index],
-                    currentTime:tempData.currentTime,
-                    progress:tempData.progress
-                }
-                state.courseLearningStatus[payload.index] = newPro;
-                console.log(newPro)
-
-                // let temp = tempData.currentTime
-                // let progress = tempData.progress
-                // state.courseLearningStatus[payload.index].currentTime=temp;
-                // state.courseLearningStatus[payload.index].progress = progress;
+        if (payload.key == "play") {
+            let startData = {
+                startTime: tempData.startTime,
+                currentTime: tempData.currentTime,
+                progress: tempData.progress,
+                coordinates: tempData.coordinates,
+                duration: tempData.duration
             }
-
+            if (!state.courseLearningStatus) {
+                console.log("初始化第一课的学习状态")
+                state.courseLearningStatus.push(startData);
+                console.log(state.courseLearningStatus[payload.index])
+                console.log("-----start   ")
+            } else {
+                console.log("---666")
+                let flag=false;
+                state.courseLearningStatus.forEach(element => {
+                    //
+                    if((element.coordinates.index-1)==payload.index){
+                        flag=true;
+                    }
+                });
+                if(flag==false){
+                    console.log("---777")
+                    state.courseLearningStatus.push(startData);
+                }else{
+                    console.log("又一次开始")
+                }
+            }
+        } else if (payload.key == "end") {
+            state.courseLearningStatus.forEach((element, index, array) => {
+                if((element.coordinates.index-1)==payload.index && tempData.endTime){
+                    const newEnd = {
+                        ...element,
+                        endTime: tempData.endTime,
+                        progress: tempData.progress
+                    }
+                    array[index] = newEnd;
+                    console.log(array[index]);
+                }
+            });
+        } else if (payload.key == "time") {
+            state.courseLearningStatus.forEach((element, index, array) => {
+                // console.log(payload.index);
+                // console.log(element.coordinates.index-1);
+                if((element.coordinates.index-1)==payload.index && tempData.currentTime){
+                    const newPro = {
+                        ...element,
+                        currentTime: tempData.currentTime,
+                        progress: tempData.progress
+                    }
+                    console.log("-----current   "+index);
+                    array[index] = newPro;
+                    console.log(array[index]);
+                }
+            });
         }
 
     },

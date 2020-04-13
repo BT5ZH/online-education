@@ -1,7 +1,7 @@
 <template>
     <main class="rs-learning">
         <router-view></router-view>
-        <user-course></user-course>
+        <user-course :openFlag="isActive"></user-course>
         <div class="course__learn">
             <user-video></user-video>
             <user-info></user-info>
@@ -16,7 +16,8 @@
         data() {
             return {
                 courseId: this.$route.params.courseId,
-                authorId: this.$route.params.authorId
+                authorId: this.$route.params.authorId,
+                isActive: []
             }
         },
         created() {
@@ -26,6 +27,12 @@
             }
             this.$store.dispatch("learningTheCourse", payload).then((res) => {
                 if (res == "rs-120") {
+                    
+
+                    //初始化当前课程状态记录
+                    
+
+                    //开始记录学习活动，并查看历史选择进入那一章节哪一课
                     let data = {
                         key: "stepIn",
                         startTime: new Date().getTime(),
@@ -37,15 +44,16 @@
                         console.error(err);
                     });
 
-                    let courseLength = this.$store.state.courseLearningStatusRead.length - 1
+                    let courseLength = this.$store.state.courseLearningStatus.length - 1
                     console.log(courseLength);
                     let temp = {}
-                    if (courseLength != -1 && this.$store.state.courseLearningStatusRead[courseLength]) {
-                        console.log(this.$store.state.courseLearningStatusRead[courseLength]);
-                        if (this.$store.state.courseLearningStatusRead[courseLength].progress == 100) {
+                    let currentChapter = 0;
+                    if (courseLength != -1 && this.$store.state.courseLearningStatus[courseLength]) {
+                        console.log(this.$store.state.courseLearningStatus[courseLength]);
+                        if (this.$store.state.courseLearningStatus[courseLength].progress == 100) {
                             //指向下一课
-                            let xC = this.$store.state.courseLearningStatusRead[courseLength].coordinates.chapter;
-                            let xL = this.$store.state.courseLearningStatusRead[courseLength].coordinates.lesson;
+                            let xC = this.$store.state.courseLearningStatus[courseLength].coordinates.chapter;
+                            let xL = this.$store.state.courseLearningStatus[courseLength].coordinates.lesson;
                             let lessonNumberOfCurrentChapter = this.$store.state.learningCourseInfo.CHAPTER_LIST[xC - 1].LESSON_LIST.length;
                             let chapterNumberOfCurrentCourse = this.$store.state.learningCourseInfo.CHAPTER_LIST.length;
                             console.log("---- 1 xC " + xC);
@@ -60,6 +68,7 @@
                                     index: xC - 1,
                                     number: xL
                                 }
+                                currentChapter = xC-1
                                 this.$store.commit("showCurrentLesson", temp)
                             } else if (xC < chapterNumberOfCurrentCourse) {
                                 console.log("---- 3");
@@ -68,32 +77,46 @@
                                     index: xC,
                                     number: 0
                                 }
+                                currentChapter = xC
                                 this.$store.commit("showCurrentLesson", temp)
                             } else {
                                 console.log("这么课程学完啦")
                             }
 
                         } else {
-                            let xC = this.$store.state.courseLearningStatusRead[courseLength].coordinates.chapter;
-                            let xL = this.$store.state.courseLearningStatusRead[courseLength].coordinates.lesson;
+                            let xC = this.$store.state.courseLearningStatus[courseLength].coordinates.chapter;
+                            let xL = this.$store.state.courseLearningStatus[courseLength].coordinates.lesson;
                             console.log("---- 2");
                             temp = {
                                 index: xC - 1,
                                 number: xL - 1
                             }
+                            currentChapter = xC-1
                             // this.$store.commit("showCurrentLesson", temp)
                             this.$store.dispatch("showCurrentLesson", temp).then(() => {
                                 console.log("继续播放视频");
                                 document.getElementById('user-video').currentTime
-                                = this.$store.state.courseLearningStatusRead[courseLength].currentTime;
-                            document.getElementById('user-video').play();
+                                    = this.$store.state.courseLearningStatus[courseLength].currentTime;
+                                document.getElementById('user-video').play();
                             }).catch((err) => {
                                 console.error(err);
                             });
-                            
+
                         }
 
                     }
+                
+                    //控制章节下拉开合 为了更新视图
+                    let i = 0;
+                    for (i = 0; i < this.$store.state.learningCourseInfo.CHAPTER_LIST.length; i++) {
+                        if(currentChapter==i){
+                            this.isActive[i]=false
+                        }else{
+                            this.isActive[i] = true;
+                        }
+                        
+                    }
+                    this.$set(this.isActive, this.isActive[0], this.isActive[0]);
                 }
             }).catch((err) => {
                 console.error(err);
@@ -116,7 +139,7 @@
                     console.log(res);
 
                 }
-                
+
             }).catch((err) => {
                 console.error(err);
             });

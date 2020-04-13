@@ -53,6 +53,10 @@ export const updateActivityInfo = 'updateActivityInfo';
 export const clearCurrentActivity = 'clearCurrentActivity';
 export const updateCourseLearningStatus = 'updateCourseLearningStatus';
 export const updateLearningActivity = 'updateLearningActivity';
+
 //支付课程
 export const updatePayCourse = 'updatePayCourse';
+
+//学习活动
+export const initLearningStatus = 'initLearningStatus';
 // export const updateTestActivity = 'updateTestActivity';

@@ -16,9 +16,18 @@
                         <span>第{{index+1}}章：{{chapter.CHAPTER_NAME}}</span>
                         <span class="heading-7 heading-7--dark"> {{timeFormat(chapter.CHAPTER_TIMEDURATION)}} </span>
                     </div>
+                    <div class="cs__list__title--show" >
+                        <input type="checkbox" class="cs__list__title--show__check" :id="'navi-toogle-'+index" :checked="!openFlag[index]">
+                        <label :for="'navi-toogle-'+index" class="cs__list__title--show__button" @click="showLesson(index,$event)" >
+                            <svg class="cs__list__title--show__icon" > 
+                                <use xlink:href="../../../assets/img/all.svg#icon-chevron-left"></use>
+                            </svg>
+                        </label>
+                        
+                    </div>
                 </div>
 
-                <ul class="cs__list__nav">
+                <ul class="cs__list__nav" :class="{cs__list__h:openFlag[index]}">
                     <li v-for="(lesson, number) in learningChapterList[index].LESSON_LIST" :key="number"
                         class="cs__list__nav__item" @click="activeCurrentLesson(index,number)">
 
@@ -39,9 +48,13 @@
 </template>
 <script>
     export default {
+        props:{
+            openFlag:Array,
+        },
         data() {
             return {
-                // rsId:this.$route.params.rsId
+                isActive: [],
+                // chapterShowFlag:[]
             }
         },
         computed: {
@@ -59,6 +72,7 @@
             }
         },
         created() {
+            // this.$set(this.openFlag, this.openFlag[0],this.openFlag[0]);
         },
         methods: {
             activeCurrentLesson: function (index, number) {
@@ -71,6 +85,13 @@
                 }).catch((err) => {
                     console.error(err);
                 });
+            },
+            showLesson:function(index,event){
+                console.log("展开课程");
+                event.stopPropagation();
+                event.preventDefault();
+                this.$set(this.openFlag, index, !this.openFlag[index]);
+                // this.isActive[index] = !this.isActive[index];
             },
             timeFormat: function (s) {
                 let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
