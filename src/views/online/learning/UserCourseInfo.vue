@@ -6,9 +6,12 @@
                     <span class="cs__header__text--title">{{learningCourseInfo.COURSE_NAME}}</span>
                     <span class="heading-7 heading-7--dark">{{timeFormat(learningCourseInfo.COURSE_TIMEDURATION)}}</span>
                 </div>
-                <svg>
-                    <use xlink:href="../../../assets/img/all.svg#icon-key"></use>
-                </svg>
+                <div class="cs__header__button" alt="重置学习进度" @click="resetLearningProgress">
+                    <svg>
+                        <use xlink:href="../../../assets/img/all.svg#icon-trophy"></use>
+                    </svg>
+                </div>
+                
             </div>
             <div v-for="(chapter,index) in learningChapterList" :key="index" class="cs__list">
                 <div class="cs__list__title">
@@ -92,6 +95,17 @@
                 event.preventDefault();
                 this.$set(this.openFlag, index, !this.openFlag[index]);
                 // this.isActive[index] = !this.isActive[index];
+            },
+            resetLearningProgress:function(){
+                let payload = {
+                    courseId:this.$store.state.learningCourseInfo.COURSE_ID
+                }
+                this.$store.dispatch("resetLearningProgress",payload).then((res) => {
+                    console.log(res);
+                    this.$toast.success({title:"成功",message:"学习进度已经被重置了"})
+                }).catch((err) => {
+                    console.error(err);
+                });
             },
             timeFormat: function (s) {
                 let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 

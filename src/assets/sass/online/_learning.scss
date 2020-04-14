@@ -282,13 +282,27 @@
         font-weight: 400;
       }
     }
-    svg {
+    &__button{
       justify-self: end;
-      fill: $color-primary;
-      height: 2rem;
-      width: 2rem;
       margin-right: 1rem;
+      padding: 1rem 1rem .5rem 1rem;
+      border-radius: 50%;
+      border: solid 1px $color-grey-dark-4;
+      cursor: pointer;
+      svg {
+        fill: $color-grey-dark-1;
+        height: 2rem;
+        width: 2rem;
+      }
     }
+    &__button:focus,
+    &__button:active{
+      transform: translateY(1px);
+      svg{
+        
+      }
+    }
+    
   }
 
   &__list {

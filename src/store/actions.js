@@ -534,6 +534,26 @@ const actions = {
         });
     });
   },
-
+  resetLearningProgress({commit},payload){
+    let query = "/?courseId="+payload.courseId;
+    return new Promise((resolve, reject) => {
+      axios.delete("rs-user/learning/DELETEDETAIL"+query,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => {
+          commit(TYPES.dataLoading, false);
+          console.log(res);
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+    });
+  }
 };
 export default actions;

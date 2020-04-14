@@ -30,7 +30,8 @@
         </div>
         <div class="enrolled__content">
             <div class="enrolled__content__l">
-                <div class="enrolled__content__l__progress" v-for="(student,index) in enrolledMemberProgress" :key="index">
+                <div class="enrolled__content__l__progress" v-for="(student,index) in enrolledMemberProgress"
+                    :key="index">
                     <div class="enrolled__content__l__progress--image">
                         <img :src="enrolledMemberProgress[index].profile.AVATAR" alt="" @click="shortInfoShow(index)">
                         <div class="enrolled__content__l__progress--short">
@@ -39,7 +40,8 @@
                     </div>
                     <div class="enrolled__content__l__progress--bar">
                         <div class="enrolled__content__l__progress--bar--in"
-                            :style="{'width':enrolledMemberProgress[index].time}">{{enrolledMemberProgress[index].time}}</div>
+                            :style="{'width':enrolledMemberProgress[index].time}">{{enrolledMemberProgress[index].time}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +61,7 @@
             }
         },
         computed: {
-            enrolledUser(){
+            enrolledUser() {
                 return this.$store.state.courseStsInfo
             },
             userInfo() {
@@ -68,45 +70,64 @@
             // studentList() {
             //     return this.enrolledMember
             // },
-            enrolledMemberProgress(){
+            enrolledMemberProgress() {
                 let progressInfo = [];
                 this.$store.state.courseStsInfo.forEach(element => {
-                if (element.LEARNING_PROGRESS) {
-                        let timeNumber = 0
-                        let numberLesson = element.LEARNING_PROGRESS.length;
-                        //判断数组最后一个是否100%
-                        if (element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].progress == 100) {
-                            for (let i = 0; i < element.LEARNING_PROGRESS.length; i++) {
+                    if (element.LEARNING_PROGRESS) {
+                        let timeNumber = 0;
+                        let commonProgress = 0;
+                        let learnNumber = element.LEARNING_PROGRESS.length;
+
+                        let completeNumber = 0;
+                        // let learnNumber = 0;
+                        for (let i = 0; i < element.LEARNING_PROGRESS.length; i++) {
+                            if (element.LEARNING_PROGRESS[i].progress == 100) {
                                 timeNumber += element.LEARNING_PROGRESS[i].duration;
+                                completeNumber++;
+                            } else {
+                                timeNumber += element.LEARNING_PROGRESS[i].currentTime;
                             }
-                        } else {
-                            for (let i = 0; i < element.LEARNING_PROGRESS.length-1; i++) {
-                                timeNumber += element.LEARNING_PROGRESS[i].duration;
-                            }
-                            timeNumber += element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].currentTime
                         }
-                            timeNumber =Math.round((timeNumber*100/this.$store.state.courseBrifInfo.COURSE_TIMEDURATION))
-                            numberLesson =Math.round((numberLesson*100/this.$store.state.courseBrifInfo.COURSE_TOTALLESSON))
+                        timeNumber = Math.round((timeNumber * 100 / this.$store.state.courseBrifInfo.COURSE_TIMEDURATION))
+                        commonProgress = Math.round((learnNumber * 100 / this.$store.state.courseBrifInfo.COURSE_TOTALLESSON))
+                        // completeNumber = Math.round((completeNumber * 100 / this.$store.state.courseBrifInfo.COURSE_TOTALLESSON))
+                        //判断数组最后一个是否100%
+                        // if (element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].progress == 100) {
+                        //     for (let i = 0; i < element.LEARNING_PROGRESS.length; i++) {
+                        //         timeNumber += element.LEARNING_PROGRESS[i].duration;
+                        //     }
+                        // } else {
+                        //     for (let i = 0; i < element.LEARNING_PROGRESS.length - 1; i++) {
+                        //         timeNumber += element.LEARNING_PROGRESS[i].duration;
+                        //     }
+                        //     timeNumber += element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].currentTime
+                        // }
+                        // timeNumber = Math.round((timeNumber * 100 / this.$store.state.courseBrifInfo.COURSE_TIMEDURATION))
+                        // numberLesson = Math.round((numberLesson * 100 / this.$store.state.courseBrifInfo.COURSE_TOTALLESSON))
                         let info = {
-                            time:timeNumber+"%",
-                            timeNumber:timeNumber,
-                            common:numberLesson+"%",
-                            profile:element.USER_PROFILE
+                            time: timeNumber + "%",
+                            timeNumber: timeNumber,
+                            commonProgress: commonProgress + "%",
+                            completeNumber:completeNumber,
+                            learnNumber:learnNumber,
+                            profile: element.USER_PROFILE
                         }
                         progressInfo.push(info);
-                    }else{
+                    } else {
                         let info = {
-                            time:0+"%",
-                            timeNumber:0,
-                            common:0+"%",
-                            profile:element.USER_PROFILE
+                            time: 0 + "%",
+                            timeNumber: 0,
+                            commonProgress: 0 + "%",
+                            completeNumber:0,
+                            learnNumber:0,
+                            profile: element.USER_PROFILE
                         }
                         progressInfo.push(info);
                     }
                 });
-                    return progressInfo.sort((a,b)=>b.timeNumber-a.timeNumber);
+                return progressInfo.sort((a, b) => b.timeNumber - a.timeNumber);
             }
-        
+
         },
         created() {
             console.log(this.courseId)
@@ -147,32 +168,32 @@
 
                 // this.$store.state.courseStsInfo.forEach(element => {
 
-                    // if (element.LEARNING_PROGRESS) {
-                    //     let timeNumber = 0
-                    //     let numberLesson = element.LEARNING_PROGRESS.length;
-                    //     //判断数组最后一个是否100%
-                    //     if (element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].progress == 100) {
-                    //         for (let i = 0; i < element.LEARNING_PROGRESS.length; i++) {
-                    //             timeNumber += element.LEARNING_PROGRESS[i].duration;
-                    //         }
-                    //     } else {
-                    //         for (let i = 0; i < element.LEARNING_PROGRESS.length-1; i++) {
-                    //             timeNumber += element.LEARNING_PROGRESS[i].duration;
-                    //         }
-                    //         timeNumber += element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].currentTime
-                    //     }
-                    //     let info = {
-                    //         time:timeNumber,
-                    //         common:numberLesson
-                    //     }
-                    //     this.enrolledMemberProgress.push(info);
-                    // }else{
-                    //     let info = {
-                    //         time:0,
-                    //         common:0
-                    //     }
-                    //     this.enrolledMemberProgress.push(info);
-                    // }
+                // if (element.LEARNING_PROGRESS) {
+                //     let timeNumber = 0
+                //     let numberLesson = element.LEARNING_PROGRESS.length;
+                //     //判断数组最后一个是否100%
+                //     if (element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].progress == 100) {
+                //         for (let i = 0; i < element.LEARNING_PROGRESS.length; i++) {
+                //             timeNumber += element.LEARNING_PROGRESS[i].duration;
+                //         }
+                //     } else {
+                //         for (let i = 0; i < element.LEARNING_PROGRESS.length-1; i++) {
+                //             timeNumber += element.LEARNING_PROGRESS[i].duration;
+                //         }
+                //         timeNumber += element.LEARNING_PROGRESS[element.LEARNING_PROGRESS.length - 1].currentTime
+                //     }
+                //     let info = {
+                //         time:timeNumber,
+                //         common:numberLesson
+                //     }
+                //     this.enrolledMemberProgress.push(info);
+                // }else{
+                //     let info = {
+                //         time:0,
+                //         common:0
+                //     }
+                //     this.enrolledMemberProgress.push(info);
+                // }
                 // });
             }
         },
