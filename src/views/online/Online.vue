@@ -4,7 +4,7 @@
         <profile-info></profile-info>
         <div class="rs-content">
             <side-bar></side-bar>
-            <router-view></router-view>
+            <router-view v-if="isReloadAlive"></router-view>
         </div>
         <data-loading :active="isActive" :is-full-screen="true" spinner="bar-fade-scale" color="#FF6700"></data-loading>
     </div>
@@ -19,9 +19,15 @@
     import { mapState } from 'vuex'
     export default {
         name: "online",
+        provide:function(){
+            return {
+                reload:this.reload
+            }
+        },
         data: function () {
             return {
                 show: false,
+                isReloadAlive: true
             }
         },
         computed: {
@@ -37,6 +43,14 @@
             // 'online-courses': Courses,
             // 'online-learning': Learning,
             // 'online-upload': Upload
+        },
+        methods: {
+            reload: function(){
+                this.isReloadAlive = false;
+                this.$nextTick(function(){
+                    this.isReloadAlive = true;
+                })
+            }
         },
     }
 </script>
