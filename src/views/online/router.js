@@ -8,6 +8,7 @@ import Cook from './cook/Cook.vue';
 import Template from './cook/Template.vue';
 import Blank from './Blank.vue';
 import Profile from './profile/Profile.vue';
+import Records from './profile/Records.vue';
 import Payment from './pay/payment.vue';
 
 export const routes = [
@@ -20,6 +21,7 @@ export const routes = [
     // { path: '/cook-template', component: Template },
     { path: '/cook-template/:courseId', name:'editCourse', component: Template },
     { path: '/profile', name:'profile', component: Profile},
+    { path: '/records', name:'records', component: Records},
     { path: '/blank', name:'blank',component: Blank },
     { path: '/payment/:courseId',name:'payment', component: Payment },
     { path: '*', redirect: '/' }

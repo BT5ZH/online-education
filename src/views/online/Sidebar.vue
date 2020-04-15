@@ -36,6 +36,14 @@
                 </router-link>
             </li>
             <li class="side-nav__item">
+                <router-link class="side-nav__link" to="/records">
+                    <svg class="side-nav__icon">
+                        <use xlink:href="../../assets/img/all.svg#icon-user"></use>
+                    </svg>
+                    <span>学习记录</span>
+                </router-link>
+            </li>
+            <li class="side-nav__item">
                 <router-link class="side-nav__link" to="/profile">
                     <svg class="side-nav__icon">
                         <use xlink:href="../../assets/img/all.svg#icon-user"></use>

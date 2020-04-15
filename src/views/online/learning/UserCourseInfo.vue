@@ -107,7 +107,6 @@
                 }).catch((err) => {
                     console.error(err);
                 });
-                this.reload();
             },
             timeFormat: function (s) {
                 let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
