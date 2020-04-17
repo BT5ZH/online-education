@@ -131,7 +131,9 @@ const actions = {
   },
   getUserCourses({ commit }) {
     commit(TYPES.dataLoading, true);
-    return axios.get('/rs-activity/USERCOURSESGET', {
+    return new Promise((resolve, reject) => {
+    
+    axios.get('/rs-activity/USERCOURSESGET', {
       headers: {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
@@ -141,10 +143,38 @@ const actions = {
       const payload = response.data.data
       commit(TYPES.getUserCourses, payload);
       commit(TYPES.dataLoading, false);
+      resolve("rs-120");
     }, error => {
       console.log(error);
       commit(TYPES.dataLoading, false);
+      reject("rs-404");
     });
+  });
+  },
+  getUserCourse({ commit },payload) {
+    
+    commit(TYPES.dataLoading, true);
+    let query = "/"+payload.id+"/?authorId="+payload.authorId
+    return new Promise((resolve, reject) => {
+    
+    axios.get('/rs-activity/USERCOURSESGET'+query, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(response => {
+      console.log(response);
+      const payload = response.data.data
+      commit(TYPES.getUserCourse, payload);
+      commit(TYPES.dataLoading, false);
+      resolve("rs-120");
+    }, error => {
+      console.log(error);
+      commit(TYPES.dataLoading, false);
+      reject("rs-404");
+    });
+  });
+
   },
 
   //用户选择的课程f
@@ -173,6 +203,7 @@ const actions = {
         Authorization: localStorage.getItem("token")
       }
     }).then(response => {
+      console.log(response)
       commit(TYPES.dataLoading, false);
       const payload = response.data.data
       commit(TYPES.getAllCourses, payload);
@@ -546,6 +577,31 @@ const actions = {
       })
         .then(res => {
           commit(TYPES.dataLoading, false);
+          console.log(res);
+          resolve("rs-102");
+        }, err => {
+          commit(TYPES.dataLoading, false);
+          console.log(err);
+          reject("rs-444");
+        });
+    });
+  },
+
+  getCourseRecords({commit},payload){
+    console.log("getCourseRecords action + 进来啦");
+    let query = "/?courseId="+payload.courseId;
+    return new Promise((resolve, reject) => {
+      axios.get("rs-user/learning/GETDETAIL"+query,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => {
+          commit(TYPES.dataLoading, false);
+          commit(TYPES.getCourseRecords, res.data.data);
+
           console.log(res);
           resolve("rs-102");
         }, err => {

@@ -5,10 +5,12 @@ import {routes} from './router';
 import axios from 'axios';
 import {store} from '../../store/index';
 import Cxlt from 'cxlt-vue2-toastr';
+// import utils from '../../js/utils';
 
 Vue.use(VueRouter);
 
 Vue.prototype.axios = axios;
+// Vue.prototype.utils = utils;
 
 var toConfigs = {
     position: 'top center',

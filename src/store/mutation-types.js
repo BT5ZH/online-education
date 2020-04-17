@@ -24,6 +24,7 @@ export const addLessonIndex = 'addLessonIndex';
 export const editTheCourse = 'editTheCourse';
 
 export const getUserCourses = 'getUserCourses';
+export const getUserCourse = 'getUserCourse';
 export const getAllCourses = 'getAllCourses';
 //用户选择的课程
 export const getMyCourses = 'getMyCourses';
@@ -53,6 +54,7 @@ export const updateActivityInfo = 'updateActivityInfo';
 export const clearCurrentActivity = 'clearCurrentActivity';
 export const updateCourseLearningStatus = 'updateCourseLearningStatus';
 export const updateLearningActivity = 'updateLearningActivity';
+export const getCourseRecords = 'getCourseRecords';
 
 //支付课程
 export const updatePayCourse = 'updatePayCourse';

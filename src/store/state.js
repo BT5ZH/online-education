@@ -21,6 +21,7 @@ const state = {
 
     //创建好的课程的列表信息---作者身份用
     courseShortList:{},
+    courseShort:{},
 
     //用户选择或加入的课程列表信息--用户身份用
     myCoursesShortList:{},
@@ -70,7 +71,7 @@ const state = {
         ACTION_LIST:[]
     },
     courseLearningStatus:[],
-    courseLearningStatusRead:[],
+    courseRecordsDetail:[],
     
     //支付课程
     payCourse:{

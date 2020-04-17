@@ -234,6 +234,10 @@ const mutations = {
         console.log("getUserCourses + mutation 进来啦 " + state.currentResourceIndex);
         state.courseShortList = payload
     },
+    [TYPES.getUserCourse](state, payload) {
+        console.log("getUserCourse + mutation 进来啦 " + state.currentResourceIndex);
+        state.courseShort = payload
+    },
     [TYPES.getAllCourses](state, payload) {
         console.log("getAllCourses + mutation 进来啦 " + state.currentResourceIndex);
         state.courseAllList = payload
@@ -322,6 +326,10 @@ const mutations = {
     [TYPES.getCourseStsInfo](state, payload) {
         console.log("getCourseStsInfo + mutation 进来啦" + payload);
         state.courseStsInfo = payload;
+    },
+    [TYPES.getCourseRecords](state, payload) {
+        console.log("getCourseRecords + mutation 进来啦" + payload);
+        state.courseRecordsDetail = payload;
     },
     [TYPES.getCourseBrifInfo](state, payload) {
         console.log("getCourseBrifInfo + mutation 进来啦" + payload);

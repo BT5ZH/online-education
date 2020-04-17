@@ -57,7 +57,6 @@
         data() {
             return {
                 isActive: [],
-                // chapterShowFlag:[]
             }
         },
         computed: {
@@ -97,16 +96,17 @@
                 // this.isActive[index] = !this.isActive[index];
             },
             resetLearningProgress:function(){
-                let payload = {
-                    courseId:this.$store.state.learningCourseInfo.COURSE_ID
-                }
-                this.$store.dispatch("resetLearningProgress",payload).then((res) => {
-                    console.log(res);
-                    this.$toast.success({title:"成功",message:"学习进度已经被重置了"})
-                    location.reload();
-                }).catch((err) => {
-                    console.error(err);
-                });
+                this.$toast.info({title:"不好意思",message:"重置功能已经关闭"})
+                // let payload = {
+                //     courseId:this.$store.state.learningCourseInfo.COURSE_ID
+                // }
+                // this.$store.dispatch("resetLearningProgress",payload).then((res) => {
+                //     console.log(res);
+                //     this.$toast.success({title:"成功",message:"学习进度已经被重置了"})
+                //     location.reload();
+                // }).catch((err) => {
+                //     console.error(err);
+                // });
             },
             timeFormat: function (s) {
                 let day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
