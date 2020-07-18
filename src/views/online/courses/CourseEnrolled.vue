@@ -132,12 +132,7 @@
         created() {
             console.log(this.courseId)
             console.log(this.authorId)
-            this.enrolledMember = [
-                { name: "zhang", age: "66%" },
-                { name: "wang", age: "90%" },
-                { name: "li", age: "45%" },
-
-            ];
+            
             let payload = {
                 courseId: this.courseId,
                 authorId: this.authorId,
